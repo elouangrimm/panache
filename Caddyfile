@@ -1,0 +1,7 @@
+panache.so {
+  reverse_proxy panache:8080
+}
+
+www.panache.so {
+  reverse_proxy panache:8080
+}

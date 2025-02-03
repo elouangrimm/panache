@@ -1,0 +1,45 @@
+services:
+  postgres:
+    container_name: panache_postgres
+    image: postgres:17.2
+    environment:
+      POSTGRES_USER: panache
+      POSTGRES_PASSWORD: panache
+      POSTGRES_DB: panache
+    volumes:
+      - panache_postgres_data:/var/lib/postgresql/data
+    networks:
+      - panache_network
+
+  panache:
+    container_name: panache
+    build:
+      context: .
+    depends_on:
+      - postgres
+    env_file: .env.production.local
+    networks:
+      - panache_network
+
+  caddy:
+    image: caddy:2
+    container_name: panache_caddy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - panache_caddy_data:/data
+      - panache_caddy_config:/config
+    depends_on:
+      - panache
+    networks:
+      - panache_network
+
+volumes:
+  panache_postgres_data:
+  panache_caddy_data:
+  panache_caddy_config:
+
+networks:
+  panache_network:
