@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title inertia>Panache</title>
+    <title inertia>
+      Panache
+    </title>
 
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=inter:400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=inter:400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-  @viteReactRefresh()
-  @inertiaHead()
-  @vite(['inertia/app/app.tsx', `inertia/pages/${page.component}.tsx`])
-</head>
-<body class="min-h-screen w-screen font-sans">
-  @inertia()
-</body>
+    @viteReactRefresh()
+    @inertiaHead()
+    @vite([
+      'app/core/ui/app/app.tsx',
+      `app/${page.component.split('/')[0]}/ui/pages/${page.component.split('/').splice(1)}.tsx`
+    ])
+  </head>
+  <body class="min-h-screen w-screen font-sans">
+    @inertia()
+  </body>
 </html>

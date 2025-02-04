@@ -15,12 +15,17 @@ const inertiaConfig = defineConfig({
   },
 
   /**
+   * Path to the client-side entrypoint
+   */
+  entrypoint: 'app/core/ui/app/app.tsx',
+
+  /**
    * Options for the server-side rendering
    */
   ssr: {
     enabled: true,
-    entrypoint: 'inertia/app/ssr.tsx'
-  }
+    entrypoint: 'app/core/ui/app/ssr.tsx',
+  },
 })
 
 export default inertiaConfig

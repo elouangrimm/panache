@@ -1,0 +1,13 @@
+{
+  "welcome_back": "Welcome Back",
+  "sign_in_description": "Sign in to continue using Panache.",
+  "username_label": "Username",
+  "password_label": "Password",
+  "forgot_password": "Forgot your password?",
+  "sign_in_button": "Sign In",
+  "no_account_prompt": "Don't have an account?",
+  "sign_up_link": "Sign up",
+  "terms_privacy_notice": "By proceeding, you agree to our",
+  "terms_of_service": "Terms of Service",
+  "privacy_policy": "Privacy Policy"
+}

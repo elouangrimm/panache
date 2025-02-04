@@ -14,6 +14,9 @@
     "typecheck": "tsc --noEmit"
   },
   "imports": {
+    "#auth/*": "./app/auth/*.js",
+    "#common/*": "./app/common/*.js",
+    "#core/*": "./app/core/*.js",
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#models/*": "./app/models/*.js",
@@ -58,6 +61,7 @@
     "@adonisjs/auth": "^9.2.4",
     "@adonisjs/core": "^6.17.0",
     "@adonisjs/cors": "^2.2.1",
+    "@adonisjs/i18n": "^2.2.0",
     "@adonisjs/inertia": "^2.1.0",
     "@adonisjs/lucid": "^21.5.1",
     "@adonisjs/session": "^7.5.0",
@@ -96,7 +100,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@tailwindcss/vite": "^4.0.0",
     "@vinejs/vine": "^3.0.0",
-    "ai": "^4.1.10",
+    "ai": "^4.1.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -122,15 +126,14 @@
     "sonner": "^1.7.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^4.0.0",
-    "tailwindcss-animate": "^1.0.7",
     "valyent.ts": "^0.1.15",
     "vaul": "^1.1.2",
     "zod": "^3.24.1"
   },
   "hotHook": {
     "boundaries": [
-      "./app/controllers/**/*.ts",
-      "./app/middleware/*.ts"
+      "./app/**/controllers/*.ts",
+      "./app/**/middleware/*.ts"
     ]
   },
   "overrides": {
