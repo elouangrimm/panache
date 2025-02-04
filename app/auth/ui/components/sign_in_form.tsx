@@ -1,3 +1,4 @@
+import React from 'react'
 import { cn } from '#common/ui/lib/utils'
 import { Button } from '#common/ui/components/button'
 import {
@@ -10,20 +11,23 @@ import {
 import { Input } from '#common/ui/components/input'
 import { Label } from '#common/ui/components/label'
 import { Link } from '@inertiajs/react'
+import useTranslate from '#common/ui/hooks/use_translate'
 
 export function SignInForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const t = useTranslate('auth')
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-normal font-serif">Welcome Back</CardTitle>
-          <CardDescription>Sign in to continue using Panache.</CardDescription>
+          <CardTitle className="text-4xl font-normal font-serif">{t('sign_in_title')}</CardTitle>
+          <CardDescription>{t('sign_in_description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className="grid gap-5">
               <div className="grid gap-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username">{t('username_label')}</Label>
                 <div className="relative">
                   <Input
                     autoComplete="panache-username"
@@ -41,50 +45,32 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t('password_label')}</Label>
                   <Link
-                    href="#"
-                    className="ml-auto text-sm text-emerald-700 hover:text-emerald-600 transition-colors"
+                    href="/auth/forgot_password"
+                    className="ml-auto text-sm text-emerald-700 hover:text-emerald-600 transition-colors underline underline-offset-4"
                   >
-                    Forgot your password?
+                    {t('forgot_password')}
                   </Link>
                 </div>
                 <Input id="password" type="password" placeholder="••••••••••" required />
               </div>
               <Button type="submit" className="!w-full">
-                Sign In
+                {t('sign_in')}
               </Button>
             </div>
             <div className="text-center text-sm text-muted-foreground pt-4">
-              Don&apos;t have an account?{' '}
+              {t('no_account_prompt')}{' '}
               <Link
                 href="/auth/sign_up"
                 className="underline underline-offset-4 text-emerald-700 hover:text-emerald-600 transition-colors"
               >
-                Sign up
+                {t('sign_up')}
               </Link>
             </div>
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-[13px] text-muted-foreground">
-        By proceeding, you agree to our
-        <br />{' '}
-        <Link
-          className="text-emerald-700 hover:text-emerald-600 underline transition-colors"
-          href="#"
-        >
-          Terms of Service
-        </Link>{' '}
-        and{' '}
-        <Link
-          className="text-emerald-700 hover:text-emerald-600 underline transition-colors"
-          href="#"
-        >
-          Privacy Policy
-        </Link>
-        .
-      </div>
     </div>
   )
 }

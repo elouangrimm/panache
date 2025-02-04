@@ -1,0 +1,17 @@
+{
+  "room": "Room",
+  "rooms": "Rooms",
+  "create_a_room": "Create a room",
+  "create_a_post": "Create a post",
+  "featured": "Featured",
+  "title": "Title",
+  "image": "Image",
+  "link": "Link",
+  "text": "Text",
+  "meme": "Meme",
+  "type_title_here": "Type title here",
+  "save_draft": "Save draft",
+  "submit_post": "Submit post",
+  "link_placeholder": "https://www.example.com/...",
+  "text_placeholder": "Write something..."
+}

@@ -1,0 +1,17 @@
+{
+  "room": "Salon",
+  "rooms": "Salons",
+  "create_a_room": "Créer un salon",
+  "create_a_post": "Créer un post",
+  "featured": "Mis en avant",
+  "title": "Titre",
+  "type_title_here": "Entrez le titre ici",
+  "link": "Lien",
+  "text": "Texte",
+  "meme": "Mème",
+  "image": "Image",
+  "save_draft": "Sauvegarder le brouillon",
+  "submit_post": "Envoyer le post",
+  "link_placeholder": "https://www.exemple.fr/...",
+  "text_placeholder": "Entrez votre texte ici..."
+}

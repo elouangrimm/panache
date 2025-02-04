@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '#common/ui/components/avatar'

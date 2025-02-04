@@ -11,7 +11,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Panache'
 createInertiaApp({
   progress: { color: 'var(--color-emerald-700)' },
 
-  title: (title) => (title ? `${title} - ${appName}` : appName),
+  title: (title) => (title ? title : appName),
 
   resolve: (name) => {
     const firstPart = name.split('/')[0]

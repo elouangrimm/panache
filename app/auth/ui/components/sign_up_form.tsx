@@ -1,3 +1,4 @@
+import React from 'react'
 import { cn } from '#common/ui/lib/utils'
 import { Button } from '#common/ui/components/button'
 import {
@@ -10,20 +11,23 @@ import {
 import { Input } from '#common/ui/components/input'
 import { Label } from '#common/ui/components/label'
 import { Link } from '@inertiajs/react'
+import useTranslate from '#common/ui/hooks/use_translate'
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const t = useTranslate('auth')
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-normal font-serif">Create an account</CardTitle>
-          <CardDescription>Sign up to start using Panache.</CardDescription>
+          <CardTitle className="text-4xl font-normal font-serif">{t('sign_up_title')}</CardTitle>
+          <CardDescription>{t('sign_up_description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className="grid gap-5">
               <div className="grid gap-2">
-                <Label htmlFor="fullName">Full Name</Label>
+                <Label htmlFor="fullName">{t('full_name_label')}</Label>
                 <Input
                   autoComplete="panache-fullname"
                   id="fullName"
@@ -34,12 +38,12 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="localPart">Username</Label>
+                <Label htmlFor="username">{t('username_label')}</Label>
                 <div className="relative">
                   <Input
                     autoComplete="panache-username"
-                    id="localPart"
-                    name="localPart"
+                    id="username"
+                    name="username"
                     type="text"
                     placeholder="cyrano.bergerac"
                     required
@@ -51,16 +55,16 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 </div>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="backupEmail">Email Address</Label>
+                <Label htmlFor="backupEmail">{t('email_label')}</Label>
                 <Input
                   id="backupEmail"
                   name="backupEmail"
                   type="email"
-                  placeholder="cyrano.bergerac@example.com"
+                  placeholder={t('email_placeholder')}
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('password_label')}</Label>
                 <Input
                   autoComplete="panache-password"
                   id="password"
@@ -70,39 +74,21 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 />
               </div>
               <Button type="submit" className="!w-full">
-                Sign Up
+                {t('sign_up')}
               </Button>
             </div>
             <div className="text-center text-sm text-muted-foreground pt-4">
-              Already have an account?{' '}
+              {t('existing_account_prompt')}{' '}
               <Link
                 href="/auth/sign_in"
                 className="underline underline-offset-4 text-emerald-700 hover:text-emerald-600 transition-colors"
               >
-                Sign in
+                {t('sign_in')}
               </Link>
             </div>
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-[13px] text-muted-foreground">
-        By proceeding, you agree to our
-        <br />{' '}
-        <Link
-          className="text-emerald-700 hover:text-emerald-600 underline transition-colors"
-          href="#"
-        >
-          Terms of Service
-        </Link>{' '}
-        and{' '}
-        <Link
-          className="text-emerald-700 hover:text-emerald-600 underline transition-colors"
-          href="#"
-        >
-          Privacy Policy
-        </Link>
-        .
-      </div>
     </div>
   )
 }
