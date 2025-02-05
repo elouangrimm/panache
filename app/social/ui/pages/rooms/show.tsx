@@ -6,33 +6,18 @@ import Room from '#social/models/room'
 import { PostCard } from '#social/ui/components/post_card'
 import SocialLayout from '#social/ui/components/social_layout'
 import { SortBySelect } from '#social/ui/components/sort_by_select'
-import { Link, useForm } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import { formatDistanceToNow } from 'date-fns'
-import { CalendarIcon, GlobeIcon, MoreHorizontal, PlusCircleIcon, Users2Icon } from 'lucide-react'
+import { MoreHorizontal, PlusCircleIcon, Users2Icon } from 'lucide-react'
 import React from 'react'
 import { fr } from 'date-fns/locale'
 import { RoomInfo } from '#social/ui/components/room_info'
+import { JoinRoomButton } from '#social/ui/components/join_room_button'
 
-export default function Show({
-  room,
-  posts,
-  isMember,
-}: {
-  room: Room
-  posts: Post[]
-  isMember: boolean
-}) {
+export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
   const locale = useLocale()
 
   const t = useTranslate()
-  const form = useForm()
-
-  const handleJoin = () => {
-    form.post(`/rooms/${room.id}/join`)
-  }
-  const handleQuit = () => {
-    form.post(`/rooms/${room.id}/quit`)
-  }
 
   return (
     <SocialLayout>
@@ -57,13 +42,7 @@ export default function Show({
                 <PlusCircleIcon className="h-4 w-4" />
                 <span>{t('social.create_a_post')}</span>
               </Link>
-              {isMember ? (
-                <Button variant="danger" onClick={handleQuit}>
-                  {t('common.quit')}
-                </Button>
-              ) : (
-                <Button onClick={handleJoin}>{t('common.join')}</Button>
-              )}
+              <JoinRoomButton />
             </div>
           </div>
         </header>
@@ -87,7 +66,7 @@ export default function Show({
                         <div className="flex items-center gap-2">
                           <Avatar className="h-6 w-6">
                             <AvatarImage
-                              src={`https://avatar.vercel.sh/${post.user.id}`}
+                              src={`https://avatar.vercel.sh/${post.user.username}`}
                               alt={post.user.username}
                             />
                             <AvatarFallback>

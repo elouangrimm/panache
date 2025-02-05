@@ -33,7 +33,7 @@ export default function Create() {
   return (
     <SocialLayout>
       <main className="max-w-6xl w-full mx-auto">
-        <h1 className="text-5xl font-serif sm:pt-16">{t('create_a_post')}</h1>
+        <h1 className="text-5xl font-serif sm:pt-8">{t('create_a_post')}</h1>
         <form className="flex flex-col space-y-8 pt-8" onSubmit={handleSubmit}>
           <RoomSelect roomId={roomId} setRoomId={setRoomId} />
           <Tabs defaultValue="text" className="min-w-full">

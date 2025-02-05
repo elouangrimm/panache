@@ -11,8 +11,6 @@ import {
 } from '#common/ui/components/select'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { ArrowDownWideNarrowIcon, ClockIcon } from 'lucide-react'
-import usePageProps from '#common/ui/hooks/use_page_props'
-import useParams from '#common/ui/hooks/use_params'
 import useQuery from '#common/ui/hooks/use_query'
 
 export function SortBySelect() {
@@ -38,7 +36,8 @@ export function SortBySelect() {
   }, [method, period])
 
   return (
-    <div className="flex space-x-4 border-b pb-4">
+    <div className="flex items-center space-x-4 border-b pb-4">
+      <p className="text-sm">{t('sort_by')}:</p>
       <Select value={method} onValueChange={(value) => setMethod(value)}>
         <SelectTrigger className="w-auto">
           <div className="flex items-center space-x-2 pr-2">

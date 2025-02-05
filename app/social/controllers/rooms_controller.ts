@@ -34,6 +34,8 @@ export default class RoomsController {
     }
 
     await room.load('posts', (query) => {
+      query.preloadOnce('room')
+
       // Filter posts by the selected period
       if (sortMethod === 'popular') {
         let startDate: DateTime | null = null

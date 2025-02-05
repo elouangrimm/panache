@@ -1,4 +1,5 @@
 import useTranslate, { useLocale } from '#common/ui/hooks/use_translate'
+import { cn } from '#common/ui/lib/utils'
 import Room from '#social/models/room'
 import { formatDistanceToNow } from 'date-fns'
 import { fr } from 'date-fns/locale'
@@ -12,9 +13,11 @@ export function RoomInfo({ header, room }: { room: Room; header?: React.ReactEle
     addSuffix: true,
     locale: locale === 'fr' ? fr : undefined,
   })
+
   return (
     <div className="flex flex-col justify-between rounded-lg bg-[#f0eee6]/50 border p-3 text-sm min-h-32">
-      <p className="text-foreground font-medium">{room.description}</p>
+      {header}
+      <p className={cn('text-foreground font-medium', header && 'pt-4')}>{room.description}</p>
       <div>
         <div className="flex gap-x-1 items-center text-muted-foreground pt-2">
           <GlobeIcon className="h-4 w-4" />

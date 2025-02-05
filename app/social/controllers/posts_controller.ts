@@ -1,6 +1,7 @@
 import Post from '#social/models/post'
 import PostLike from '#social/models/post_like'
 import Room from '#social/models/room'
+import RoomMember from '#social/models/room_member'
 import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 
@@ -29,7 +30,16 @@ export default class PostsController {
       })
     }
 
-    return inertia.render('social/posts/show', { room, post })
+    let isMember = false
+    if (auth.isAuthenticated) {
+      const roomMemberFound = await RoomMember.query()
+        .where('room_id', room.id)
+        .where('user_id', auth.user!.id)
+        .first()
+      isMember = roomMemberFound !== null
+    }
+
+    return inertia.render('social/posts/show', { room, post, isMember })
   }
 
   async create({ inertia }: HttpContext) {
