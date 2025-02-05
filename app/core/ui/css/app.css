@@ -161,16 +161,12 @@
 
   .btn-primary {
     @apply bg-emerald-700 hover:bg-emerald-600 text-white border-transparent;
-    box-shadow:
-      inset 0 -3px 0 0 var(--color-emerald-900),
-      0 1px 3px 0 rgb(219 234 254);
+    box-shadow: inset 0 -3px 0 0 var(--color-emerald-900);
   }
 
   .btn-danger {
     @apply bg-red-700 hover:bg-red-600 text-white border-transparent;
-    box-shadow:
-      inset 0 -3px 0 0 rgb(30 58 138),
-      0 1px 3px 0 rgb(219 234 254);
+    box-shadow: inset 0 -3px 0 0 var(--color-red-900);
   }
 
   .btn-secondary {

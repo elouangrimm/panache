@@ -1,4 +1,7 @@
 {
   "home": "Home",
-  "create_a_post": "Create a post"
+  "search": "Search",
+  "join": "Join",
+  "quit": "Quit",
+  "created": "Created"
 }

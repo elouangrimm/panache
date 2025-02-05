@@ -1,3 +1,7 @@
 {
-  "home": "Accueil"
+  "home": "Accueil",
+  "search": "Recherche",
+  "join": "Rejoindre",
+  "quit": "Quitter",
+  "created": "Créé"
 }

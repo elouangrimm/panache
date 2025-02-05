@@ -21,6 +21,7 @@ import {
 import { Link } from '@inertiajs/react'
 import clsx from 'clsx'
 import { cn } from '#common/ui/lib/utils'
+import React from 'react'
 
 export function NavMain({
   items,

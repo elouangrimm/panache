@@ -1,5 +1,6 @@
 {
-  "full_name_label": "Nom complet",
+  "first_name_label": "Prénom",
+  "last_name_label": "Nom",
   "email_label": "Adresse électronique",
   "email_placeholder": "cyrano.bergerac@exemple.fr",
   "sign_up_description": "Créez un compte pour continuer à utiliser Panache.",
@@ -13,6 +14,7 @@
   "sign_up_title": "S'inscrire",
   "no_account_prompt": "Vous n'avez pas de compte ?",
   "sign_up_link": "Inscrivez-vous",
+  "sign_out": "Se déconnecter",
   "terms_privacy_notice": "En continuant, vous acceptez nos",
   "terms_of_service": "Conditions d'utilisation",
   "privacy_policy": "Politique de confidentialité",

@@ -40,6 +40,7 @@ router.use([
   () => import('@adonisjs/shield/shield_middleware'),
   () => import('@adonisjs/auth/initialize_auth_middleware'),
   () => import('#core/middleware/detect_user_locale_middleware'),
+  () => import('#auth/middleware/silent_auth_middleware'),
 ])
 
 /**
@@ -47,6 +48,7 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
+  loadRooms: () => import('#social/middleware/load_rooms_middleware'),
   guest: () => import('#auth/middleware/guest_middleware'),
   auth: () => import('#auth/middleware/auth_middleware'),
 })

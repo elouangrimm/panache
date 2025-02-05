@@ -18,8 +18,20 @@ export default class SignUpController {
           .maxLength(255)
           .trim()
           .regex(/^[a-zA-Z0-9._%+-]+$/)
-          .toLowerCase(),
-        backupEmail: vine.string().email().trim().normalizeEmail().optional(),
+          .toLowerCase()
+          .unique(async (db, value) => {
+            const userFoundByUsername = await db.from('users').where('username', value).first()
+            return !userFoundByUsername
+          }),
+        email: vine
+          .string()
+          .email()
+          .trim()
+          .normalizeEmail()
+          .unique(async (db, value) => {
+            const userFoundByEmail = await db.from('users').where('email', value).first()
+            return !userFoundByEmail
+          }),
         password: vine.string().minLength(8),
       })
     )

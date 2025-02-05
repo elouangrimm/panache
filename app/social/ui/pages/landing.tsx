@@ -5,7 +5,7 @@ import { SortBySelect } from '../components/sort_by_select'
 export default function Landing() {
   return (
     <SocialLayout>
-      <div className="p-4 max-w-5xl mx-auto w-full">
+      <div className="p-4 max-w-6xl mx-auto w-full">
         <SortBySelect />
       </div>
     </SocialLayout>

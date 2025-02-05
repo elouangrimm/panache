@@ -7,6 +7,7 @@ import { buttonVariants } from '#common/ui/components/button'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { PlusCircleIcon } from 'lucide-react'
 import { SearchInput } from './search_input'
+import { Toaster } from '#common/ui/components/toaster'
 
 export default function SocialLayout({ children }: React.PropsWithChildren) {
   const t = useTranslate('social')
@@ -28,6 +29,8 @@ export default function SocialLayout({ children }: React.PropsWithChildren) {
             </div>
           </div>
         </header>
+        <Toaster />
+
         {children}
       </SidebarInset>
     </SidebarProvider>

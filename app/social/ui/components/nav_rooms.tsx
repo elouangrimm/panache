@@ -1,76 +1,57 @@
 'use client'
 
 import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  PlusCircleIcon,
-  Trash2,
-  type LucideIcon,
-} from 'lucide-react'
-
-import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '#common/ui/components/sidebar'
 import React from 'react'
 import useTranslate from '#common/ui/hooks/use_translate'
+import { CreateRoomDialog } from './create_room_dialog'
+import usePageProps from '#common/ui/hooks/use_page_props'
+import Room from '#social/models/room'
+import { Link } from '@inertiajs/react'
+import { Avatar, AvatarImage } from '#common/ui/components/avatar'
+import useParams from '#common/ui/hooks/use_params'
+import { cn } from '#common/ui/lib/utils'
 
 export function NavRooms() {
   const t = useTranslate('social')
-
+  const { rooms } = usePageProps<{ rooms: Room[] }>()
+  const params = useParams()
+  const { route } = usePageProps<{ route: string }>()
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>{t('rooms')}</SidebarGroupLabel>
       <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/80 cursor-pointer">
-            <PlusCircleIcon className="text-sidebar-foreground/80" />
-            <span>{t('create_a_room')}</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-
-        {/* {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
+        {rooms.map((room) => (
+          <SidebarMenuItem key={room.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
-            </SidebarMenuButton>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction showOnHover>
-                  <MoreHorizontal />
-                  <span className="sr-only">More</span>
-                </SidebarMenuAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-48 rounded-lg"
-                side={isMobile ? 'bottom' : 'right'}
-                align={isMobile ? 'end' : 'start'}
+              <Link
+                className={cn(
+                  params.roomId === room.id &&
+                    route === 'rooms.show' &&
+                    'font-medium text-black bg-sidebar-accent'
+                )}
+                href={`/rooms/${room.id}`}
               >
-                <DropdownMenuItem>
-                  <Folder className="text-muted-foreground" />
-                  <span>View Project</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Forward className="text-muted-foreground" />
-                  <span>Share Project</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
-                  <span>Delete Project</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <Avatar className="h-6 w-6 rounded-lg border">
+                  <AvatarImage
+                    src={`https://avatar.vercel.sh/${room.id}?rounded=60`}
+                    alt={room.name}
+                  />
+                </Avatar>
+                <span className="text-sidebar-foreground">{room.name}</span>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
-        ))} */}
+        ))}
+
+        <SidebarMenuItem>
+          <CreateRoomDialog />
+        </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
   )

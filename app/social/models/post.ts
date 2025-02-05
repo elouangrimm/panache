@@ -1,15 +1,19 @@
 import User from '#common/models/user'
-import { belongsTo, column } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Room from './room.js'
 import BaseModel from '#common/models/base_model'
+import PostLike from './post_like.js'
 
 export default class Post extends BaseModel {
+  @column()
+  declare likesCount: number
+
   @column()
   declare title: string
 
   @column()
-  declare url: string | null
+  declare link: string | null
 
   @column()
   declare text: string | null
@@ -31,4 +35,7 @@ export default class Post extends BaseModel {
 
   @column()
   declare roomId: string
+
+  @hasMany(() => PostLike)
+  declare likes: HasMany<typeof PostLike>
 }

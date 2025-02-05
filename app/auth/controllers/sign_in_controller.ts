@@ -19,7 +19,7 @@ export default class SignInController {
         return response.redirect().toPath(nextPath)
       }
 
-      return response.redirect().toPath('/emails/inbox')
+      return response.redirect().toPath('/')
     } catch {
       session.flash('errors.auth', i18n.t('auth.invalid_credentials'))
       let redirectPath = `/auth/sign_in`

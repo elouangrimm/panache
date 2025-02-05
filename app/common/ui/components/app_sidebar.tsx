@@ -28,11 +28,6 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
   const t = useTranslate()
   const path = usePath()
   const data = {
-    user: {
-      name: 'shadcn',
-      email: 'm@example.com',
-      avatar: '/avatars/shadcn.jpg',
-    },
     navMain: [
       {
         title: t('common.home'),
@@ -60,13 +55,13 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/">
                 <Logo />
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Panache</span>
                   <span className="truncate text-xs">Social</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -78,7 +73,7 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
       </SidebarContent>
       <SidebarFooter>
         {user ? (
-          <NavUser user={data.user} />
+          <NavUser />
         ) : (
           <>
             <Link

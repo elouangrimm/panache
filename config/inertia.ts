@@ -15,6 +15,10 @@ const inertiaConfig = defineConfig({
     user: (ctx) => ctx.auth.user,
     translations: (ctx) => ctx.inertia.always(() => ctx.i18n.localeTranslations),
     path: (ctx) => ctx.request.url(),
+    query: (ctx) => ctx.request.qs(),
+    locale: (ctx) => ctx.i18n.locale,
+    params: (ctx) => ctx.params,
+    route: (ctx) => ctx.route?.name,
   },
 
   /**
