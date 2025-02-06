@@ -67,7 +67,7 @@ export function PostActions({ post }: PostCardProps) {
     <div className="flex items-center pt-1 gap-1 text-xs">
       <Button
         variant="outline"
-        className={cn('!h-8 !pl-1.5', userLikes && 'text-red-800')}
+        className={cn('!h-8', userLikes && 'text-red-800')}
         onClick={handleClickLike}
       >
         <Heart className="h-4 w-4" strokeWidth={2.5} />
@@ -83,7 +83,7 @@ export function PostActions({ post }: PostCardProps) {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className={'!h-8'}>
+          <Button variant="outline" className="!text-sm !h-8">
             <Share2 className="h-4 w-4" />
             <span>{t('share')}</span>
           </Button>

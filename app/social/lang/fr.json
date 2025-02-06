@@ -32,5 +32,13 @@
   "year": "Année",
   "all": "Toutes périodes",
   "members": "membres",
-  "member": "membre"
+  "member": "membre",
+  "delete_post": "Supprimer ce post",
+  "delete_post_description": "Êtes-vous sûr de supprimer ce post ? Cette action est irrémédiable.",
+  "report": "Signaler",
+  "report_description": "Description",
+  "report_description_placeholder": "Décrivez les règles enfreintes par ce post.",
+  "post_reported": "Post reported",
+  "report_post_title": "Signaler un post",
+  "report_post_description": "Merci de nous prévenir d'une potentielle infraction aux règles du salon."
 }

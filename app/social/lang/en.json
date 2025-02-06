@@ -32,5 +32,13 @@
   "year": "Year",
   "all": "All",
   "members": "members",
-  "member": "member"
+  "member": "member",
+  "delete_post": "Delete post",
+  "delete_post_description": "Are you sure you want to delete this post? This action cannot be undone.",
+  "report": "Report",
+  "report_description": "Description",
+  "report_description_placeholder": "Describe the rules this post is breaking.",
+  "post_reported": "Post reported",
+  "report_post_title": "Report a post",
+  "report_post_description": "Thanks for letting us know what's happening."
 }

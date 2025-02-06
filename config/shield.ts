@@ -17,7 +17,7 @@ const shieldConfig = defineConfig({
    */
   csrf: {
     enabled: true,
-    exceptRoutes: (ctx) => ctx.request.matchesRoute(['posts.like', 'posts.unlike']),
+    exceptRoutes: (ctx) => ctx.request.matchesRoute(['posts.like', 'posts.unlike', 'posts.report']),
     enableXsrfCookie: true,
     methods: ['POST', 'PUT', 'PATCH', 'DELETE'],
   },

@@ -21,10 +21,10 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
 
   return (
     <SocialLayout>
-      <main className="max-w-6xl mx-auto w-full p-4">
+      <main className="max-w-7xl mx-auto w-full p-4">
         <header>
           <div className="h-20 bg-[#e3e2d4] rounded-lg border"></div>
-          <div className="flex gap-x-2 items-center justify-between pt-4 px-4">
+          <div className="flex flex-wrap gap-x-2 items-center justify-between pt-4 px-4">
             <div className="flex items-start gap-x-4">
               <Avatar className="h-18 w-18 rounded-full -mt-8 border-4 border-white">
                 <AvatarImage
@@ -34,7 +34,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
               </Avatar>
               <h2 className="text-3xl font-medium font-serif">{room.name}</h2>
             </div>
-            <div className="flex gap-x-2">
+            <div className="flex flex-wrap gap-y-2 sm:gap-y-0 pt-4 sm:pt-0 gap-x-2">
               <Link
                 className={buttonVariants({ variant: 'secondary' })}
                 href={`/create?room=${room.id}`}
@@ -46,7 +46,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
             </div>
           </div>
         </header>
-        <div className="grid grid-cols-4 gap-x-4 pt-6 px-4">
+        <div className="grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 gap-x-4 pt-6 px-4">
           <div className="col-span-3">
             <SortBySelect />
 
@@ -78,9 +78,6 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
                             <span className="text-muted-foreground">• {timeAgo}</span>
                           </div>
                         </div>
-                        <Button variant="ghost" size="icon" className="rounded-full">
-                          <MoreHorizontal className="h-5 w-5" />
-                        </Button>
                       </div>
                     }
                   />

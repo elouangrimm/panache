@@ -11,8 +11,13 @@ export default class extends BaseSchema {
       table.string('link').nullable()
       table.string('text').nullable()
       table.string('image').nullable()
-      table.string('ogImage').nullable()
-      table.string('user_id').references('id').inTable('users').onDelete('cascade')
+      table.string('og_image').nullable()
+      table
+        .string('user_id')
+        .references('id')
+        .inTable('users')
+        .onUpdate('cascade')
+        .onDelete('cascade')
       table.string('room_id').references('id').inTable('rooms').onDelete('cascade')
 
       table.timestamp('created_at')

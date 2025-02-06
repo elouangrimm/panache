@@ -1,9 +1,10 @@
 import User from '#common/models/user'
-import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { afterCreate, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Room from './room.js'
 import BaseModel from '#common/models/base_model'
 import PostLike from './post_like.js'
+import PostCreated from '#social/events/post_created'
 
 export default class Post extends BaseModel {
   @column()
@@ -38,4 +39,9 @@ export default class Post extends BaseModel {
 
   @hasMany(() => PostLike)
   declare likes: HasMany<typeof PostLike>
+
+  @afterCreate()
+  static emitCreationEvent(post: Post) {
+    PostCreated.dispatch(post)
+  }
 }

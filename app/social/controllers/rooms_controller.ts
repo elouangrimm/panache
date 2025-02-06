@@ -88,7 +88,7 @@ export default class RoomsController {
     })
 
     if (!auth.isAuthenticated) {
-      return inertia.render('social/rooms/show', { room, posts: room.posts })
+      return inertia.render('social/room', { room, posts: room.posts })
     }
 
     const roomMemberFound = await RoomMember.query()
@@ -97,7 +97,7 @@ export default class RoomsController {
       .first()
     const isMember = roomMemberFound !== null
 
-    return inertia.render('social/rooms/show', { room, posts: room.posts, isMember })
+    return inertia.render('social/room', { room, posts: room.posts, isMember })
   }
 
   async join({ auth, params, response }: HttpContext) {

@@ -10,12 +10,13 @@ import { MoreHorizontal } from 'lucide-react'
 import { PostCard } from '../components/post_card'
 import { useLocale } from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
+import { Link } from '@inertiajs/react'
 
 export default function Landing({ room, posts }: { room: Room; posts: Post[] }) {
   const locale = useLocale()
   return (
     <SocialLayout>
-      <div className="p-4 max-w-6xl mx-auto w-full">
+      <div className="p-4 max-w-7xl mx-auto w-full">
         <SortBySelect />
         <div className="pt-4 grid gap-y-4">
           {posts.map(function (post) {
@@ -31,23 +32,28 @@ export default function Landing({ room, posts }: { room: Room; posts: Post[] }) 
                 header={
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage
-                          src={`https://avatar.vercel.sh/${post.user.username}`}
-                          alt={post.user.username}
-                        />
-                        <AvatarFallback>
-                          {post.user.username.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
+                      <Link
+                        className="h-6 w-6 hover:opacity-75 transition-opacity"
+                        href={`/rooms/${post.roomId}`}
+                      >
+                        <Avatar>
+                          <AvatarImage
+                            src={`https://avatar.vercel.sh/${post.roomId}?rounded=60`}
+                            alt={post.roomId}
+                          />
+                          <AvatarFallback>{post.roomId.slice(0, 2).toUpperCase()}</AvatarFallback>
+                        </Avatar>
+                      </Link>
                       <div className="flex items-center gap-1 text-[13px]">
-                        <span className="font-medium">{post.user.username}</span>
+                        <Link
+                          className="font-medium hover:text-emerald-600 transition-colors"
+                          href={`/rooms/${post.roomId}`}
+                        >
+                          {post.room.name}
+                        </Link>
                         <span className="text-muted-foreground">• {timeAgo}</span>
                       </div>
                     </div>
-                    <Button variant="ghost" size="icon" className="rounded-full">
-                      <MoreHorizontal className="h-5 w-5" />
-                    </Button>
                   </div>
                 }
               />

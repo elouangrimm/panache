@@ -1,11 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from '#common/ui/components/avatar'
 import { Button } from '#common/ui/components/button'
-import useTranslate, { useLocale } from '#common/ui/hooks/use_translate'
+import { useLocale } from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
-import post from '#social/models/post'
 import Room from '#social/models/room'
 import { JoinRoomButton } from '#social/ui/components/join_room_button'
 import { PostActions } from '#social/ui/components/post_actions'
+import { PostActionsDropdown } from '#social/ui/components/post_actions_dropdown'
 import { RoomInfo } from '#social/ui/components/room_info'
 import SocialLayout from '#social/ui/components/social_layout'
 import { Link } from '@inertiajs/react'
@@ -23,19 +23,24 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
 
   return (
     <SocialLayout>
-      <main className="max-w-6xl mx-auto w-full p-4">
-        <div className="grid grid-cols-4 gap-x-4 pt-6 px-4">
+      <main className="max-w-7xl mx-auto w-full p-4">
+        <div className="grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 gap-x-4 pt-6 px-4">
           <div className="col-span-3">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <Avatar className="h-9 w-9">
-                  <AvatarImage
-                    src={`https://avatar.vercel.sh/${post.user.username}`}
-                    alt={post.user.username}
-                  />
-                  <AvatarFallback>{post.user.username.slice(0, 2).toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className="">
+                <Link
+                  className="font-medium text-emerald-950 hover:text-emerald-700 transition-colors"
+                  href={`/rooms/${room.id}`}
+                >
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage
+                      src={`https://avatar.vercel.sh/${room.id}`}
+                      alt={post.user.username}
+                    />
+                    <AvatarFallback>{post.user.username.slice(0, 2).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                </Link>
+                <div>
                   <div className="flex items-center gap-1 text-sm">
                     <Link
                       className="font-medium text-emerald-950 hover:text-emerald-700 transition-colors"
@@ -49,12 +54,19 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                   <p className="text-xs text-muted-foreground">{post.user.username}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <MoreHorizontal className="h-5 w-5" />
-              </Button>
+              <PostActionsDropdown post={post} />
             </div>
-            <h2 className="font-medium text-2xl pt-4">{post.title}</h2>
-            <p className="prose pt-2">{post.text}</p>
+            <h2 className="font-semibold text-xl pt-4 lg:pr-8">{post.title}</h2>
+            {post.link ? (
+              <a
+                className="transition-colors text-sm text-emerald-800 hover:text-emerald-600 truncate"
+                href={post.link}
+                target="_blank"
+              >
+                {post.link}
+              </a>
+            ) : null}
+            {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
             <div className="pt-2">
               <PostActions post={post} />
             </div>

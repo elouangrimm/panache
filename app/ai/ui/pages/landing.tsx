@@ -21,7 +21,7 @@ export default function Landing() {
             </div>
           </div>
         </header>
-        <div className="flex flex-col gap-4 p-4 lg:pt-64 h-full max-w-6xl w-full mx-auto">
+        <div className="flex flex-col gap-4 p-4 lg:pt-64 h-full max-w-7xl w-full mx-auto">
           <h1 className="text-center text-5xl sm:text-7xl font-serif">Good {getTimeOfDay()}!</h1>
           <form className="w-full" onSubmit={handleSubmit}>
             <MessageInput

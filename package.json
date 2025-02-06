@@ -60,6 +60,7 @@
   "dependencies": {
     "@adonisjs/ally": "^5.0.2",
     "@adonisjs/auth": "^9.2.4",
+    "@adonisjs/bouncer": "^3.1.5",
     "@adonisjs/core": "^6.17.0",
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/i18n": "^2.2.0",
@@ -102,6 +103,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "@vinejs/vine": "^3.0.0",
     "ai": "^4.1.17",
+    "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
