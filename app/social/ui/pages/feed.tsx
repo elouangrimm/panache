@@ -16,7 +16,7 @@ export default function Landing({ room, posts }: { room: Room; posts: Post[] }) 
   const locale = useLocale()
   return (
     <SocialLayout>
-      <div className="p-4 max-w-7xl mx-auto w-full">
+      <div className="p-4 max-w-6xl mx-auto w-full">
         <SortBySelect />
         <div className="pt-4 grid gap-y-4">
           {posts.map(function (post) {

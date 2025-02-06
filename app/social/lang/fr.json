@@ -40,5 +40,10 @@
   "report_description_placeholder": "Décrivez les règles enfreintes par ce post.",
   "post_reported": "Post reported",
   "report_post_title": "Signaler un post",
-  "report_post_description": "Merci de nous prévenir d'une potentielle infraction aux règles du salon."
+  "report_post_description": "Merci de nous prévenir d'une potentielle infraction aux règles du salon.",
+  "comments": "Commentaires",
+  "add_comment": "Ajouter un commentaire",
+  "comment_submitted": "Commentaire enregistré !",
+  "reply": "Répondre",
+  "view_replies": "Voir les réponses"
 }

@@ -21,7 +21,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
 
   return (
     <SocialLayout>
-      <main className="max-w-7xl mx-auto w-full p-4">
+      <main className="max-w-6xl mx-auto w-full p-4">
         <header>
           <div className="h-20 bg-[#e3e2d4] rounded-lg border"></div>
           <div className="flex flex-wrap gap-x-2 items-center justify-between pt-4 px-4">

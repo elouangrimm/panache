@@ -3,5 +3,7 @@
   "search": "Search",
   "join": "Join",
   "quit": "Quit",
-  "created": "Created"
+  "created": "Created",
+  "cancel": "Cancel",
+  "submit": "Submit"
 }

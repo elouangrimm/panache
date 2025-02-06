@@ -76,7 +76,24 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
             <Button type="submit" className="!w-full">
               {t('sign_in')}
             </Button>
+
+            {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
+              <Button
+                type="button"
+                variant="secondary"
+                className="!w-full"
+                onClick={() => {
+                  form.setData({
+                    username: 'cyrano.bergerac',
+                    password: 'cyrano.bergerac@exemple.fr',
+                  })
+                }}
+              >
+                Fill Development Values
+              </Button>
+            )}
           </form>
+
           <div className="text-center text-sm text-muted-foreground pt-4">
             {t('no_account_prompt')}{' '}
             <Link

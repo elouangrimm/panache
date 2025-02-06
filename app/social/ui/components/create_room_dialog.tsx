@@ -75,6 +75,22 @@ export function CreateRoomDialog() {
           <Button className="!w-full" type="submit" form="create-room-form">
             {t('create_a_room')}
           </Button>
+
+          {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
+            <Button
+              type="button"
+              variant="secondary"
+              className="!w-full"
+              onClick={() => {
+                form.setData({
+                  name: 'Programming',
+                  description: 'Computer Programming',
+                })
+              }}
+            >
+              Fill Development Values
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

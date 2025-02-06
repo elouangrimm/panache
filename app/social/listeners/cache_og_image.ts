@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio'
 
 export default class CacheOgImage {
   async handle({ post }: { post: Post }) {
-    if (post.link === null) {
+    if (!post.link) {
       return
     }
 

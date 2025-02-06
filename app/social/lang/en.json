@@ -40,5 +40,10 @@
   "report_description_placeholder": "Describe the rules this post is breaking.",
   "post_reported": "Post reported",
   "report_post_title": "Report a post",
-  "report_post_description": "Thanks for letting us know what's happening."
+  "report_post_description": "Thanks for letting us know what's happening.",
+  "comments": "Comments",
+  "add_comment": "Add comment",
+  "comment_submitted": "Comment submitted!",
+  "reply": "Reply",
+  "view_replies": "View replies"
 }

@@ -116,6 +116,24 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
               <Button type="submit" className="!w-full">
                 {t('sign_up')}
               </Button>
+              {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="!w-full"
+                  onClick={() => {
+                    form.setData({
+                      firstName: 'Cyrano',
+                      lastName: 'de Bergerac',
+                      username: 'cyrano.bergerac',
+                      email: 'cyrano.bergerac@exemple.fr',
+                      password: 'cyrano.bergerac@exemple.fr',
+                    })
+                  }}
+                >
+                  Fill Development Values
+                </Button>
+              )}
             </div>
             <div className="text-center text-sm text-muted-foreground pt-4">
               {t('existing_account_prompt')}{' '}

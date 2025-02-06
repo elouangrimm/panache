@@ -32,10 +32,12 @@ export default function Create() {
 
   return (
     <SocialLayout>
-      <main className="max-w-7xl w-full mx-auto">
+      <main className="max-w-6xl w-full mx-auto">
         <h1 className="text-5xl font-serif sm:pt-8">{t('create_a_post')}</h1>
+
         <form className="flex flex-col space-y-8 pt-8" onSubmit={handleSubmit}>
           <RoomSelect roomId={roomId} setRoomId={setRoomId} />
+
           <Tabs defaultValue="text" className="min-w-full">
             <TabsList className="grid w-full grid-cols-4 gap-x-4">
               <TabsTrigger value="text">{t('text')}</TabsTrigger>
@@ -43,6 +45,7 @@ export default function Create() {
               <TabsTrigger value="link">{t('link')}</TabsTrigger>
               <TabsTrigger value="meme">{t('meme')}</TabsTrigger>
             </TabsList>
+
             <div className="grid gap-2 pt-8 pb-2">
               <Label htmlFor="title">{t('title')}</Label>
               <Input
@@ -55,11 +58,13 @@ export default function Create() {
                 value={form.data.title}
                 onChange={(e) => form.setData('title', e.target.value)}
               />
+
               <Error errorKey="title" />
             </div>
 
             <TabsContent className="w-full" value="text">
               <Label htmlFor="text">{t('text')}</Label>
+
               <Textarea
                 className="mt-1"
                 id="text"
@@ -68,17 +73,21 @@ export default function Create() {
                 value={form.data.text}
                 onChange={(e) => form.setData('text', e.target.value)}
               />
+
               <Error errorKey="text" />
             </TabsContent>
 
             <TabsContent className="w-full" value="image">
               <Label htmlFor="image">{t('image')}</Label>
+
               <Input id="image" name="image" type="file" />
+
               <Error errorKey="image" />
             </TabsContent>
 
             <TabsContent className="w-full" value="link">
               <Label htmlFor="link">{t('link')}</Label>
+
               <Input
                 id="link"
                 name="link"
@@ -87,6 +96,7 @@ export default function Create() {
                 value={form.data.link}
                 onChange={(e) => form.setData('link', e.target.value)}
               />
+
               <Error errorKey="link" />
             </TabsContent>
 
@@ -95,9 +105,25 @@ export default function Create() {
 
           <div className="flex items-center space-x-2">
             <Button type="submit">{t('submit_post')}</Button>
+
             <Button variant="secondary" type="reset">
               {t('cancel')}
             </Button>
+            {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  form.setData({
+                    title: 'Entrez le titre ici',
+                    text: 'Computer Programming',
+                    link: '',
+                  })
+                }}
+              >
+                Fill Development Values
+              </Button>
+            )}
           </div>
         </form>
       </main>

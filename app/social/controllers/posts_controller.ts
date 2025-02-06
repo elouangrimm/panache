@@ -92,10 +92,16 @@ export default class PostsController {
      * Load post likes.
      */
     if (auth.isAuthenticated) {
-      post.load('likes', (query) => {
+      await post.load('likes', (query) => {
         query.where('user_id', auth.user!.id)
       })
     }
+
+    await post.load('comments', (query) => {
+      query.whereNull('comment_id')
+
+      query.preload('comments')
+    })
 
     let isMember = false
     if (auth.isAuthenticated) {

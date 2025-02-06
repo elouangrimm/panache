@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '#common/ui/components/avatar'
-import { Button } from '#common/ui/components/button'
-import { useLocale } from '#common/ui/hooks/use_translate'
+import useTranslate, { useLocale } from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
 import Room from '#social/models/room'
 import { JoinRoomButton } from '#social/ui/components/join_room_button'
@@ -11,10 +10,12 @@ import SocialLayout from '#social/ui/components/social_layout'
 import { Link } from '@inertiajs/react'
 import { formatDistanceToNow } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import { MoreHorizontal } from 'lucide-react'
 import React from 'react'
+import CreateCommentForm from '../components/create_comment_form'
+import { CommentCard } from '../components/comment_card'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
+  const t = useTranslate()
   const locale = useLocale()
   const timeAgo = formatDistanceToNow(new Date(post.createdAt as unknown as string), {
     addSuffix: true,
@@ -23,15 +24,12 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
 
   return (
     <SocialLayout>
-      <main className="max-w-7xl mx-auto w-full p-4">
-        <div className="grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 gap-x-4 pt-6 px-4">
+      <main className="max-w-6xl mx-auto w-full p-4">
+        <div className="grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 gap-x-4 pt-6">
           <div className="col-span-3">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <Link
-                  className="font-medium text-emerald-950 hover:text-emerald-700 transition-colors"
-                  href={`/rooms/${room.id}`}
-                >
+                <Link className="hover:opacity-75 transition-opacity" href={`/rooms/${room.id}`}>
                   <Avatar className="h-9 w-9">
                     <AvatarImage
                       src={`https://avatar.vercel.sh/${room.id}`}
@@ -67,11 +65,23 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
               </a>
             ) : null}
             {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
+
             <div className="pt-2">
               <PostActions post={post} />
             </div>
+
+            <section className="mt-6 pt-6 space-y-4 border-t">
+              <div className="space-y-2">
+                <h3 className="font-medium">{t('social.comments')}</h3>
+                <CreateCommentForm post={post} />
+              </div>
+
+              {post.comments.map((comment) => (
+                <CommentCard key={comment.id} post={post} comment={comment} />
+              ))}
+            </section>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-1 w-full">
             <RoomInfo
               header={
                 <header className="flex items-center justify-between gap-x-2">

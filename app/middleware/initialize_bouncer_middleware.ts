@@ -5,6 +5,7 @@ import type { NextFn } from '@adonisjs/core/types/http'
 const abilities = {}
 const policies = {
   PostPolicy: () => import('#social/policies/post_policy'),
+  CommentPolicy: () => import('#social/policies/comment_policy'),
 }
 
 /**

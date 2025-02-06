@@ -65,3 +65,9 @@ router
   .post('/rooms/:roomId/posts/:postId/report', [PostsController, 'report'])
   .as('posts.report')
   .use(middleware.auth())
+
+const CommentsController = () => import('#social/controllers/comments_controller')
+router
+  .post('/rooms/:roomId/posts/:postId/comments', [CommentsController, 'store'])
+  .as('comments.store')
+  .use(middleware.auth())

@@ -70,7 +70,7 @@ export function PostActions({ post }: PostCardProps) {
         className={cn('!h-8', userLikes && 'text-red-800')}
         onClick={handleClickLike}
       >
-        <Heart className="h-4 w-4" strokeWidth={2.5} />
+        <Heart className="h-4 w-4" strokeWidth={2} />
         <span className="font-semibold text-xs">{likesCount}</span>
       </Button>
 
@@ -78,13 +78,14 @@ export function PostActions({ post }: PostCardProps) {
         className={cn('!h-8', buttonVariants({ variant: 'outline' }))}
         href={`/rooms/${post.roomId}/posts/${post.id}#comments`}
       >
-        <MessageSquare className="h-4 w-4" />
+        <MessageSquare className="h-4 w-4" strokeWidth={2} />
+        <span className="font-semibold text-xs">{post.commentsCount}</span>
       </Link>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="!text-sm !h-8">
-            <Share2 className="h-4 w-4" />
+            <Share2 strokeWidth={2} className="h-4 w-4" />
             <span>{t('share')}</span>
           </Button>
         </DropdownMenuTrigger>
