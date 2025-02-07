@@ -9,7 +9,7 @@ import PostLike from '#social/models/post_like'
 import Comment from '#social/models/comment'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
-  uids: ['username'],
+  uids: ['username', 'email'],
   passwordColumnName: 'password',
 })
 

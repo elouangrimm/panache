@@ -7,12 +7,13 @@ export default class SignInController {
   }
 
   async handle({ auth, request, response, session, i18n }: HttpContext) {
+    const email = request.input('email')
     const username = request.input('username')
     const password = request.input('password')
     const nextPath = request.input('next')
 
     try {
-      const user = await User.verifyCredentials(username, password)
+      const user = await User.verifyCredentials(email || username, password)
       await auth.use('web').login(user)
 
       if (nextPath) {
