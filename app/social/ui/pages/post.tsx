@@ -13,6 +13,7 @@ import CreateCommentForm from '../components/create_comment_form'
 import { CommentCard } from '../components/comment_card'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { SortCommentSelect } from '../components/sort_comment_select'
+import { ImagePreview } from '#common/ui/components/image_preview'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
@@ -67,16 +68,11 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
               {post.link}
             </a>
           ) : null}
+
           {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
+
           {post.image ? (
-            <div className="w-full">
-              <img
-                loading="lazy"
-                className="rounded-lg my-2 w-auto max-h-96"
-                src={post.image}
-                alt={post.title + 's Image'}
-              />
-            </div>
+            <ImagePreview image={{ src: post.image, alt: post.title + 's Image' }} />
           ) : null}
 
           <div className="pt-2">

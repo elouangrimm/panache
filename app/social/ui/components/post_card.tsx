@@ -4,6 +4,7 @@ import { Card } from '#common/ui/components/card'
 import Room from '#social/models/room'
 import { Link } from '@inertiajs/react'
 import { PostActions } from './post_actions'
+import { ImagePreview } from '#common/ui/components/image_preview'
 
 interface PostCardProps {
   header?: React.ReactElement
@@ -27,6 +28,7 @@ export function PostCard({ header, post }: PostCardProps) {
                 className="text-blue-600 hover:underline break-all"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
               >
                 {post.link.length > 60 ? `${post.link.slice(0, 60)}...` : post.link}
               </a>
@@ -36,16 +38,7 @@ export function PostCard({ header, post }: PostCardProps) {
           {post.text && <p className="text-sm truncate">{post.text}</p>}
 
           {/* Image */}
-          {post.image && (
-            <div className="flex justify-center items-center w-full my-2">
-              <img
-                src={post.image || '/placeholder.svg'}
-                alt={post.title}
-                className="object-cover rounded-lg overflow-hidden w-auto max-h-72"
-                loading="lazy"
-              />
-            </div>
-          )}
+          {post.image && <ImagePreview image={{ src: post.image, alt: post.title + 's Image' }} />}
 
           <div className="pt-2">
             <PostActions post={post} />
