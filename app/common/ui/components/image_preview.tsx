@@ -29,7 +29,7 @@ export function ImagePreview({ image }: ImagePreviewProps) {
             />
           </div>
         </DialogTrigger>
-        <DialogContent className="max-w-3xl w-full p-0 bg-accent">
+        <DialogContent className="max-w-3xl w-full bg-accent">
           <div className="relative">
             <img
               src={image.src || '/placeholder.svg'}
