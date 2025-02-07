@@ -7,6 +7,7 @@ export default class ProfilesController {
       .where('username', params.username)
       .select('id', 'username')
       .preload('posts', (query) => {
+        query.orderBy('created_at', 'desc')
         query.preload('room')
 
         /**
@@ -19,7 +20,10 @@ export default class ProfilesController {
         }
       })
       .preload('comments', (query) => {
-        query.preload('post')
+        query.preload('post', (query) => {
+          query.preload('room')
+        })
+        query.orderBy('created_at', 'desc')
 
         /**
          * Load post likes.

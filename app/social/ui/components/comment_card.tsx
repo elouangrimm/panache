@@ -19,9 +19,10 @@ export type CommentCardProps = {
   header?: React.ReactElement
   post: Post
   comment: Comment
+  hideReply?: boolean
 }
 
-export function CommentCard({ header, post, comment }: CommentCardProps) {
+export function CommentCard({ header, post, comment, hideReply }: CommentCardProps) {
   const t = useTranslate()
   const formatDistanceToNow = useFormatDistanceToNow()
 
@@ -36,7 +37,7 @@ export function CommentCard({ header, post, comment }: CommentCardProps) {
       <p className="text-sm truncate pt-2">{comment.text}</p>
 
       <div className="pt-2">
-        <CommentActions post={post} comment={comment} />
+        <CommentActions post={post} comment={comment} hideReply={hideReply} />
       </div>
 
       {comment.comments?.length > 0 ? (

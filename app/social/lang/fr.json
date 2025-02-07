@@ -36,6 +36,7 @@
   "delete_post": "Supprimer ce post",
   "delete_comment": "Supprimer ce commentaire",
   "comment_deleted": "Commentaire supprimé",
+  "commented": "a commenté",
   "delete_post_description": "Êtes-vous sûr de supprimer ce post ? Cette action est irrémédiable.",
   "delete_comment_description": "Êtes-vous sûr de supprimer ce commentaire ? Cette action est irrémédiable.",
   "report": "Signaler",

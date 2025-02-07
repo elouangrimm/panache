@@ -80,9 +80,56 @@ export default function Profile({ profile }: { profile: User }) {
             ))}
           </TabsContent>
 
-          <TabsContent className="w-full" value="comments">
+          <TabsContent className="w-full pt-4" value="comments">
             {profile.comments.map((comment) => (
-              <CommentCard key={comment.id} post={comment.post} comment={comment} />
+              <CommentCard
+                key={comment.id}
+                post={comment.post}
+                comment={comment}
+                hideReply
+                header={
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        className="hover:opacity-75 transition-opacity"
+                        href={`/rooms/${comment.post.room.id}`}
+                      >
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage
+                            src={`https://avatar.vercel.sh/${comment.post.room.id}?rounded=100`}
+                            alt={comment.post.room.id}
+                            width={32}
+                            height={32}
+                          />
+                        </Avatar>
+                      </Link>
+
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-1 text-[13px]">
+                          <Link
+                            className="font-medium hover:text-emerald-600 transition-colors"
+                            href={`/rooms/${comment.post.room.id}`}
+                          >
+                            {comment.post.room.name}
+                          </Link>
+                          <Link
+                            className="font-medium text-muted-foreground hover:text-emerald-600 transition-colors truncate"
+                            href={`/rooms/${comment.post.room.id}`}
+                          >
+                            • {comment.post.title}
+                          </Link>
+                        </div>
+
+                        <p className="text-muted-foreground text-xs">
+                          <span className="text-black font-medium">{profile.username}</span>{' '}
+                          {t('social.commented')}{' '}
+                          {formatDistanceToNow(comment.createdAt as unknown as string)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                }
+              />
             ))}
           </TabsContent>
         </Tabs>

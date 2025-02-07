@@ -17,9 +17,10 @@ import CreateCommentForm from './create_comment_form'
 export type CommentActionsProps = {
   post: Post
   comment: Comment
+  hideReply?: boolean
 }
 
-export function CommentActions({ post, comment }: CommentActionsProps) {
+export function CommentActions({ post, comment, hideReply }: CommentActionsProps) {
   const [likesCount, setLikesCount] = useState(comment.likesCount)
   const [userLikes, setUserLikes] = useState(comment.likes?.length > 0 || false)
   const [reply, setReply] = useState(false)
@@ -80,7 +81,7 @@ export function CommentActions({ post, comment }: CommentActionsProps) {
           <span className="font-semibold text-xs">{likesCount}</span>
         </Button>
 
-        {!comment.commentId ? (
+        {!comment.commentId && !hideReply ? (
           <Button variant="outline" className="!h-8" onClick={() => setReply((value) => !value)}>
             <MessageSquare className="h-4 w-4" strokeWidth={2} />
             {t('reply')}
