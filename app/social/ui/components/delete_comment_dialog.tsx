@@ -12,6 +12,8 @@ import Post from '#social/models/post'
 import Comment from '#social/models/comment'
 import { useForm } from '@inertiajs/react'
 import React from 'react'
+import { useToast } from '#common/ui/hooks/use_toast'
+import { CheckIcon } from 'lucide-react'
 
 export function DeleteCommentDialog({
   comment,
@@ -24,9 +26,21 @@ export function DeleteCommentDialog({
 }) {
   const t = useTranslate('social')
   const form = useForm({})
+  const { toast } = useToast()
 
   const handleDelete = () => {
-    form.delete(`/comments/${comment.id}`)
+    form.delete(`/comments/${comment.id}`, {
+      onSuccess: () => {
+        toast({
+          description: (
+            <div className="flex items-center space-x-2">
+              <CheckIcon className="text-emerald-700 h-4 w-4" />
+              <span>{t('comment_deleted')}</span>
+            </div>
+          ),
+        })
+      },
+    })
   }
 
   return (
