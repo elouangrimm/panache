@@ -2,6 +2,7 @@ import { BaseModel, beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Post from './post.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import string from '@adonisjs/core/helpers/string'
 
 export default class Room extends BaseModel {
   /**
@@ -14,7 +15,7 @@ export default class Room extends BaseModel {
 
   @beforeCreate()
   static assignId(model: Room) {
-    model.id = model.name.toLowerCase()
+    model.id = string.slug(model.name, { lower: true, replacement: '-' })
   }
 
   @column()

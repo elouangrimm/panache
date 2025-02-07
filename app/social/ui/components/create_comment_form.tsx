@@ -3,7 +3,7 @@ import { Textarea } from '#common/ui/components/textarea'
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
-import PostComment from '#social/models/post_comment'
+import Comment from '#social/models/comment'
 import { useForm } from '@inertiajs/react'
 import { CheckIcon } from 'lucide-react'
 import React, { FormEvent } from 'react'
@@ -14,7 +14,7 @@ export default function CreateCommentForm({
   onCancel,
 }: {
   post: Post
-  comment?: PostComment
+  comment?: Comment
   onCancel?: () => void
 }) {
   const t = useTranslate()
@@ -26,7 +26,7 @@ export default function CreateCommentForm({
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    form.post(`/rooms/${post.roomId}/posts/${post.id}/comments`, {
+    form.post(`/posts/${post.id}/comments`, {
       onSuccess: () => {
         toast({
           description: (

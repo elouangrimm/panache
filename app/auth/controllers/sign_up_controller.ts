@@ -7,7 +7,7 @@ export default class SignUpController {
     return inertia.render('auth/sign_up')
   }
 
-  async handle({ auth, request, response, session }: HttpContext) {
+  async handle({ auth, request, response, i18n, session }: HttpContext) {
     const signUpValidator = vine.compile(
       vine.object({
         firstName: vine.string().trim().minLength(1).maxLength(255),
@@ -44,7 +44,7 @@ export default class SignUpController {
       return response.redirect().back()
     }
 
-    const user = await User.create(payload)
+    const user = await User.create({ ...payload, locale: i18n.locale })
     await user.save()
 
     await auth.use('web').login(user)

@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'post_comments'
+  protected tableName = 'comments'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -21,7 +21,7 @@ export default class extends BaseSchema {
       table.string('text').notNullable()
       table.integer('likes_count').defaultTo('0')
       table.integer('comments_count').defaultTo('0')
-      table.string('comment_id').references('id').inTable('post_comments').nullable()
+      table.string('comment_id').references('id').inTable('comments').nullable().onDelete('cascade')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

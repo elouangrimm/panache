@@ -1,39 +1,42 @@
 import { Avatar, AvatarFallback, AvatarImage } from '#common/ui/components/avatar'
-import { Button, buttonVariants } from '#common/ui/components/button'
-import useTranslate, { useLocale } from '#common/ui/hooks/use_translate'
+import { buttonVariants } from '#common/ui/components/button'
+import useTranslate from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
 import Room from '#social/models/room'
 import { PostCard } from '#social/ui/components/post_card'
 import SocialLayout from '#social/ui/components/social_layout'
 import { SortBySelect } from '#social/ui/components/sort_by_select'
 import { Link } from '@inertiajs/react'
-import { formatDistanceToNow } from 'date-fns'
-import { MoreHorizontal, PlusCircleIcon, Users2Icon } from 'lucide-react'
+import { PlusCircleIcon } from 'lucide-react'
 import React from 'react'
-import { fr } from 'date-fns/locale'
 import { RoomInfo } from '#social/ui/components/room_info'
 import { JoinRoomButton } from '#social/ui/components/join_room_button'
+import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 
 export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
-  const locale = useLocale()
-
+  const formatDistanceToNow = useFormatDistanceToNow()
   const t = useTranslate()
 
   return (
     <SocialLayout>
       <main className="max-w-6xl mx-auto w-full p-4">
         <header>
-          <div className="h-20 bg-[#e3e2d4] rounded-lg border"></div>
-          <div className="flex flex-wrap gap-x-2 items-center justify-between pt-4 px-4">
+          <div className="h-24 bg-[#e3e2d4] rounded-lg border border-sidebar"></div>
+          <div className="flex flex-wrap gap-x-2 items-center justify-between pt-3 px-4">
             <div className="flex items-start gap-x-4">
-              <Avatar className="h-18 w-18 rounded-full -mt-8 border-4 border-white">
+              <Avatar className="h-24 w-24 rounded-full -mt-10 border-4 border-white">
                 <AvatarImage
                   src={`https://avatar.vercel.sh/${room.id}?rounded=60`}
                   alt={room.name}
                 />
               </Avatar>
-              <h2 className="text-3xl font-medium font-serif">{room.name}</h2>
+
+              <div>
+                <p className="font-mono font-semibold uppercase text-sm">{t('social.room')}</p>
+                <h2 className="text-3xl font-medium font-serif">{room.name}</h2>
+              </div>
             </div>
+
             <div className="flex flex-wrap gap-y-2 sm:gap-y-0 pt-4 sm:pt-0 gap-x-2">
               <Link
                 className={buttonVariants({ variant: 'secondary' })}
@@ -51,38 +54,43 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
             <SortBySelect />
 
             <div className="pt-4 grid gap-y-4">
-              {posts.map(function (post) {
-                const timeAgo = formatDistanceToNow(new Date(post.createdAt as unknown as string), {
-                  addSuffix: true,
-                  locale: locale === 'fr' ? fr : undefined,
-                })
-                return (
-                  <PostCard
-                    key={post.id}
-                    post={post}
-                    room={room}
-                    header={
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+              {posts.map((post) => (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  room={room}
+                  header={
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          className="hover:opacity-75 transition-opacity"
+                          href={`/profiles/${post.user.username}`}
+                        >
                           <Avatar className="h-6 w-6">
                             <AvatarImage
                               src={`https://avatar.vercel.sh/${post.user.username}`}
                               alt={post.user.username}
                             />
-                            <AvatarFallback>
-                              {post.user.username.slice(0, 2).toUpperCase()}
-                            </AvatarFallback>
                           </Avatar>
-                          <div className="flex items-center gap-1 text-[13px]">
-                            <span className="font-medium">{post.user.username}</span>
-                            <span className="text-muted-foreground">• {timeAgo}</span>
-                          </div>
+                        </Link>
+
+                        <div className="flex items-center gap-1 text-[13px]">
+                          <Link
+                            className="hover:text-emerald-900 transition-colors font-medium"
+                            href={`/profiles/${post.user.username}`}
+                          >
+                            {post.user.username}
+                          </Link>
+
+                          <span className="text-muted-foreground">
+                            • {formatDistanceToNow(post.createdAt as unknown as string)}
+                          </span>
                         </div>
                       </div>
-                    }
-                  />
-                )
-              })}
+                    </div>
+                  }
+                />
+              ))}
             </div>
           </div>
           <div className="col-span-1">

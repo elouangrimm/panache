@@ -5,7 +5,7 @@ import Room from './room.js'
 import BaseModel from '#common/models/base_model'
 import PostLike from './post_like.js'
 import PostCreated from '#social/events/post_created'
-import PostComment from './post_comment.js'
+import Comment from './comment.js'
 
 export default class Post extends BaseModel {
   @column()
@@ -41,8 +41,8 @@ export default class Post extends BaseModel {
   @column()
   declare likesCount: number
 
-  @hasMany(() => PostComment)
-  declare comments: HasMany<typeof PostComment>
+  @hasMany(() => Comment)
+  declare comments: HasMany<typeof Comment>
 
   @column()
   declare commentsCount: number

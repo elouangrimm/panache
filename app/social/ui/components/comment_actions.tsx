@@ -3,7 +3,7 @@ import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { cn } from '#common/ui/lib/utils'
 import Post from '#social/models/post'
-import PostComment from '#social/models/post_comment'
+import Comment from '#social/models/comment'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,12 +16,12 @@ import CreateCommentForm from './create_comment_form'
 
 export type CommentActionsProps = {
   post: Post
-  comment: PostComment
+  comment: Comment
 }
 
 export function CommentActions({ post, comment }: CommentActionsProps) {
-  const [likesCount, setLikesCount] = useState(post.likesCount)
-  const [userLikes, setUserLikes] = useState(post.likes?.length > 0 || false)
+  const [likesCount, setLikesCount] = useState(comment.likesCount)
+  const [userLikes, setUserLikes] = useState(comment.likes?.length > 0 || false)
   const [reply, setReply] = useState(false)
   const t = useTranslate('social')
   const { toast } = useToast()
@@ -33,7 +33,7 @@ export function CommentActions({ post, comment }: CommentActionsProps) {
       /**
        * Handle dislike.
        */
-      await fetch(`/rooms/${post.roomId}/posts/${post.id}/unlike`, {
+      await fetch(`/comments/${comment.id}/unlike`, {
         method: 'POST',
         credentials: 'include',
       })
@@ -43,7 +43,7 @@ export function CommentActions({ post, comment }: CommentActionsProps) {
       /**
        * Handle like.
        */
-      await fetch(`/rooms/${post.roomId}/posts/${post.id}/like`, {
+      await fetch(`/comments/${comment.id}/like`, {
         method: 'POST',
         credentials: 'include',
       })
@@ -76,7 +76,7 @@ export function CommentActions({ post, comment }: CommentActionsProps) {
           className={cn('!h-8', userLikes && 'text-red-800')}
           onClick={handleClickLike}
         >
-          <Heart className="h-4 w-4" strokeWidth={2} />
+          <Heart className="h-4 w-4" strokeWidth={2.5} />
           <span className="font-semibold text-xs">{likesCount}</span>
         </Button>
 

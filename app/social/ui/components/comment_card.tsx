@@ -1,48 +1,36 @@
 import { Card } from '#common/ui/components/card'
-import PostComment from '#social/models/post_comment'
+import Comment from '#social/models/comment'
 import React from 'react'
 import { CommentActions } from './comment_actions'
-import { Avatar, AvatarFallback, AvatarImage } from '#common/ui/components/avatar'
 import Post from '#social/models/post'
-import { formatDistanceToNow } from 'date-fns'
-import { fr } from 'date-fns/locale'
-import useTranslate, { useLocale } from '#common/ui/hooks/use_translate'
+import useTranslate from '#common/ui/hooks/use_translate'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '#common/ui/components/accordion'
+import { CommentActionsDropdown } from './comment_actions_dropdown'
+import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
+import { Avatar, AvatarImage } from '#common/ui/components/avatar'
+import { Link } from '@inertiajs/react'
 
 export type CommentCardProps = {
+  header?: React.ReactElement
   post: Post
-  comment: PostComment
+  comment: Comment
 }
 
-export function CommentCard({ post, comment }: CommentCardProps) {
+export function CommentCard({ header, post, comment }: CommentCardProps) {
   const t = useTranslate()
-  const locale = useLocale()
-  const timeAgo = formatDistanceToNow(new Date(post.createdAt as unknown as string), {
-    addSuffix: true,
-    locale: locale === 'fr' ? fr : undefined,
-  })
+  const formatDistanceToNow = useFormatDistanceToNow()
 
   return (
     <Card className="p-4" id={`comment-${comment.id}`}>
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-6 w-6">
-            <AvatarImage
-              src={`https://avatar.vercel.sh/${post.user.username}`}
-              alt={post.user.username}
-            />
-            <AvatarFallback>{post.user.username.slice(0, 2).toUpperCase()}</AvatarFallback>
-          </Avatar>
-          <div className="flex items-center gap-1 text-[13px]">
-            <span className="font-medium">{post.user.username}</span>
-            <span className="text-muted-foreground">• {timeAgo}</span>
-          </div>
-        </div>
+        {header}
+
+        <CommentActionsDropdown comment={comment} />
       </div>
 
       <p className="text-sm truncate pt-2">{comment.text}</p>
@@ -59,7 +47,38 @@ export function CommentCard({ post, comment }: CommentCardProps) {
             </AccordionTrigger>
             <AccordionContent className="space-y-4">
               {comment.comments.map((comment) => (
-                <CommentCard key={comment.id} comment={comment} post={post} />
+                <CommentCard
+                  key={comment.id}
+                  comment={comment}
+                  post={post}
+                  header={
+                    <div className="flex items-center gap-2">
+                      <Link
+                        className="hover:opacity-75 transition-opacity"
+                        href={`/profiles/${comment.user.username}`}
+                      >
+                        <Avatar className="h-6 w-6">
+                          <AvatarImage
+                            src={`https://avatar.vercel.sh/${comment.user.username}`}
+                            alt={comment.user.username}
+                          />
+                        </Avatar>
+                      </Link>
+
+                      <div className="flex items-center gap-1 text-[13px]">
+                        <Link
+                          className="hover:text-emerald-900 transition-colors font-medium"
+                          href={`/profiles/${comment.user.username}`}
+                        >
+                          {comment.user.username}
+                        </Link>
+                        <span className="text-muted-foreground">
+                          • {formatDistanceToNow(comment.createdAt as unknown as string)}
+                        </span>
+                      </div>
+                    </div>
+                  }
+                />
               ))}
             </AccordionContent>
           </AccordionItem>

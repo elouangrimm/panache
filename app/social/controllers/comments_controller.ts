@@ -1,5 +1,7 @@
 import WebhooksService from '#common/services/webhooks_service'
-import PostComment from '#social/models/post_comment'
+import CommentLike from '#social/models/comment_like'
+import Comment from '#social/models/comment'
+import CommentPolicy from '#social/policies/comment_policy'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
@@ -13,7 +15,7 @@ export default class CommentsController {
     )
 
     const data = await request.validateUsing(storeCommentValidator)
-    const postComment = new PostComment()
+    const postComment = new Comment()
     postComment.userId = auth.user!.id
     postComment.postId = params.postId
     postComment.text = data.text
@@ -23,9 +25,57 @@ export default class CommentsController {
     return response.redirect().back()
   }
 
+  async destroy({ bouncer, params, response }: HttpContext) {
+    const comment = await Comment.findBy('id', params.commentId)
+    if (comment === null) {
+      return response.notFound('Comment not found.')
+    }
+
+    if (await bouncer.with(CommentPolicy).denies('delete', comment)) {
+      return response.forbidden('Cannot delete this comment.')
+    }
+
+    await comment.delete()
+
+    return response.redirect().back()
+  }
+
+  async like({ auth, params, response }: HttpContext) {
+    const comment = await Comment.findBy('id', params.commentId)
+    if (comment === null) {
+      return response.notFound('Comment not found.')
+    }
+
+    await CommentLike.firstOrCreate({
+      userId: auth.user!.id,
+      commentId: comment.id,
+    })
+
+    return response.redirect().back()
+  }
+
+  async unlike({ auth, params, response }: HttpContext) {
+    const comment = await Comment.findBy('id', params.commentId)
+    if (comment === null) {
+      return response.notFound('Comment not found.')
+    }
+
+    const commentLike = await CommentLike.query()
+      .where('user_id', auth.user!.id)
+      .andWhere('comment_id', comment.id)
+      .first()
+    if (commentLike === null) {
+      return response.notFound('Like not found.')
+    }
+
+    await commentLike.delete()
+
+    return response.redirect().back()
+  }
+
   @inject()
   async report({ auth, params, request, response }: HttpContext, webhooksService: WebhooksService) {
-    const comment = await PostComment.findBy('id', params.commentId)
+    const comment = await Comment.findBy('id', params.commentId)
     if (comment === null) {
       return response.notFound('Comment not found.')
     }

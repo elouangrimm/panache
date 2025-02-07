@@ -11,8 +11,8 @@ import Room from '#social/models/room'
 import { useForm } from '@inertiajs/react'
 import RoomSelect from '../components/room_select'
 import Error from '#common/ui/components/error'
-import { formatDistanceToNow } from 'date-fns'
-import { fr } from 'date-fns/locale'
+import { useToast } from '#common/ui/hooks/use_toast'
+import { CheckIcon } from 'lucide-react'
 
 export default function Create() {
   const { rooms } = usePageProps<{ rooms: Room[] }>()
@@ -24,10 +24,22 @@ export default function Create() {
     link: '',
   })
   const t = useTranslate('social')
+  const { toast } = useToast()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    form.post(`/rooms/${roomId}/posts`)
+    form.post(`/rooms/${roomId}/posts`, {
+      onSuccess: () => {
+        toast({
+          description: (
+            <div className="flex items-center space-x-2">
+              <CheckIcon className="text-emerald-700 h-4 w-4" />
+              <span>{t('post_created')}</span>
+            </div>
+          ),
+        })
+      },
+    })
   }
 
   return (

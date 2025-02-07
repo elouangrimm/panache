@@ -2,7 +2,7 @@ import { BaseModel, beforeCreate, beforeDelete, belongsTo, column } from '@adoni
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import User from '#common/models/user'
 import db from '@adonisjs/lucid/services/db'
-import PostComment from '#social/models/post_comment'
+import Comment from './comment.js'
 
 export default class CommentLike extends BaseModel {
   @column({ isPrimary: true })
@@ -14,19 +14,19 @@ export default class CommentLike extends BaseModel {
   @column()
   declare userId: string
 
-  @belongsTo(() => PostComment)
-  declare comment: BelongsTo<typeof PostComment>
+  @belongsTo(() => Comment)
+  declare comment: BelongsTo<typeof Comment>
 
   @column()
   declare commentId: string
 
   @beforeCreate()
-  static async incrementLikesCount(comment: PostComment) {
-    await db.from('post_comments').where('id', comment.postId).increment('likes_count', 1)
+  static async incrementLikesCount(like: CommentLike) {
+    await db.from('comments').where('id', like.commentId).increment('likes_count', 1)
   }
 
   @beforeDelete()
-  static async decrementLikesCount(comment: PostComment) {
-    await db.from('post_comments').where('id', comment.postId).increment('likes_count', -1)
+  static async decrementLikesCount(like: CommentLike) {
+    await db.from('comments').where('id', like.commentId).increment('likes_count', -1)
   }
 }

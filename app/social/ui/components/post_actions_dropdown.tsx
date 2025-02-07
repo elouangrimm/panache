@@ -35,7 +35,7 @@ export function PostActionsDropdown({ post }: { post: Post }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
-          <DropdownMenuGroup>
+          <DropdownMenuGroup className="space-y-1">
             <DropdownMenuItem
               className="cursor-pointer text-yellow-700"
               onClick={() => setShowReportDialog(true)}

@@ -68,6 +68,28 @@ router
 
 const CommentsController = () => import('#social/controllers/comments_controller')
 router
-  .post('/rooms/:roomId/posts/:postId/comments', [CommentsController, 'store'])
+  .post('/posts/:postId/comments', [CommentsController, 'store'])
   .as('comments.store')
   .use(middleware.auth())
+router
+  .post('/comments/:commentId/like', [CommentsController, 'like'])
+  .as('comments.like')
+  .use(middleware.auth())
+router
+  .post('/comments/:commentId/unlike', [CommentsController, 'unlike'])
+  .as('comments.unlike')
+  .use(middleware.auth())
+router
+  .delete('/comments/:commentId', [CommentsController, 'destroy'])
+  .as('comments.destroy')
+  .use(middleware.auth())
+router
+  .post('/comments/:commentId/report', [CommentsController, 'report'])
+  .as('comments.report')
+  .use(middleware.auth())
+
+const ProfilesController = () => import('#social/controllers/profiles_controller')
+router
+  .get('/profiles/:username', [ProfilesController, 'show'])
+  .as('profiles.show')
+  .use(middleware.loadRooms())

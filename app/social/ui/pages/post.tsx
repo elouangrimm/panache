@@ -8,19 +8,14 @@ import { PostActionsDropdown } from '#social/ui/components/post_actions_dropdown
 import { RoomInfo } from '#social/ui/components/room_info'
 import SocialLayout from '#social/ui/components/social_layout'
 import { Link } from '@inertiajs/react'
-import { formatDistanceToNow } from 'date-fns'
-import { fr } from 'date-fns/locale'
 import React from 'react'
 import CreateCommentForm from '../components/create_comment_form'
 import { CommentCard } from '../components/comment_card'
+import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
-  const locale = useLocale()
-  const timeAgo = formatDistanceToNow(new Date(post.createdAt as unknown as string), {
-    addSuffix: true,
-    locale: locale === 'fr' ? fr : undefined,
-  })
+  const formatDistanceToNow = useFormatDistanceToNow()
 
   return (
     <SocialLayout>
@@ -35,10 +30,9 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                       src={`https://avatar.vercel.sh/${room.id}`}
                       alt={post.user.username}
                     />
-                    <AvatarFallback>{post.user.username.slice(0, 2).toUpperCase()}</AvatarFallback>
                   </Avatar>
                 </Link>
-                <div>
+                <div className="flex flex-col">
                   <div className="flex items-center gap-1 text-sm">
                     <Link
                       className="font-medium text-emerald-950 hover:text-emerald-700 transition-colors"
@@ -47,9 +41,18 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                       {room.name}
                     </Link>
 
-                    <span className="text-muted-foreground">• {timeAgo}</span>
+                    <span className="text-muted-foreground">
+                      • {formatDistanceToNow(post.createdAt as unknown as string)}
+                    </span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{post.user.username}</p>
+                  <div className="flex">
+                    <Link
+                      className="text-xs text-muted-foreground hover:text-emerald-800 transition-colors"
+                      href={`/profiles/${post.user.username}`}
+                    >
+                      {post.user.username}
+                    </Link>
+                  </div>
                 </div>
               </div>
               <PostActionsDropdown post={post} />
@@ -77,7 +80,38 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
               </div>
 
               {post.comments.map((comment) => (
-                <CommentCard key={comment.id} post={post} comment={comment} />
+                <CommentCard
+                  header={
+                    <div className="flex items-center gap-2">
+                      <Link
+                        className="hover:opacity-75 transition-opacity"
+                        href={`/profiles/${comment.user.username}`}
+                      >
+                        <Avatar className="h-6 w-6">
+                          <AvatarImage
+                            src={`https://avatar.vercel.sh/${comment.user.username}`}
+                            alt={comment.user.username}
+                          />
+                        </Avatar>
+                      </Link>
+
+                      <div className="flex items-center gap-1 text-[13px]">
+                        <Link
+                          className="hover:text-emerald-900 transition-colors font-medium"
+                          href={`/profiles/${comment.user.username}`}
+                        >
+                          {comment.user.username}
+                        </Link>
+                        <span className="text-muted-foreground">
+                          • {formatDistanceToNow(comment.createdAt as unknown as string)}
+                        </span>
+                      </div>
+                    </div>
+                  }
+                  key={comment.id}
+                  post={post}
+                  comment={comment}
+                />
               ))}
             </section>
           </div>

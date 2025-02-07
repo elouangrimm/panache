@@ -9,6 +9,7 @@ const buttonVariants = cva('btn', {
     variant: {
       default: 'btn-primary',
       danger: 'btn-danger',
+      warning: 'btn-warning',
       outline:
         'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
       secondary: 'btn-secondary',

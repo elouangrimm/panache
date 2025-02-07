@@ -4,10 +4,14 @@ import User from '#common/models/user'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Post from './post.js'
 import db from '@adonisjs/lucid/services/db'
+import CommentLike from '#social/models/comment_like'
 
-export default class PostComment extends BaseModel {
+export default class Comment extends BaseModel {
   @column()
   declare text: string
+
+  @column()
+  declare likesCount: number
 
   @column()
   declare commentsCount: number
@@ -15,8 +19,8 @@ export default class PostComment extends BaseModel {
   @column()
   declare commentId: string | null
 
-  @belongsTo(() => PostComment)
-  declare comment: BelongsTo<typeof PostComment>
+  @belongsTo(() => Comment)
+  declare comment: BelongsTo<typeof Comment>
 
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
@@ -30,24 +34,31 @@ export default class PostComment extends BaseModel {
   @column()
   declare postId: string
 
-  @hasMany(() => PostComment, { foreignKey: 'commentId' })
-  declare comments: HasMany<typeof PostComment>
+  @hasMany(() => CommentLike)
+  declare likes: HasMany<typeof CommentLike>
+
+  @hasMany(() => Comment)
+  declare comments: HasMany<typeof Comment>
 
   @beforeCreate()
-  static async incrementCommentsCount(comment: PostComment) {
+  static async incrementCommentsCount(comment: Comment) {
     if (comment.commentId) {
-      await db.from('post_comments').where('id', comment.id).increment('comments_count', 1)
+      await db.from('comments').where('id', comment.id).increment('comments_count', 1)
     }
 
     await db.from('posts').where('id', comment.postId).increment('comments_count', 1)
   }
 
   @beforeDelete()
-  static async decrementCommentsCount(comment: PostComment) {
+  static async decrementCommentsCount(comment: Comment) {
     if (comment.commentId) {
-      await db.from('post_comments').where('id', comment.id).increment('comments_count', -1)
+      await db.from('comments').where('id', comment.id).increment('comments_count', -1)
     }
 
-    await db.from('posts').where('id', comment.postId).increment('comments_count', -1)
+    const subcomments = await Comment.query().where('comment_id', comment.id)
+    await db
+      .from('posts')
+      .where('id', comment.postId)
+      .increment('comments_count', -1 + -subcomments.length)
   }
 }

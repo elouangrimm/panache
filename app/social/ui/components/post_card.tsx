@@ -21,16 +21,16 @@ export function PostCard({ header, post }: PostCardProps) {
           {/* Content */}
           <div className="pt-2">
             <h2 className="font-medium">{post.title}</h2>
-            {/* {post.link && (
-            <a
-              href={post.link}
-              className="text-blue-600 hover:underline break-all"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {post.link.length > 60 ? `${post.link.slice(0, 60)}...` : post.link}
-            </a>
-          )} */}
+            {post.link && (
+              <a
+                href={post.link}
+                className="text-blue-600 hover:underline break-all"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {post.link.length > 60 ? `${post.link.slice(0, 60)}...` : post.link}
+              </a>
+            )}
           </div>
 
           {post.text && <p className="text-sm truncate">{post.text}</p>}

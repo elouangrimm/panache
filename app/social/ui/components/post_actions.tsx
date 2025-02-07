@@ -70,7 +70,7 @@ export function PostActions({ post }: PostCardProps) {
         className={cn('!h-8', userLikes && 'text-red-800')}
         onClick={handleClickLike}
       >
-        <Heart className="h-4 w-4" strokeWidth={2} />
+        <Heart className="h-4 w-4" strokeWidth={2.5} />
         <span className="font-semibold text-xs">{likesCount}</span>
       </Button>
 

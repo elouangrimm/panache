@@ -99,8 +99,33 @@ export default class PostsController {
 
     await post.load('comments', (query) => {
       query.whereNull('comment_id')
+      query.preload('user', (query) => {
+        query.select('username')
+      })
 
-      query.preload('comments')
+      query.preload('comments', (query) => {
+        query.preload('user', (query) => {
+          query.select('username')
+        })
+
+        /**
+         * Load post likes.
+         */
+        if (auth.isAuthenticated) {
+          query.preload('likes', (query) => {
+            query.where('user_id', auth.user!.id)
+          })
+        }
+      })
+
+      /**
+       * Load comment likes.
+       */
+      if (auth.isAuthenticated) {
+        query.preload('likes', (query) => {
+          query.where('user_id', auth.user!.id)
+        })
+      }
     })
 
     let isMember = false
@@ -163,7 +188,7 @@ export default class PostsController {
 
     await post.delete()
 
-    return response.redirect().toRoute('rooms.show', { roomId: params.roomId })
+    return response.redirect().toRoute('rooms.show', [params.roomId])
   }
 
   async like({ auth, params, response }: HttpContext) {

@@ -7,51 +7,38 @@ import {
   DialogHeader,
   DialogTitle,
 } from '#common/ui/components/dialog'
-import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
+import Comment from '#social/models/comment'
 import { useForm } from '@inertiajs/react'
-import { CheckIcon } from 'lucide-react'
 import React from 'react'
 
-export function DeletePostDialog({
-  post,
+export function DeleteCommentDialog({
+  comment,
   open,
   setOpen,
 }: {
-  post: Post
+  comment: Comment
   open: boolean
   setOpen: (value: boolean) => void
 }) {
   const t = useTranslate('social')
   const form = useForm({})
-  const { toast } = useToast()
 
   const handleDelete = () => {
-    form.delete(`/rooms/${post.roomId}/posts/${post.id}`, {
-      onSuccess: () => {
-        toast({
-          description: (
-            <div className="flex items-center space-x-2">
-              <CheckIcon className="text-emerald-700 h-4 w-4" />
-              <span>{t('post_deleted')}</span>
-            </div>
-          ),
-        })
-      },
-    })
+    form.delete(`/comments/${comment.id}`)
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{t('delete_post')}</DialogTitle>
-          <DialogDescription>{t('delete_post_description')}</DialogDescription>
+          <DialogTitle>{t('delete_comment')}</DialogTitle>
+          <DialogDescription>{t('delete_comment_description')}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="danger" onClick={handleDelete}>
-            {t('delete_post')}
+            {t('delete_comment')}
           </Button>
         </DialogFooter>
       </DialogContent>

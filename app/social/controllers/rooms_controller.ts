@@ -3,12 +3,23 @@ import RoomMember from '#social/models/room_member'
 import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
+import string from '@adonisjs/core/helpers/string'
 
 export default class RoomsController {
   async store({ i18n, request, response }: HttpContext) {
     const storeRoomValidator = vine.compile(
       vine.object({
-        name: vine.string().minLength(3),
+        name: vine
+          .string()
+          .minLength(3)
+          .unique(async (db, value) => {
+            const roomFoundByName = await db
+              .from('rooms')
+              .where('name', value)
+              .orWhere('id', string.slug(value, { lower: true, replacement: '-' }))
+              .first()
+            return !roomFoundByName
+          }),
         description: vine.string().minLength(10),
       })
     )
@@ -21,7 +32,7 @@ export default class RoomsController {
     room.lang = i18n.locale
     await room.save()
 
-    return response.redirect().toRoute('rooms.show', { roomId: room.id })
+    return response.redirect().toRoute('rooms.show', [room.id])
   }
 
   async show({ auth, params, inertia, request, response }: HttpContext) {

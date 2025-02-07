@@ -5,5 +5,7 @@
   "quit": "Quitter",
   "created": "Créé",
   "cancel": "Annuler",
-  "submit": "Envoyer"
+  "submit": "Envoyer",
+  "delete": "Supprimer",
+  "description": "Description"
 }
