@@ -73,7 +73,7 @@ export default class PostsController {
     return inertia.render('social/feed', { rooms, posts })
   }
 
-  async show({ auth, params, response, inertia }: HttpContext) {
+  async show({ auth, params, request, response, inertia }: HttpContext) {
     const room = await Room.findBy('id', params.roomId)
     if (room === null) {
       return response.notFound('Room not found.')
@@ -98,6 +98,18 @@ export default class PostsController {
     }
 
     await post.load('comments', (query) => {
+      const sortMethod = request.input('method', 'popular')
+
+      // Sort posts based on the selected method
+      switch (sortMethod) {
+        case 'popular':
+          query.orderBy('likes_count', 'desc')
+          break
+        case 'new':
+          query.orderBy('created_at', 'desc')
+          break
+      }
+
       query.whereNull('comment_id')
       query.preload('user', (query) => {
         query.select('username')

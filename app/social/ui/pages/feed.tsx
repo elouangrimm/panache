@@ -25,15 +25,16 @@ export default function Landing({ room, posts }: { room: Room; posts: Post[] }) 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Link
-                      className="h-6 w-6 hover:opacity-75 transition-opacity"
+                      className="hover:opacity-75 transition-opacity"
                       href={`/rooms/${post.roomId}`}
                     >
-                      <Avatar>
+                      <Avatar className="h-8 w-8">
                         <AvatarImage
-                          src={`https://avatar.vercel.sh/${post.roomId}?rounded=60`}
+                          src={`https://avatar.vercel.sh/${post.roomId}?rounded=100`}
                           alt={post.roomId}
+                          width={32}
+                          height={32}
                         />
-                        <AvatarFallback>{post.roomId.slice(0, 2).toUpperCase()}</AvatarFallback>
                       </Avatar>
                     </Link>
                     <div className="flex items-center gap-1 text-[13px]">

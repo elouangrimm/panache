@@ -12,6 +12,7 @@ import React from 'react'
 import CreateCommentForm from '../components/create_comment_form'
 import { CommentCard } from '../components/comment_card'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
+import { SortCommentSelect } from '../components/sort_comment_select'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
@@ -78,6 +79,8 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                 <h3 className="font-medium">{t('social.comments')}</h3>
                 <CreateCommentForm post={post} />
               </div>
+
+              <SortCommentSelect />
 
               {post.comments.map((comment) => (
                 <CommentCard

@@ -1,16 +1,18 @@
+import React from 'react'
 import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import useTranslate from '#common/ui/hooks/use_translate'
-import Post from '#social/models/post'
-import Room from '#social/models/room'
 import { PostCard } from '#social/ui/components/post_card'
 import SocialLayout from '#social/ui/components/social_layout'
-import React from 'react'
 import User from '#common/models/user'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '#common/ui/components/tabs'
 import { CommentCard } from '../components/comment_card'
+import { Link } from '@inertiajs/react'
+import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
+import { AvatarFallback } from '@radix-ui/react-avatar'
 
-export default function Profile({ profile, room }: { profile: User; room: Room; posts: Post[] }) {
+export default function Profile({ profile }: { profile: User }) {
   const t = useTranslate()
+  const formatDistanceToNow = useFormatDistanceToNow()
 
   return (
     <SocialLayout>
@@ -40,7 +42,41 @@ export default function Profile({ profile, room }: { profile: User; room: Room; 
 
           <TabsContent className="w-full pt-4 grid gap-y-4" value="posts">
             {profile.posts.map((post) => (
-              <PostCard key={post.id} post={post} room={post.room} />
+              <PostCard
+                key={post.id}
+                post={post}
+                room={post.room}
+                header={
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        className="hover:opacity-75 transition-opacity"
+                        href={`/rooms/${post.roomId}`}
+                      >
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage
+                            src={`https://avatar.vercel.sh/${post.roomId}?rounded=100`}
+                            alt={post.roomId}
+                            width={32}
+                            height={32}
+                          />
+                        </Avatar>
+                      </Link>
+                      <div className="flex items-center gap-1 text-[13px]">
+                        <Link
+                          className="font-medium hover:text-emerald-600 transition-colors"
+                          href={`/rooms/${post.roomId}`}
+                        >
+                          {post.room.name}
+                        </Link>
+                        <span className="text-muted-foreground">
+                          • {formatDistanceToNow(post.createdAt as unknown as string)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                }
+              />
             ))}
           </TabsContent>
 
