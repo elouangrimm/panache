@@ -38,14 +38,14 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
 
       <CardContent>
         <form className="grid gap-5" onSubmit={handleSubmit}>
-          <Tabs defaultValue="email">
+          <Tabs defaultValue="username">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="email">{t('email_label')}</TabsTrigger>
               <TabsTrigger value="username">{t('username_label')}</TabsTrigger>
+              <TabsTrigger value="email">{t('email_label')}</TabsTrigger>
             </TabsList>
 
             {/* Username Field */}
-            <TabsContent className="grid gap-2 pt-4" value="email">
+            <TabsContent className="grid gap-2 pt-4" value="username">
               <Label htmlFor="username">{t('username_label')}</Label>
               <div className="relative">
                 <Input
@@ -66,7 +66,7 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
             </TabsContent>
 
             {/* Email address field */}
-            <TabsContent className="grid gap-2 pt-4" value="username">
+            <TabsContent className="grid gap-2 pt-4" value="email">
               <Label htmlFor="email">{t('email_label')}</Label>
               <Input
                 id="email"
