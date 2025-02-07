@@ -5,7 +5,7 @@ import BaseModel from '#common/models/base_model'
 import PostLike from './post_like.js'
 import PostCreated from '#social/events/post_created'
 import Comment from './comment.js'
-import Profile from '#models/profile'
+import Profile from './profile.js'
 
 export default class Post extends BaseModel {
   @column()

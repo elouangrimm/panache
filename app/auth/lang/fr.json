@@ -20,9 +20,13 @@
   "privacy_policy": "Politique de confidentialité",
   "existing_account_prompt": "Déjà un compte ?",
   "forgot_password_title": "Mot de passe oublié",
-  "reset_password_description": "Renseignez votre adresse électronique pour réinitialiser votre mot de passe.",
+  "forgot_password_description": "Renseignez votre adresse électronique pour réinitialiser votre mot de passe.",
+  "reset_password_title": "Réinitialiser le mot de passe",
+  "reset_password_description": "Tapez votre nouveau mot de passse ci-dessous.",
   "send_reset_link": "Recevoir un lien de réinitialisation",
   "check_your_email": "Vérifiez vos courriels",
   "change_password": "Changer de mot de passe",
-  "invalid_credentials": "Identifiants invalides"
+  "invalid_credentials": "Identifiants invalides",
+  "email_sent_title": "Courriel envoyé",
+  "email_sent_description": "Un courriel de réinitialisation de mot de passe a été envoyé à l'adresse électronique associée à votre compte."
 }

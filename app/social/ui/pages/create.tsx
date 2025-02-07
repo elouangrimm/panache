@@ -17,7 +17,7 @@ import { CheckIcon } from 'lucide-react'
 export default function Create() {
   const { rooms } = usePageProps<{ rooms: Room[] }>()
   const { query } = usePageProps<{ query: Record<string, string> }>()
-  const [roomId, setRoomId] = React.useState(query.room || rooms[0].id)
+  const [roomId, setRoomId] = React.useState(query.room || rooms.length > 0 ? rooms[0].id : '')
   const form = useForm({
     title: '',
     text: '',

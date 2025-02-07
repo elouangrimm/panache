@@ -68,6 +68,16 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
             </a>
           ) : null}
           {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
+          {post.image ? (
+            <div className="w-full">
+              <img
+                loading="lazy"
+                className="rounded-lg my-2 w-auto max-h-96"
+                src={post.image}
+                alt={post.title + 's Image'}
+              />
+            </div>
+          ) : null}
 
           <div className="pt-2">
             <PostActions post={post} />

@@ -20,9 +20,13 @@
   "privacy_policy": "Privacy Policy",
   "existing_account_prompt": "Already have an account?",
   "forgot_password_title": "Forgot Password",
-  "reset_password_description": "Enter your email address to reset your password.",
+  "forgot_password_description": "Enter your email address to reset your password.",
+  "reset_password_title": "Reset Password",
+  "reset_password_description": "Type your new password below.",
   "send_reset_link": "Send Reset Link",
   "check_your_email": "Check Your Email",
   "change_password": "Change Password",
-  "invalid_credentials": "Invalid credentials"
+  "invalid_credentials": "Invalid credentials",
+  "email_sent_title": "Email sent",
+  "email_sent_description": "A password reset email has been sent to the email address associated with your account."
 }

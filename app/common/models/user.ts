@@ -4,7 +4,7 @@ import { column, hasMany, hasOne } from '@adonisjs/lucid/orm'
 import type { HasMany, HasOne } from '@adonisjs/lucid/types/relations'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import BaseModel from './base_model.js'
-import Profile from '#models/profile'
+import Profile from '#social/models/profile'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['username', 'email'],
@@ -15,6 +15,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   /**
    * Regular columns.
    */
+  @column()
+  declare gender: string
+
   @column()
   declare firstName: string
 

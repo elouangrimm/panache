@@ -4,7 +4,7 @@ import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Post from './post.js'
 import db from '@adonisjs/lucid/services/db'
 import CommentLike from '#social/models/comment_like'
-import Profile from '#models/profile'
+import Profile from './profile.js'
 
 export default class Comment extends BaseModel {
   /**

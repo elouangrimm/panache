@@ -10,6 +10,7 @@ export default class SignUpController {
   async handle({ auth, request, response, i18n, session }: HttpContext) {
     const signUpValidator = vine.compile(
       vine.object({
+        gender: vine.enum(['male', 'female']),
         firstName: vine.string().trim().minLength(1).maxLength(255),
         lastName: vine.string().trim().minLength(1).maxLength(255),
         username: vine

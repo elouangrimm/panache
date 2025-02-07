@@ -22,8 +22,20 @@ const SignOutController = () => import('#auth/controllers/sign_out_controller')
 router.post('/auth/sign_out', [SignOutController, 'handle'])
 
 const ForgotPasswordController = () => import('#auth/controllers/forgot_password_controller')
-router.get('/auth/forgot_password', [ForgotPasswordController, 'show'])
-router.post('/auth/forgot_password', [ForgotPasswordController, 'handle'])
+router
+  .get('/auth/forgot_password', [ForgotPasswordController, 'show'])
+  .as('auth.forgot_password.show')
+router
+  .post('/auth/forgot_password', [ForgotPasswordController, 'handle'])
+  .as('auth.forgot_password.handle')
+
+const ResetPasswordController = () => import('#auth/controllers/reset_password_controller')
+router
+  .get('/auth/reset_password/:email', [ResetPasswordController, 'show'])
+  .as('auth.reset_password.show')
+router
+  .post('/auth/reset_password/:email', [ResetPasswordController, 'handle'])
+  .as('auth.reset_password.handle')
 
 const RoomsController = () => import('#social/controllers/rooms_controller')
 

@@ -57,5 +57,6 @@
   "profile": "Profile",
   "posts": "Posts",
   "no_results_title": "Hmm... Sorry, but we could not find any result for this keyword.",
-  "no_results_description": "Please double-check your spelling, or try different keywords"
+  "no_results_description": "Please double-check your spelling, or try different keywords",
+  "gender": "Genre"
 }

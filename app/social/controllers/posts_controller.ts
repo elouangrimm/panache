@@ -198,7 +198,7 @@ export default class PostsController {
         link: vine.string().url().normalizeUrl().maxLength(255).optional(),
         image: vine
           .file({
-            size: '2MB',
+            size: '5MB',
             extnames: ['png', 'jpg', 'jpeg', 'webp', 'gif'],
           })
           .optional(),

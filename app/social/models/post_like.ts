@@ -2,7 +2,7 @@ import { BaseModel, beforeCreate, beforeDelete, belongsTo, column } from '@adoni
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import db from '@adonisjs/lucid/services/db'
 import Post from './post.js'
-import Profile from '#models/profile'
+import Profile from './profile.js'
 
 export default class PostLike extends BaseModel {
   @column({ isPrimary: true })

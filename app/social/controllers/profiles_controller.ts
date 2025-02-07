@@ -1,4 +1,4 @@
-import Profile from '#models/profile'
+import Profile from '#social/models/profile'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class ProfilesController {

@@ -37,11 +37,12 @@ export function PostCard({ header, post }: PostCardProps) {
 
           {/* Image */}
           {post.image && (
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+            <div className="flex justify-center items-center w-full my-2">
               <img
                 src={post.image || '/placeholder.svg'}
                 alt={post.title}
-                className="object-cover"
+                className="object-cover rounded-lg overflow-hidden w-auto max-h-72"
+                loading="lazy"
               />
             </div>
           )}

@@ -13,10 +13,20 @@ import { Label } from '#common/ui/components/label'
 import { Link, useForm } from '@inertiajs/react'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { Error } from '#common/ui/components/error'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '#common/ui/components/select'
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  const t = useTranslate('auth')
+  const t = useTranslate()
   const form = useForm({
+    gender: 'male',
     firstName: '',
     lastName: '',
     email: '',
@@ -32,44 +42,65 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-normal font-serif">{t('sign_up_title')}</CardTitle>
-          <CardDescription>{t('sign_up_description')}</CardDescription>
+          <CardTitle className="text-4xl font-normal font-serif">
+            {t('auth.sign_up_title')}
+          </CardTitle>
+          <CardDescription>{t('auth.sign_up_description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="grid gap-5">
-              <div className="grid sm:grid-cols-2 gap-2">
-                <div className="grid gap-2">
-                  <Label htmlFor="firstName">{t('first_name_label')}</Label>
-                  <Input
-                    autoComplete="panache-firstname"
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    placeholder="Cyrano"
-                    required
-                    value={form.data.firstName}
-                    onChange={(e) => form.setData('firstName', e.target.value)}
-                  />
-                  <Error errorKey="firstName" />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="lastName">{t('last_name_label')}</Label>
-                  <Input
-                    autoComplete="panache-lastName"
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    placeholder="de Bergerac"
-                    required
-                    value={form.data.lastName}
-                    onChange={(e) => form.setData('lastName', e.target.value)}
-                  />
-                  <Error errorKey="lastName" />
+              <div className="flex flex-col sm:flex-row sm:items-end gap-2">
+                <Select
+                  value={form.data.gender}
+                  onValueChange={(value) => form.setData('gender', value)}
+                >
+                  <SelectTrigger className="!w-auto min-w-20">
+                    <SelectValue placeholder={t('common.gender')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>{t('common.gender')}</SelectLabel>
+                      <SelectItem value="female">{t('common.female')}</SelectItem>
+                      <SelectItem value="male">{t('common.male')}</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+
+                <div className="grid sm:grid-cols-2 gap-2 mt-2 sm:mt-O">
+                  <div className="grid gap-2">
+                    <Label htmlFor="firstName">{t('auth.first_name_label')}</Label>
+                    <Input
+                      autoComplete="panache-firstname"
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      placeholder="Cyrano"
+                      required
+                      value={form.data.firstName}
+                      onChange={(e) => form.setData('firstName', e.target.value)}
+                    />
+                    <Error errorKey="firstName" />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="lastName">{t('auth.last_name_label')}</Label>
+                    <Input
+                      autoComplete="panache-lastName"
+                      id="lastName"
+                      name="lastName"
+                      type="text"
+                      placeholder="de Bergerac"
+                      required
+                      value={form.data.lastName}
+                      onChange={(e) => form.setData('lastName', e.target.value)}
+                    />
+                    <Error errorKey="lastName" />
+                  </div>
                 </div>
               </div>
+
               <div className="grid gap-2">
-                <Label htmlFor="username">{t('username_label')}</Label>
+                <Label htmlFor="username">{t('auth.username_label')}</Label>
                 <div className="relative">
                   <Input
                     autoComplete="panache-username"
@@ -82,26 +113,26 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                     value={form.data.username}
                     onChange={(e) => form.setData('username', e.target.value)}
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                  <span className="hidden sm:absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                     @panache.so
                   </span>
                 </div>
                 <Error errorKey="username" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="email">{t('email_label')}</Label>
+                <Label htmlFor="email">{t('auth.email_label')}</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder={t('email_placeholder')}
+                  placeholder={t('auth.email_placeholder')}
                   value={form.data.email}
                   onChange={(e) => form.setData('email', e.target.value)}
                 />
                 <Error errorKey="email" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">{t('password_label')}</Label>
+                <Label htmlFor="password">{t('auth.password_label')}</Label>
                 <Input
                   autoComplete="panache-password"
                   id="password"
@@ -114,7 +145,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 <Error errorKey="password" />
               </div>
               <Button type="submit" className="!w-full">
-                {t('sign_up')}
+                {t('auth.sign_up')}
               </Button>
               {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
                 <Button
@@ -128,6 +159,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                       username: 'cyrano.bergerac',
                       email: 'cyrano.bergerac@exemple.fr',
                       password: 'cyrano.bergerac@exemple.fr',
+                      gender: 'male',
                     })
                   }}
                 >
@@ -136,12 +168,12 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
               )}
             </div>
             <div className="text-center text-sm text-muted-foreground pt-4">
-              {t('existing_account_prompt')}{' '}
+              {t('auth.existing_account_prompt')}{' '}
               <Link
                 href="/auth/sign_in"
                 className="underline underline-offset-4 text-emerald-700 hover:text-emerald-600 transition-colors"
               >
-                {t('sign_in')}
+                {t('auth.sign_in')}
               </Link>
             </div>
           </form>
