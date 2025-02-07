@@ -56,12 +56,12 @@ export function CommentCard({ header, post, comment, hideReply }: CommentCardPro
                     <div className="flex items-center gap-2">
                       <Link
                         className="hover:opacity-75 transition-opacity"
-                        href={`/profiles/${comment.user.username}`}
+                        href={`/profiles/${comment.profile.username}`}
                       >
                         <Avatar className="h-6 w-6">
                           <AvatarImage
-                            src={`https://avatar.vercel.sh/${comment.user.username}`}
-                            alt={comment.user.username}
+                            src={`https://avatar.vercel.sh/${comment.profile.username}`}
+                            alt={comment.profile.username}
                           />
                         </Avatar>
                       </Link>
@@ -69,9 +69,9 @@ export function CommentCard({ header, post, comment, hideReply }: CommentCardPro
                       <div className="flex items-center gap-1 text-[13px]">
                         <Link
                           className="hover:text-emerald-900 transition-colors font-medium"
-                          href={`/profiles/${comment.user.username}`}
+                          href={`/profiles/${comment.profile.username}`}
                         >
-                          {comment.user.username}
+                          {comment.profile.username}
                         </Link>
                         <span className="text-muted-foreground">
                           • {formatDistanceToNow(comment.createdAt as unknown as string)}

@@ -1,12 +1,15 @@
 import { beforeCreate, beforeDelete, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import BaseModel from '#common/models/base_model'
-import User from '#common/models/user'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Post from './post.js'
 import db from '@adonisjs/lucid/services/db'
 import CommentLike from '#social/models/comment_like'
+import Profile from '#models/profile'
 
 export default class Comment extends BaseModel {
+  /**
+   * Regular columns
+   */
   @column()
   declare text: string
 
@@ -16,17 +19,20 @@ export default class Comment extends BaseModel {
   @column()
   declare commentsCount: number
 
+  /**
+   * Relationships
+   */
   @column()
   declare commentId: string | null
 
   @belongsTo(() => Comment)
   declare comment: BelongsTo<typeof Comment>
 
-  @belongsTo(() => User)
-  declare user: BelongsTo<typeof User>
+  @belongsTo(() => Profile)
+  declare profile: BelongsTo<typeof Profile>
 
   @column()
-  declare userId: string
+  declare profileId: string
 
   @belongsTo(() => Post)
   declare post: BelongsTo<typeof Post>
@@ -40,6 +46,9 @@ export default class Comment extends BaseModel {
   @hasMany(() => Comment)
   declare comments: HasMany<typeof Comment>
 
+  /**
+   * Hooks
+   */
   @beforeCreate()
   static async incrementCommentsCount(comment: Comment) {
     if (comment.commentId) {

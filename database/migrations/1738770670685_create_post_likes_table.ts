@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.string('user_id').references('id').inTable('users').onDelete('cascade')
+      table.string('profile_id').references('id').inTable('profiles').onDelete('cascade')
       table.string('post_id').references('id').inTable('posts').onDelete('cascade')
 
       table.timestamp('created_at')

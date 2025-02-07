@@ -1,12 +1,10 @@
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { column, hasMany } from '@adonisjs/lucid/orm'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { column, hasMany, hasOne } from '@adonisjs/lucid/orm'
+import type { HasMany, HasOne } from '@adonisjs/lucid/types/relations'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import BaseModel from './base_model.js'
-import Post from '#social/models/post'
-import PostLike from '#social/models/post_like'
-import Comment from '#social/models/comment'
+import Profile from '#models/profile'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['username', 'email'],
@@ -14,6 +12,9 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 })
 
 export default class User extends compose(BaseModel, AuthFinder) {
+  /**
+   * Regular columns.
+   */
   @column()
   declare firstName: string
 
@@ -35,12 +36,15 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column({ serializeAs: null })
   declare password: string
 
-  @hasMany(() => Post)
-  declare posts: HasMany<typeof Post>
+  /**
+   * Relationships.
+   */
+  @hasOne(() => Profile)
+  declare currentProfile: HasOne<typeof Profile>
 
-  @hasMany(() => Comment)
-  declare comments: HasMany<typeof Comment>
+  @column()
+  declare currentProfileId: string | null
 
-  @hasMany(() => PostLike)
-  declare likes: HasMany<typeof PostLike>
+  @hasMany(() => Profile)
+  declare profiles: HasMany<typeof Profile>
 }

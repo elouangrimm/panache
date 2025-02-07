@@ -61,12 +61,12 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
                     <div className="flex items-center gap-2">
                       <Link
                         className="hover:opacity-75 transition-opacity"
-                        href={`/profiles/${post.user.username}`}
+                        href={`/profiles/${post.profile.username}`}
                       >
                         <Avatar className="h-6 w-6">
                           <AvatarImage
-                            src={`https://avatar.vercel.sh/${post.user.username}`}
-                            alt={post.user.username}
+                            src={`https://avatar.vercel.sh/${post.profile.username}`}
+                            alt={post.profile.username}
                           />
                         </Avatar>
                       </Link>
@@ -74,9 +74,9 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
                       <div className="flex items-center gap-1 text-[13px]">
                         <Link
                           className="hover:text-emerald-900 transition-colors font-medium"
-                          href={`/profiles/${post.user.username}`}
+                          href={`/profiles/${post.profile.username}`}
                         >
-                          {post.user.username}
+                          {post.profile.username}
                         </Link>
 
                         <span className="text-muted-foreground">

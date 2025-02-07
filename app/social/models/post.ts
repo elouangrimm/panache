@@ -1,4 +1,3 @@
-import User from '#common/models/user'
 import { afterCreate, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Room from './room.js'
@@ -6,6 +5,7 @@ import BaseModel from '#common/models/base_model'
 import PostLike from './post_like.js'
 import PostCreated from '#social/events/post_created'
 import Comment from './comment.js'
+import Profile from '#models/profile'
 
 export default class Post extends BaseModel {
   @column()
@@ -23,11 +23,11 @@ export default class Post extends BaseModel {
   @column()
   declare ogImage: string | null
 
-  @belongsTo(() => User)
-  declare user: BelongsTo<typeof User>
+  @belongsTo(() => Profile)
+  declare profile: BelongsTo<typeof Profile>
 
   @column()
-  declare userId: string
+  declare profileId: string
 
   @belongsTo(() => Room)
   declare room: BelongsTo<typeof Room>

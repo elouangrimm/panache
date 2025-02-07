@@ -1,18 +1,18 @@
 import { BaseModel, beforeCreate, beforeDelete, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import User from '#common/models/user'
 import db from '@adonisjs/lucid/services/db'
 import Comment from './comment.js'
+import Profile from '#models/profile'
 
 export default class CommentLike extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @belongsTo(() => User)
-  declare user: BelongsTo<typeof User>
+  @belongsTo(() => Profile)
+  declare profile: BelongsTo<typeof Profile>
 
   @column()
-  declare userId: string
+  declare profileId: string
 
   @belongsTo(() => Comment)
   declare comment: BelongsTo<typeof Comment>

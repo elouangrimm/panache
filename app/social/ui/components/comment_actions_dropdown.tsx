@@ -54,7 +54,7 @@ export function CommentActionsDropdown({ comment }: { comment: Comment }) {
               <span>{t('social.report')}</span>
             </DropdownMenuItem>
 
-            {(user?.role === 'admin' || user?.id === comment.userId) && (
+            {(user?.role === 'admin' || user?.currentProfileId === comment.profileId) && (
               <DropdownMenuItem
                 className="cursor-pointer text-red-700"
                 onClick={() => setShowDeleteDialog(true)}

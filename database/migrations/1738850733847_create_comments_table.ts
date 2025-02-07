@@ -7,9 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').primary()
       table
-        .string('user_id')
+        .string('profile_id')
         .references('id')
-        .inTable('users')
+        .inTable('profiles')
         .onUpdate('cascade')
         .onDelete('cascade')
       table

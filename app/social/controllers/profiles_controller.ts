@@ -1,9 +1,9 @@
-import User from '#common/models/user'
+import Profile from '#models/profile'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class ProfilesController {
   async posts({ auth, params, inertia, response }: HttpContext) {
-    const profile = await User.query()
+    const profile = await Profile.query()
       .where('username', params.username)
       .select('id', 'username')
       .preload('posts', (query) => {
@@ -15,7 +15,7 @@ export default class ProfilesController {
          */
         if (auth.isAuthenticated) {
           query.preload('likes', (query) => {
-            query.where('user_id', auth.user!.id)
+            query.where('profile_id', auth.user!.currentProfileId!)
           })
         }
       })
@@ -28,7 +28,7 @@ export default class ProfilesController {
   }
 
   async comments({ auth, params, inertia, response }: HttpContext) {
-    const profile = await User.query()
+    const profile = await Profile.query()
       .where('username', params.username)
       .select('id', 'username')
       .preload('comments', (query) => {
@@ -42,7 +42,7 @@ export default class ProfilesController {
          */
         if (auth.isAuthenticated) {
           query.preload('likes', (query) => {
-            query.where('user_id', auth.user!.id)
+            query.where('profile_id', auth.user!.currentProfileId!)
           })
         }
       })

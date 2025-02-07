@@ -22,6 +22,7 @@ export default function Create() {
     title: '',
     text: '',
     link: '',
+    image: null as File | null,
   })
   const t = useTranslate('social')
   const { toast } = useToast()
@@ -91,7 +92,16 @@ export default function Create() {
           <TabsContent className="w-full" value="image">
             <Label htmlFor="image">{t('image')}</Label>
 
-            <Input id="image" name="image" type="file" />
+            <Input
+              id="image"
+              name="image"
+              type="file"
+              onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                  form.setData('image', e.target.files[0])
+                }
+              }}
+            />
 
             <Error errorKey="image" />
           </TabsContent>
@@ -130,6 +140,7 @@ export default function Create() {
                   title: 'Entrez le titre ici',
                   text: 'Computer Programming',
                   link: '',
+                  image: null,
                 })
               }}
             >

@@ -14,9 +14,9 @@ export default class extends BaseSchema {
       table.string('image').nullable()
       table.string('og_image').nullable()
       table
-        .string('user_id')
+        .string('profile_id')
         .references('id')
-        .inTable('users')
+        .inTable('profiles')
         .onUpdate('cascade')
         .onDelete('cascade')
       table.string('room_id').references('id').inTable('rooms').onDelete('cascade')

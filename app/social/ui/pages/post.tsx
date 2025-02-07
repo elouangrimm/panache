@@ -28,7 +28,7 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                 <Avatar className="h-9 w-9">
                   <AvatarImage
                     src={`https://avatar.vercel.sh/${room.id}`}
-                    alt={post.user.username}
+                    alt={post.profile.username}
                   />
                 </Avatar>
               </Link>
@@ -48,9 +48,9 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                 <div className="flex">
                   <Link
                     className="text-xs text-muted-foreground hover:text-emerald-800 transition-colors"
-                    href={`/profiles/${post.user.username}`}
+                    href={`/profiles/${post.profile.username}`}
                   >
-                    {post.user.username}
+                    {post.profile.username}
                   </Link>
                 </div>
               </div>
@@ -87,12 +87,12 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                   <div className="flex items-center gap-2">
                     <Link
                       className="hover:opacity-75 transition-opacity"
-                      href={`/profiles/${comment.user.username}`}
+                      href={`/profiles/${comment.profile.username}`}
                     >
                       <Avatar className="h-6 w-6">
                         <AvatarImage
-                          src={`https://avatar.vercel.sh/${comment.user.username}`}
-                          alt={comment.user.username}
+                          src={`https://avatar.vercel.sh/${comment.profile.username}`}
+                          alt={comment.profile.username}
                         />
                       </Avatar>
                     </Link>
@@ -100,9 +100,9 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                     <div className="flex items-center gap-1 text-[13px]">
                       <Link
                         className="hover:text-emerald-900 transition-colors font-medium"
-                        href={`/profiles/${comment.user.username}`}
+                        href={`/profiles/${comment.profile.username}`}
                       >
-                        {comment.user.username}
+                        {comment.profile.username}
                       </Link>
                       <span className="text-muted-foreground">
                         • {formatDistanceToNow(comment.createdAt as unknown as string)}

@@ -11,6 +11,6 @@ export default class PostPolicy extends BasePolicy {
     if (user.role === 'admin') {
       return true
     }
-    return user.id === post.userId
+    return user.currentProfileId === post.profileId
   }
 }

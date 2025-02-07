@@ -47,6 +47,10 @@ export default class SignUpController {
     const user = await User.create({ ...payload, locale: i18n.locale })
     await user.save()
 
+    const profile = await user.related('profiles').create({ username: user.username })
+    user.currentProfileId = profile.id
+    await user.save()
+
     await auth.use('web').login(user)
 
     return response.redirect('/')

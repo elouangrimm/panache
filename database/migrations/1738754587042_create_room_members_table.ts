@@ -7,10 +7,10 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').notNullable()
 
-      table.string('user_id').references('id').inTable('users').onDelete('cascade')
+      table.string('profile_id').references('id').inTable('profiles').onDelete('cascade')
       table.string('room_id').references('id').inTable('rooms').onDelete('cascade')
 
-      table.unique(['user_id', 'room_id'])
+      table.unique(['profile_id', 'room_id'])
     })
   }
 

@@ -102,14 +102,14 @@ export default class RoomsController {
        */
       if (auth.isAuthenticated) {
         query.preload('likes', (query) => {
-          query.where('user_id', auth.user!.id)
+          query.where('profile_id', auth.user!.currentProfileId!)
         })
       }
 
       /**
        * Load the post author.
        */
-      query.preload('user', (query) => {
+      query.preload('profile', (query) => {
         query.select('username')
       })
     })
@@ -120,7 +120,7 @@ export default class RoomsController {
 
     const roomMemberFound = await RoomMember.query()
       .where('room_id', room.id)
-      .where('user_id', auth.user!.id)
+      .where('profile_id', auth.user!.currentProfileId!)
       .first()
     const isMember = roomMemberFound !== null
 
@@ -135,7 +135,7 @@ export default class RoomsController {
 
     await RoomMember.firstOrCreate({
       roomId: room.id,
-      userId: auth.user!.id,
+      profileId: auth.user!.currentProfileId!,
     })
 
     return response.redirect().withQs().back()
@@ -149,7 +149,7 @@ export default class RoomsController {
 
     const roomMember = await RoomMember.query()
       .where('room_id', room.id)
-      .where('user_id', auth.user!.id)
+      .where('profile_id', auth.user!.currentProfileId!)
       .first()
     if (roomMember === null) {
       return response.redirect().back()

@@ -4,7 +4,7 @@ export default class extends BaseSchema {
   protected tableName = 'rooms'
 
   async up() {
-    this.raw('CREATE EXTENSION IF NOT EXISTS unaccent;')
+    this.defer((client) => client.rawQuery('CREATE EXTENSION IF NOT EXISTS unaccent;'))
 
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').primary()
@@ -19,7 +19,7 @@ export default class extends BaseSchema {
   }
 
   async down() {
-    this.raw('DROP EXTENSION unaccent;')
+    this.defer((client) => client.rawQuery('DROP EXTENSION unaccent;'))
 
     this.schema.dropTable(this.tableName)
   }

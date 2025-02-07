@@ -43,7 +43,7 @@ export function PostActionsDropdown({ post }: { post: Post }) {
               <FlagIcon className="!h-5 !w-5 ml-0.5" />
               <span>{t('report')}</span>
             </DropdownMenuItem>
-            {(user?.role === 'admin' || user?.id === post.userId) && (
+            {(user?.role === 'admin' || user?.currentProfileId === post.profileId) && (
               <DropdownMenuItem
                 className="cursor-pointer text-red-700"
                 onClick={() => setShowDeleteDialog(true)}

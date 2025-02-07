@@ -11,6 +11,6 @@ export default class CommentPolicy extends BasePolicy {
     if (user.role === 'admin') {
       return true
     }
-    return user.id === comment.userId
+    return user.currentProfileId === comment.profileId
   }
 }

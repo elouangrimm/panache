@@ -53,9 +53,9 @@ export default function Landing({ room, posts }: { room: Room; posts: Post[] }) 
                     <div className="flex">
                       <Link
                         className="text-xs text-muted-foreground hover:text-emerald-800 transition-colors"
-                        href={`/profiles/${post.user.username}`}
+                        href={`/profiles/${post.profile.username}`}
                       >
-                        {post.user.username}
+                        {post.profile.username}
                       </Link>
                     </div>
                   </div>

@@ -15,7 +15,7 @@ export default class CommentsController {
       .if(searchQuery, (query) => {
         query.whereRaw(`unaccent(LOWER(text)) LIKE unaccent(?)`, [`%${searchQuery}%`])
       })
-      .preload('user', (query) => {
+      .preload('profile', (query) => {
         query.select('username')
       })
       .paginate(page, 20)
@@ -32,7 +32,7 @@ export default class CommentsController {
 
     const data = await request.validateUsing(storeCommentValidator)
     const postComment = new Comment()
-    postComment.userId = auth.user!.id
+    postComment.profileId = auth.user!.currentProfileId!
     postComment.postId = params.postId
     postComment.text = data.text
     if (request.input('commentId')) postComment.commentId = request.input('commentId')
@@ -63,7 +63,7 @@ export default class CommentsController {
     }
 
     await CommentLike.firstOrCreate({
-      userId: auth.user!.id,
+      profileId: auth.user!.currentProfileId!,
       commentId: comment.id,
     })
 
@@ -77,7 +77,7 @@ export default class CommentsController {
     }
 
     const commentLike = await CommentLike.query()
-      .where('user_id', auth.user!.id)
+      .where('profile_id', auth.user!.currentProfileId!)
       .andWhere('comment_id', comment.id)
       .first()
     if (commentLike === null) {

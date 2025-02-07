@@ -8,6 +8,8 @@ import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
+import { cuid } from '@adonisjs/core/helpers'
+import drive from '@adonisjs/drive/services/main'
 
 export default class PostsController {
   async index({ auth, inertia, request }: HttpContext) {
@@ -21,7 +23,7 @@ export default class PostsController {
           [`%${searchQuery}%`, `%${searchQuery}%`]
         )
       })
-      .preload('user', (query) => {
+      .preload('profile', (query) => {
         query.select('username')
       })
       .preload('room', (query) => {
@@ -29,7 +31,7 @@ export default class PostsController {
       })
       .if(auth.isAuthenticated, (query) => {
         query.preload('likes', (query) => {
-          query.where('user_id', auth.user!.id)
+          query.where('profile_id', auth.user!.currentProfileId!)
         })
       })
       .paginate(page, 20)
@@ -81,7 +83,7 @@ export default class PostsController {
         break
     }
     postsQuery.preloadOnce('room')
-    postsQuery.preload('user', (query) => {
+    postsQuery.preload('profile', (query) => {
       query.select('username')
     })
     postsQuery.paginate(page, 20)
@@ -91,7 +93,7 @@ export default class PostsController {
      */
     if (auth.isAuthenticated) {
       postsQuery.preload('likes', (query) => {
-        query.where('user_id', auth.user!.id)
+        query.where('profile_id', auth.user!.currentProfileId!)
       })
     }
 
@@ -111,7 +113,7 @@ export default class PostsController {
       return response.notFound('Post not found.')
     }
 
-    await post.load('user', (query) => {
+    await post.load('profile', (query) => {
       query.select('username')
     })
 
@@ -120,7 +122,7 @@ export default class PostsController {
      */
     if (auth.isAuthenticated) {
       await post.load('likes', (query) => {
-        query.where('user_id', auth.user!.id)
+        query.where('profile_id', auth.user!.currentProfileId!)
       })
     }
 
@@ -138,12 +140,12 @@ export default class PostsController {
       }
 
       query.whereNull('comment_id')
-      query.preload('user', (query) => {
+      query.preload('profile', (query) => {
         query.select('username')
       })
 
       query.preload('comments', (query) => {
-        query.preload('user', (query) => {
+        query.preload('profile', (query) => {
           query.select('username')
         })
 
@@ -152,7 +154,7 @@ export default class PostsController {
          */
         if (auth.isAuthenticated) {
           query.preload('likes', (query) => {
-            query.where('user_id', auth.user!.id)
+            query.where('profile_id', auth.user!.currentProfileId!)
           })
         }
       })
@@ -162,7 +164,7 @@ export default class PostsController {
        */
       if (auth.isAuthenticated) {
         query.preload('likes', (query) => {
-          query.where('user_id', auth.user!.id)
+          query.where('profile_id', auth.user!.currentProfileId!)
         })
       }
     })
@@ -171,7 +173,7 @@ export default class PostsController {
     if (auth.isAuthenticated) {
       const roomMemberFound = await RoomMember.query()
         .where('room_id', room.id)
-        .where('user_id', auth.user!.id)
+        .where('profile_id', auth.user!.currentProfileId!)
         .first()
       isMember = roomMemberFound !== null
     }
@@ -194,22 +196,32 @@ export default class PostsController {
         title: vine.string().minLength(3).maxLength(255),
         text: vine.string().minLength(10).maxLength(1000).optional(),
         link: vine.string().url().normalizeUrl().maxLength(255).optional(),
+        image: vine
+          .file({
+            size: '2MB',
+            extnames: ['png', 'jpg', 'jpeg', 'webp', 'gif'],
+          })
+          .optional(),
       })
     )
     const data = await request.validateUsing(storePostValidator)
 
     const post = new Post()
+    if (data.image) {
+      const key = `uploads/${cuid()}.${data.image.extname}`
+      await data.image.moveToDisk(key, 's3', {
+        visibility: 'public',
+      })
+      post.image = await drive.use().getUrl(key)
+    }
     post.roomId = room.id
-    post.userId = auth.user!.id
+    post.profileId = auth.user!.currentProfileId!
     post.title = data.title
     if (data.text) post.text = data.text
     if (data.link) post.link = data.link
     await post.save()
 
-    return response.redirect().toRoute('posts.show', {
-      roomId: room.id,
-      postId: post.id,
-    })
+    return response.redirect().toRoute('posts.show', [room.id, post.id])
   }
 
   async destroy({ bouncer, params, response }: HttpContext) {
@@ -240,7 +252,7 @@ export default class PostsController {
     }
 
     await PostLike.firstOrCreate({
-      userId: auth.user!.id,
+      profileId: auth.user!.currentProfileId!,
       postId: post.id,
     })
 
@@ -257,7 +269,7 @@ export default class PostsController {
     }
 
     const postLike = await PostLike.query()
-      .where('user_id', auth.user!.id)
+      .where('profile_id', auth.user!.currentProfileId!)
       .andWhere('post_id', post.id)
       .first()
     if (postLike === null) {
