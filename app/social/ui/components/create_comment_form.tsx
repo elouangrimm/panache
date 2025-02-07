@@ -67,24 +67,22 @@ export default function CreateCommentForm({
           >
             {t('common.cancel')}
           </Button>
+          {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
+            <Button
+              type="button"
+              variant="warning"
+              onClick={() => {
+                form.setData({
+                  text: 'This is my comment',
+                  commentId: comment?.id,
+                })
+              }}
+            >
+              Fill Development Values
+            </Button>
+          )}
         </div>
       ) : null}
-
-      {import.meta.env.VITE_USER_NODE_ENV === 'development' && form.data.text && (
-        <Button
-          type="button"
-          variant="secondary"
-          className="mt-4"
-          onClick={() => {
-            form.setData({
-              text: 'This is my comment',
-              commentId: comment?.id,
-            })
-          }}
-        >
-          Fill Development Values
-        </Button>
-      )}
     </form>
   )
 }

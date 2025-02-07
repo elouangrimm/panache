@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { Search, X } from 'lucide-react'
 import React from 'react'
 import { Input } from '#common/ui/components/input'
 import { Button } from '#common/ui/components/button'
 import useTranslate from '#common/ui/hooks/use_translate'
+import useQuery from '#common/ui/hooks/use_query'
 
 interface SearchInputProps {
   className?: string
@@ -13,13 +14,17 @@ interface SearchInputProps {
 
 export function SearchInput({ className = '' }: SearchInputProps) {
   const t = useTranslate()
-  const [searchTerm, setSearchTerm] = useState('')
+  const query = useQuery()
+  const [searchTerm, setSearchTerm] = useState(query.search || '')
   return (
-    <div className={`relative ${className}`}>
+    <form className={`relative ${className}`} action="/rooms" method="get">
+      <button type="submit" hidden></button>
       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         type="text"
         placeholder={t('common.search') + '...'}
+        id="search"
+        name="search"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="pl-10 pr-10"
@@ -29,10 +34,11 @@ export function SearchInput({ className = '' }: SearchInputProps) {
           variant="ghost"
           size="icon"
           className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2"
+          onClick={() => setSearchTerm('')}
         >
           <X className="h-4 w-4" />
         </Button>
       )}
-    </div>
+    </form>
   )
 }

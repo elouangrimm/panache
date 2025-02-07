@@ -27,6 +27,7 @@ router.post('/auth/forgot_password', [ForgotPasswordController, 'handle'])
 
 const RoomsController = () => import('#social/controllers/rooms_controller')
 
+router.get('/rooms', [RoomsController, 'index']).use(middleware.loadRooms())
 router.post('/rooms', [RoomsController, 'store']).use(middleware.auth())
 router.get('/rooms/:roomId', [RoomsController, 'show']).use(middleware.loadRooms()).as('rooms.show')
 router.post('/rooms/:roomId/join', [RoomsController, 'join']).use(middleware.auth())
@@ -35,6 +36,7 @@ router.post('/rooms/:roomId/quit', [RoomsController, 'quit']).use(middleware.aut
 const PostsController = () => import('#social/controllers/posts_controller')
 router.get('/', [PostsController, 'feed']).use(middleware.loadRooms())
 
+router.get('/posts', [PostsController, 'index']).use(middleware.loadRooms())
 router
   .get('/create', [PostsController, 'create'])
   .as('posts.create')
@@ -68,6 +70,10 @@ router
 
 const CommentsController = () => import('#social/controllers/comments_controller')
 router
+  .get('/comments', [CommentsController, 'index'])
+  .as('comments.index')
+  .use(middleware.loadRooms())
+router
   .post('/posts/:postId/comments', [CommentsController, 'store'])
   .as('comments.store')
   .use(middleware.auth())
@@ -90,6 +96,10 @@ router
 
 const ProfilesController = () => import('#social/controllers/profiles_controller')
 router
-  .get('/profiles/:username', [ProfilesController, 'show'])
-  .as('profiles.show')
+  .get('/profiles/:username', [ProfilesController, 'posts'])
+  .as('profiles.posts')
+  .use(middleware.loadRooms())
+router
+  .get('/profiles/:username/comments', [ProfilesController, 'comments'])
+  .as('profiles.comments')
   .use(middleware.loadRooms())

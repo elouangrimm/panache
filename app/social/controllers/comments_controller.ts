@@ -7,6 +7,22 @@ import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 
 export default class CommentsController {
+  async index({ inertia, request }: HttpContext) {
+    const searchQuery = request.input('search')
+    const page = parseInt(request.input('page', 1))
+
+    const result = await Comment.query()
+      .if(searchQuery, (query) => {
+        query.whereRaw(`unaccent(LOWER(text)) LIKE unaccent(?)`, [`%${searchQuery}%`])
+      })
+      .preload('user', (query) => {
+        query.select('username')
+      })
+      .paginate(page, 20)
+
+    return inertia.render('social/comments', { comments: result.all() })
+  }
+
   async store({ auth, request, params, response }: HttpContext) {
     const storeCommentValidator = vine.compile(
       vine.object({

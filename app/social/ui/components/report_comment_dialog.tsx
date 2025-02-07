@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '#common/ui/components/dialog'
-import Error from '#common/ui/components/error'
+import { Error } from '#common/ui/components/error'
 import { Label } from '#common/ui/components/label'
 import { Textarea } from '#common/ui/components/textarea'
 import { useToast } from '#common/ui/hooks/use_toast'

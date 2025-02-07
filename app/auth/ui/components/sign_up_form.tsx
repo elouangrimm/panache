@@ -12,7 +12,7 @@ import { Input } from '#common/ui/components/input'
 import { Label } from '#common/ui/components/label'
 import { Link, useForm } from '@inertiajs/react'
 import useTranslate from '#common/ui/hooks/use_translate'
-import Error from '#common/ui/components/error'
+import { Error } from '#common/ui/components/error'
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const t = useTranslate('auth')
@@ -119,7 +119,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
               {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
                 <Button
                   type="button"
-                  variant="secondary"
+                  variant="warning"
                   className="!w-full"
                   onClick={() => {
                     form.setData({

@@ -55,5 +55,7 @@
   "reply": "Répondre",
   "view_replies": "Voir les réponses",
   "profile": "Profil",
-  "posts": "Posts"
+  "posts": "Posts",
+  "no_results_title": "Hmm... Désolé, nous n'avons trouvé aucun résultat pour cette recherche.",
+  "no_results_description": "Veuillez vérifier l'orthographe, ou essayer d'autres mots clés."
 }

@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '#common/ui/components/dialog'
-import Error from '#common/ui/components/error'
+import { Error } from '#common/ui/components/error'
 import { Input } from '#common/ui/components/input'
 import { Label } from '#common/ui/components/label'
 import { SidebarMenuButton } from '#common/ui/components/sidebar'
@@ -97,7 +97,7 @@ export function CreateRoomDialog() {
             {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
               <Button
                 type="button"
-                variant="secondary"
+                variant="warning"
                 className="!w-full"
                 onClick={() => {
                   form.setData({

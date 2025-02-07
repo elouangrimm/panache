@@ -6,6 +6,22 @@ import { DateTime } from 'luxon'
 import string from '@adonisjs/core/helpers/string'
 
 export default class RoomsController {
+  async index({ inertia, request }: HttpContext) {
+    const searchQuery = request.input('search')
+    const page = parseInt(request.input('page', 1))
+
+    const result = await Room.query()
+      .if(searchQuery, (query) => {
+        query.whereRaw(
+          `unaccent(LOWER(name)) LIKE unaccent(?) OR unaccent(LOWER(description)) LIKE unaccent(?)`,
+          [`%${searchQuery}%`, `%${searchQuery}%`]
+        )
+      })
+      .paginate(page, 20)
+
+    return inertia.render('social/rooms', { roomsList: result.all() })
+  }
+
   async store({ i18n, request, response }: HttpContext) {
     const storeRoomValidator = vine.compile(
       vine.object({

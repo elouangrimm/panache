@@ -71,7 +71,7 @@ export function CommentActions({ post, comment, hideReply }: CommentActionsProps
 
   return (
     <>
-      <div className="flex items-center pt-1 gap-1 text-xs">
+      <div className="flex flex-wrap pt-1 gap-y-2 sm:gap-y-1 gap-x-1 text-xs">
         <Button
           variant="outline"
           className={cn('!h-8', userLikes && 'text-red-800')}

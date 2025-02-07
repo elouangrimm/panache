@@ -10,6 +10,33 @@ import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
 
 export default class PostsController {
+  async index({ auth, inertia, request }: HttpContext) {
+    const searchQuery = request.input('search')
+    const page = parseInt(request.input('page', 1))
+
+    const result = await Post.query()
+      .if(searchQuery, (query) => {
+        query.whereRaw(
+          `unaccent(LOWER(title)) LIKE unaccent(?) OR unaccent(LOWER(text)) LIKE unaccent(?)`,
+          [`%${searchQuery}%`, `%${searchQuery}%`]
+        )
+      })
+      .preload('user', (query) => {
+        query.select('username')
+      })
+      .preload('room', (query) => {
+        query.select('name')
+      })
+      .if(auth.isAuthenticated, (query) => {
+        query.preload('likes', (query) => {
+          query.where('user_id', auth.user!.id)
+        })
+      })
+      .paginate(page, 20)
+
+    return inertia.render('social/posts', { posts: result.all() })
+  }
+
   async feed({ auth, i18n, request, inertia }: HttpContext) {
     const sortMethod = request.input('method', 'popular')
     const period = request.input('period', 'day')

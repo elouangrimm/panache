@@ -6,7 +6,7 @@ export type ErrorProps = {
   errorKey: string
 } & React.ComponentProps<'p'>
 
-export default function Error({ className, errorKey, ...props }: ErrorProps) {
+export function Error({ className, errorKey, ...props }: ErrorProps) {
   const error = useError(errorKey)
   if (error === undefined) {
     return null

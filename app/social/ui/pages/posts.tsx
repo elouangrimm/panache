@@ -1,19 +1,22 @@
 import React from 'react'
 import SocialLayout from '../components/social_layout'
-import { SortBySelect } from '../components/sort_by_select'
-import Room from '#social/models/room'
-import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar'
-import { PostCard } from '../components/post_card'
+import SearchTabs from '../components/search_tabs'
 import Post from '#social/models/post'
 import { Link } from '@inertiajs/react'
+import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
+import { PostCard } from '../components/post_card'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
+import { Alert, AlertTitle, AlertDescription } from '#common/ui/components/alert'
+import { SearchX } from 'lucide-react'
+import useTranslate from '#common/ui/hooks/use_translate'
 
-export default function Landing({ room, posts }: { room: Room; posts: Post[] }) {
+export default function Posts({ posts }: { posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
+  const t = useTranslate()
 
   return (
     <SocialLayout>
-      <SortBySelect />
+      <SearchTabs resource="posts" />
       <div className="pt-4 grid gap-y-4">
         {posts.map((post) => (
           <PostCard
@@ -64,6 +67,13 @@ export default function Landing({ room, posts }: { room: Room; posts: Post[] }) 
             }
           />
         ))}
+        {posts.length === 0 ? (
+          <Alert>
+            <SearchX className="h-5 w-5 stroke-red-700" />
+            <AlertTitle>{t('social.no_results_title')}</AlertTitle>
+            <AlertDescription>{t('social.no_results_description')}</AlertDescription>
+          </Alert>
+        ) : null}
       </div>
     </SocialLayout>
   )

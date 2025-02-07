@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '#common/ui/components/dialog'
-import Error from '#common/ui/components/error'
+import { Error } from '#common/ui/components/error'
 import { Input } from '#common/ui/components/input'
 import { Label } from '#common/ui/components/label'
 import { SidebarMenuButton } from '#common/ui/components/sidebar'
