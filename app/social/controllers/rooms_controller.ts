@@ -72,6 +72,8 @@ export default class RoomsController {
     }
 
     await room.load('posts', (query) => {
+      query.limit(50)
+
       query.preloadOnce('room')
 
       // Filter posts by the selected period
