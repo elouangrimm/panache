@@ -36,18 +36,6 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
         isActive: path === '/',
       },
     ],
-    navSecondary: [
-      {
-        title: 'Support',
-        url: '#',
-        icon: LifeBuoy,
-      },
-      {
-        title: 'Feedback',
-        url: '#',
-        icon: Send,
-      },
-    ],
   }
   return (
     <Sidebar variant="inset" {...props}>
@@ -69,9 +57,8 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
       <SidebarContent>
         <NavMain items={data.navMain} />
         {children}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-t">
         {user ? (
           <NavUser />
         ) : (

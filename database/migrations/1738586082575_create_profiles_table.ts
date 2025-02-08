@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.string('id').primary().notNullable()
       table.string('user_id').notNullable().references('id').inTable('users').onDelete('cascade')
       table.string('username').notNullable()
+      table.string('avatar').nullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

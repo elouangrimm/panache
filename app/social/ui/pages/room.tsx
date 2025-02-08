@@ -14,6 +14,7 @@ import { JoinRoomButton } from '#social/ui/components/join_room_button'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { cn } from '#common/ui/lib/utils'
 import useUser from '#common/ui/hooks/use_user'
+import { ProfileAvatar } from '../components/profile_avatar'
 
 export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
@@ -24,9 +25,9 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
       <header>
         <div className="h-24 bg-[#e3e2d4] rounded-lg border border-sidebar"></div>
         <div className="flex flex-wrap gap-x-2 items-center justify-between pt-3 px-4">
-          <div className="flex items-start gap-x-4 w-full">
-            <Avatar className="h-24 w-24 rounded-full -mt-10 border-4 border-white">
-              <AvatarImage src={`https://avatar.vercel.sh/${room.id}?rounded=60`} alt={room.name} />
+          <div className="flex flex-col sm:flex-row items-start gap-x-4 sm:w-full">
+            <Avatar className="h-24 w-24 -mt-10 rounded-3xl border-4 border-white">
+              <AvatarImage src={`https://avatar.vercel.sh/${room.id}?`} alt={room.name} />
             </Avatar>
 
             <div>
@@ -68,12 +69,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
                         className="hover:opacity-75 transition-opacity"
                         href={`/profiles/${post.profile.username}`}
                       >
-                        <Avatar className="h-6 w-6">
-                          <AvatarImage
-                            src={`https://avatar.vercel.sh/${post.profile.username}`}
-                            alt={post.profile.username}
-                          />
-                        </Avatar>
+                        <ProfileAvatar profile={post.profile} className="h-8 w-8" />
                       </Link>
 
                       <div className="flex items-center gap-1 text-[13px]">

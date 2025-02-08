@@ -34,7 +34,7 @@ export default function Comments({ comments }: { comments: Comment[] }) {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={`https://avatar.vercel.sh/${comment.post.room.id}?rounded=100`}
+                        src={`https://avatar.vercel.sh/${comment.post.room.id}?`}
                         alt={comment.post.room.id}
                         width={32}
                         height={32}

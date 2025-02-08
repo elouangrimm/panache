@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import Post from './post.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import string from '@adonisjs/core/helpers/string'
+import RoomMember from './room_member.js'
 
 export default class Room extends BaseModel {
   /**
@@ -35,6 +36,9 @@ export default class Room extends BaseModel {
    */
   @hasMany(() => Post)
   declare posts: HasMany<typeof Post>
+
+  @hasMany(() => RoomMember)
+  declare members: HasMany<typeof RoomMember>
 
   /**
    * Timestamps.

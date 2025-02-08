@@ -3,12 +3,32 @@ import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 
 export default class LoadRoomsMiddleware {
-  async handle({ inertia, i18n }: HttpContext, next: NextFn) {
-    const rooms = await Room.query().where('lang', i18n.locale).limit(10)
+  async handle({ auth, inertia, i18n }: HttpContext, next: NextFn) {
+    const popularRooms = await Room.query()
+      .where('lang', i18n.locale)
+      .orderBy('members_count')
+      .limit(10)
+    inertia.share({ popularRooms })
 
-    inertia.share({
-      rooms,
-    })
+    if (auth.isAuthenticated) {
+      /**
+       * Retrieve current profile for the authenticated user
+       */
+      await auth.user!.loadOnce('currentProfile')
+      const { currentProfile } = auth.user!
+
+      /**
+       * Retrieve rooms that the user is a member of
+       * and share them with the frontend
+       */
+      const joinedRooms = await Room.query()
+        .whereHas('members', (builder) => {
+          builder.where('profile_id', currentProfile.id)
+        })
+        .orderBy('created_at', 'desc')
+        .limit(10)
+      inertia.share({ joinedRooms })
+    }
 
     /**
      * Call next method in the pipeline and return its output

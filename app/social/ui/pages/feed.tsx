@@ -31,9 +31,10 @@ export default function Landing({ room, posts }: { room: Room; posts: Post[] }) 
                       className="hover:opacity-75 transition-opacity"
                       href={`/rooms/${post.roomId}`}
                     >
-                      <Avatar className="h-8 w-8">
+                      <Avatar>
                         <AvatarImage
-                          src={`https://avatar.vercel.sh/${post.roomId}?rounded=100`}
+                          className="h-8 w-8 rounded-lg"
+                          src={`https://avatar.vercel.sh/${post.roomId}?`}
                           alt={post.roomId}
                           width={32}
                           height={32}

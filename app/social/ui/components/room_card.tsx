@@ -22,7 +22,7 @@ export function RoomCard({ room }: RoomCardProps) {
           <div className="flex space-x-4">
             <Avatar className="h-12 w-12">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${room.id}?rounded=100`}
+                src={`https://avatar.vercel.sh/${room.id}?`}
                 alt={room.id}
                 width={48}
                 height={48}

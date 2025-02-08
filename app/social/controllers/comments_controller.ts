@@ -16,7 +16,7 @@ export default class CommentsController {
         query.whereRaw(`unaccent(LOWER(text)) LIKE unaccent(?)`, [`%${searchQuery}%`])
       })
       .preload('profile', (query) => {
-        query.select('username')
+        query.select('username', 'avatar')
       })
       .paginate(page, 20)
 

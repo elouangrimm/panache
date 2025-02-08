@@ -9,6 +9,7 @@ import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_
 import { Alert, AlertTitle, AlertDescription } from '#common/ui/components/alert'
 import { SearchX } from 'lucide-react'
 import useTranslate from '#common/ui/hooks/use_translate'
+import { ProfileAvatar } from '../components/profile_avatar'
 
 export default function Posts({ posts }: { posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
@@ -30,14 +31,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
                     className="hover:opacity-75 transition-opacity"
                     href={`/rooms/${post.roomId}`}
                   >
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src={`https://avatar.vercel.sh/${post.roomId}?rounded=100`}
-                        alt={post.roomId}
-                        width={32}
-                        height={32}
-                      />
-                    </Avatar>
+                    <ProfileAvatar profile={post.profile} className="h-8 w-8" />
                   </Link>
 
                   <div className="flex flex-col">

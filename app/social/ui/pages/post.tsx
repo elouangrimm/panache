@@ -15,11 +15,12 @@ import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_
 import { SortCommentSelect } from '../components/sort_comment_select'
 import { ImagePreview } from '#common/ui/components/image_preview'
 import { LinkPreview } from '../components/link_preview'
+import { ProfileAvatar } from '../components/profile_avatar'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
   const formatDistanceToNow = useFormatDistanceToNow()
-
+  console.log('post', post)
   return (
     <SocialLayout>
       <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 sm:gap-x-8">
@@ -110,12 +111,7 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                       className="hover:opacity-75 transition-opacity"
                       href={`/profiles/${comment.profile.username}`}
                     >
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage
-                          src={`https://avatar.vercel.sh/${comment.profile.username}`}
-                          alt={comment.profile.username}
-                        />
-                      </Avatar>
+                      <ProfileAvatar profile={comment.profile} className="h-6 w-6" />
                     </Link>
 
                     <div className="flex items-center gap-1 text-[13px]">

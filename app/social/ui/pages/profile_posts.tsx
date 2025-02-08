@@ -15,7 +15,7 @@ export default function ProfilePosts({ profile }: { profile: Profile }) {
 
   return (
     <SocialLayout>
-      <div className="space-y-8">
+      <div className="space-y-8 lg:mx-16">
         <ProfileHeader profile={profile} />
         <ProfileTabs resource="posts" />
 
@@ -26,21 +26,21 @@ export default function ProfilePosts({ profile }: { profile: Profile }) {
               post={post}
               room={post.room}
               header={
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Link
-                      className="hover:opacity-75 transition-opacity"
-                      href={`/rooms/${post.roomId}`}
-                    >
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage
-                          src={`https://avatar.vercel.sh/${post.roomId}?rounded=100`}
-                          alt={post.roomId}
-                          width={32}
-                          height={32}
-                        />
-                      </Avatar>
-                    </Link>
+                <div className="flex items-start gap-2">
+                  <Link
+                    className="hover:opacity-75 transition-opacity"
+                    href={`/rooms/${post.roomId}`}
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage
+                        src={`https://avatar.vercel.sh/${post.roomId}?`}
+                        alt={post.roomId}
+                        width={32}
+                        height={32}
+                      />
+                    </Avatar>
+                  </Link>
+                  <div className="flex flex-col">
                     <div className="flex items-center gap-1 text-[13px]">
                       <Link
                         className="font-medium hover:text-emerald-600 transition-colors"
@@ -48,10 +48,13 @@ export default function ProfilePosts({ profile }: { profile: Profile }) {
                       >
                         {post.room.name}
                       </Link>
-                      <span className="text-muted-foreground">
-                        • {formatDistanceToNow(post.createdAt as unknown as string)}
-                      </span>
                     </div>
+
+                    <p className="text-muted-foreground text-xs">
+                      <span className="text-black font-medium">{profile.username}</span>{' '}
+                      {t('social.posted')}{' '}
+                      {formatDistanceToNow(post.createdAt as unknown as string)}
+                    </p>
                   </div>
                 </div>
               }

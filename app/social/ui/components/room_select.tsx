@@ -12,16 +12,15 @@ import {
 import usePageProps from '#common/ui/hooks/use_page_props'
 import useTranslate from '#common/ui/hooks/use_translate'
 import Room from '#social/models/room'
-import { ArrowDownWideNarrowIcon } from 'lucide-react'
 import React from 'react'
 
 export type RoomSelectProps = {
+  rooms: Room[]
   roomId: string
   setRoomId: (roomId: string) => void
 }
 
-export default function RoomSelect({ roomId, setRoomId }: RoomSelectProps) {
-  const { rooms } = usePageProps<{ rooms: Room[] }>()
+export default function RoomSelect({ roomId, setRoomId, rooms }: RoomSelectProps) {
   const t = useTranslate('social')
   return (
     <div className="grid gap-2">

@@ -1,21 +1,12 @@
 'use client'
 
 import React from 'react'
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Settings,
-  Sparkles,
-} from 'lucide-react'
+import { ChevronsUpDown, LogOut } from 'lucide-react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '#common/ui/components/avatar'
+import { Avatar, AvatarFallback } from '#common/ui/components/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -29,7 +20,7 @@ import {
 } from '#common/ui/components/sidebar'
 import useUser from '../hooks/use_user'
 import useTranslate from '../hooks/use_translate'
-import { Link, useForm } from '@inertiajs/react'
+import { useForm } from '@inertiajs/react'
 
 export function NavUser() {
   const user = useUser()
@@ -76,15 +67,6 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuLabel>
-            {/* <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <Link href="/settings">
-                <DropdownMenuItem>
-                  <Settings />
-                  {t('common.settings')}
-                </DropdownMenuItem>
-              </Link>
-            </DropdownMenuGroup> */}
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {

@@ -15,9 +15,11 @@ import { useToast } from '#common/ui/hooks/use_toast'
 import { CheckIcon } from 'lucide-react'
 
 export default function Create() {
-  const { rooms } = usePageProps<{ rooms: Room[] }>()
+  const props = usePageProps<{ popularRooms: Room[]; joinedRooms?: Room[] }>()
+  const rooms =
+    props?.joinedRooms && props?.joinedRooms.length > 0 ? props.joinedRooms : props.popularRooms
   const { query } = usePageProps<{ query: Record<string, string> }>()
-  const [roomId, setRoomId] = React.useState(query.room || rooms.length > 0 ? rooms[0].id : '')
+  const [roomId, setRoomId] = React.useState(query.room || rooms[0].id)
   const form = useForm({
     title: '',
     text: '',
@@ -48,7 +50,7 @@ export default function Create() {
       <h1 className="text-5xl font-serif sm:pt-8">{t('create_a_post')}</h1>
 
       <form className="flex flex-col space-y-8 pt-8" onSubmit={handleSubmit}>
-        <RoomSelect roomId={roomId} setRoomId={setRoomId} />
+        <RoomSelect roomId={roomId} setRoomId={setRoomId} rooms={rooms} />
 
         <Tabs defaultValue="text" className="min-w-full">
           <TabsList className="flex flex-wrap sm:grid w-full h-full sm:grid-cols-3 gap-y-2 sm:gap-y-0 gap-x-4">
@@ -131,6 +133,7 @@ export default function Create() {
             {t('cancel')}
           </Button>
 
+          {/* @ts-ignore */}
           {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
             <Button
               type="button"

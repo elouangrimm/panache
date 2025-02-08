@@ -37,6 +37,7 @@
   "delete_comment": "Supprimer ce commentaire",
   "comment_deleted": "Commentaire supprimé",
   "commented": "a commenté",
+  "posted": "a posté",
   "delete_post_description": "Êtes-vous sûr de supprimer ce post ? Cette action est irrémédiable.",
   "delete_comment_description": "Êtes-vous sûr de supprimer ce commentaire ? Cette action est irrémédiable.",
   "report": "Signaler",
@@ -57,5 +58,9 @@
   "profile": "Profil",
   "posts": "Posts",
   "no_results_title": "Hmm... Désolé, nous n'avons trouvé aucun résultat pour cette recherche.",
-  "no_results_description": "Veuillez vérifier l'orthographe, ou essayer d'autres mots clés."
+  "no_results_description": "Veuillez vérifier l'orthographe, ou essayer d'autres mots clés.",
+  "update_username": "Mettre à jour le nom d'utilisateur",
+  "username_updated": "Nom d'utilisateur mis à jour !",
+  "update_avatar": "Mettre à jour l'avatar",
+  "avatar_updated": "Avatar mis à jour !"
 }

@@ -8,6 +8,9 @@ export default class RoomMember extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare role: 'moderator' | 'member'
+
   @belongsTo(() => Profile)
   declare profile: BelongsTo<typeof Profile>
 
@@ -22,11 +25,11 @@ export default class RoomMember extends BaseModel {
 
   @beforeCreate()
   static async incrementRoomCount(roomMember: RoomMember) {
-    await db.from('rooms').where('id', roomMember.roomId).increment('member_count', 1)
+    await db.from('rooms').where('id', roomMember.roomId).increment('members_count', 1)
   }
 
   @beforeDelete()
   static async decrementRoomCount(roomMember: RoomMember) {
-    await db.from('rooms').where('id', roomMember.roomId).increment('member_count', -1)
+    await db.from('rooms').where('id', roomMember.roomId).increment('members_count', -1)
   }
 }

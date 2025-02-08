@@ -11,8 +11,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable().unique()
       table.string('description').notNullable()
       table.string('lang').notNullable()
-      table.integer('member_count').defaultTo('0')
-      table.enum('role', ['moderator', 'member']).notNullable().defaultTo('member')
+      table.integer('members_count').defaultTo('0')
       table.enum('visibility', ['public', 'paid', 'private']).notNullable().defaultTo('public')
 
       table.timestamp('created_at')

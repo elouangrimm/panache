@@ -71,6 +71,8 @@ export default function CreateCommentForm({
           >
             {t('common.cancel')}
           </Button>
+
+          {/* @ts-ignore */}
           {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
             <Button
               type="button"

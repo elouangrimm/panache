@@ -14,6 +14,7 @@ import { CommentActionsDropdown } from './comment_actions_dropdown'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import { Link } from '@inertiajs/react'
+import { ProfileAvatar } from './profile_avatar'
 
 export type CommentCardProps = {
   header?: React.ReactElement
@@ -58,12 +59,7 @@ export function CommentCard({ header, post, comment, hideReply }: CommentCardPro
                         className="hover:opacity-75 transition-opacity"
                         href={`/profiles/${comment.profile.username}`}
                       >
-                        <Avatar className="h-6 w-6">
-                          <AvatarImage
-                            src={`https://avatar.vercel.sh/${comment.profile.username}`}
-                            alt={comment.profile.username}
-                          />
-                        </Avatar>
+                        <ProfileAvatar profile={comment.profile} className="h-6 w-6" />
                       </Link>
 
                       <div className="flex items-center gap-1 text-[13px]">

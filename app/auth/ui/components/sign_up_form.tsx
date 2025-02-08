@@ -111,7 +111,9 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                     required
                     className="pr-20"
                     value={form.data.username}
-                    onChange={(e) => form.setData('username', e.target.value)}
+                    onChange={(e) =>
+                      form.setData('username', e.target.value.toLowerCase().replaceAll(' ', '.'))
+                    }
                   />
                   <span className="hidden sm:block absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                     @panache.so
@@ -127,7 +129,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                   type="email"
                   placeholder={t('auth.email_placeholder')}
                   value={form.data.email}
-                  onChange={(e) => form.setData('email', e.target.value)}
+                  onChange={(e) => form.setData('email', e.target.value.toLowerCase())}
                 />
                 <Error errorKey="email" />
               </div>
@@ -147,6 +149,8 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
               <Button type="submit" className="!w-full">
                 {t('auth.sign_up')}
               </Button>
+
+              {/* @ts-ignore */}
               {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
                 <Button
                   type="button"

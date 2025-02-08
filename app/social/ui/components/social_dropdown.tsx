@@ -13,6 +13,7 @@ import { Link } from '@inertiajs/react'
 import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu'
 import { CircleUserRoundIcon } from 'lucide-react'
 import React from 'react'
+import { ProfileAvatar } from './profile_avatar'
 
 interface SocialDropdownProps {}
 
@@ -22,13 +23,8 @@ export const SocialDropdown: React.FunctionComponent<SocialDropdownProps> = () =
   if (!user) return null
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avatar className="h-8 w-8 cursor-pointer">
-          <AvatarImage
-            src={`https://avatar.vercel.sh/${user.currentProfile.username}?rounded=100`}
-            alt={user.currentProfile.username}
-          />
-        </Avatar>
+      <DropdownMenuTrigger className="hover:opacity-75 transition-opacity">
+        <ProfileAvatar profile={user.currentProfile} className="h-9 w-9 cursor-pointer" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
         <DropdownMenuLabel>Social</DropdownMenuLabel>

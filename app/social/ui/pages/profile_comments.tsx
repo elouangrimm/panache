@@ -16,7 +16,7 @@ export default function ProfileComments({ profile }: { profile: Profile }) {
 
   return (
     <SocialLayout>
-      <div className="space-y-8">
+      <div className="space-y-8 lg:mx-16">
         <ProfileHeader profile={profile} />
         <ProfileTabs resource="comments" />
         <div className="gap-y-4 flex flex-col max-w-4xl mx-auto">
@@ -35,7 +35,7 @@ export default function ProfileComments({ profile }: { profile: Profile }) {
                       >
                         <Avatar className="h-8 w-8">
                           <AvatarImage
-                            src={`https:avatar.vercel.sh/${comment.post.room.id}?rounded=100`}
+                            src={`https:avatar.vercel.sh/${comment.post.room.id}?`}
                             alt={comment.post.room.id}
                             width={32}
                             height={32}

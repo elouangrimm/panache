@@ -25,7 +25,7 @@ export default class RoomsController {
   }
 
   @inject()
-  async store({ i18n, request, response }: HttpContext, webhooksService: WebhooksService) {
+  async store({ auth, i18n, request, response }: HttpContext, webhooksService: WebhooksService) {
     const storeRoomValidator = vine.compile(
       vine.object({
         name: vine
@@ -50,6 +50,12 @@ export default class RoomsController {
     room.description = data.description
     room.lang = i18n.locale
     await room.save()
+
+    await room.related('members').create({
+      profileId: auth.user!.currentProfileId!,
+      roomId: room.id,
+      role: 'moderator',
+    })
 
     await webhooksService.send(`[+] [New Room created with name: ${room.name}]`)
 
@@ -115,7 +121,7 @@ export default class RoomsController {
        * Load the post author.
        */
       query.preload('profile', (query) => {
-        query.select('username')
+        query.select('username', 'avatar')
       })
     })
 

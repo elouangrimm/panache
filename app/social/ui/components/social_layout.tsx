@@ -11,6 +11,8 @@ import { Toaster } from '#common/ui/components/toaster'
 import { SocialDropdown } from './social_dropdown'
 import useUser from '#common/ui/hooks/use_user'
 import { cn } from '#common/ui/lib/utils'
+import usePageProps from '#common/ui/hooks/use_page_props'
+import Room from '#social/models/room'
 
 export type SocialLayoutProps = React.PropsWithChildren<{
   title?: string
@@ -19,12 +21,20 @@ export type SocialLayoutProps = React.PropsWithChildren<{
 export default function SocialLayout({ children, title }: SocialLayoutProps) {
   const t = useTranslate('social')
   const user = useUser()
+  const { joinedRooms, popularRooms } = usePageProps<{
+    popularRooms: Room[]
+    joinedRooms?: Room[]
+  }>()
   return (
     <>
       <Head>{title ? <title>Panache Social - {title}</title> : <title>Panache Social</title>}</Head>
       <SidebarProvider>
         <AppSidebar>
-          <NavRooms />
+          {joinedRooms && joinedRooms.length > 0 ? (
+            <NavRooms title={t('rooms')} rooms={joinedRooms} />
+          ) : (
+            <NavRooms title={t('popular')} rooms={popularRooms} />
+          )}
         </AppSidebar>
         <SidebarInset>
           <header className="flex pb-2 sm:pb-0 sm:h-16 shrink-0 items-center gap-2 border-b">

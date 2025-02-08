@@ -115,3 +115,11 @@ router
   .get('/profiles/:username/comments', [ProfilesController, 'comments'])
   .as('profiles.comments')
   .use(middleware.loadRooms())
+router
+  .patch('/profiles/:username/username', [ProfilesController, 'updateUsername'])
+  .as('profiles.updateUsername')
+  .use(middleware.auth())
+router
+  .patch('/profiles/:username/avatar', [ProfilesController, 'updateAvatar'])
+  .as('profiles.updateAvatar')
+  .use(middleware.auth())

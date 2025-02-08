@@ -14,6 +14,7 @@ import { SidebarMenuButton } from '#common/ui/components/sidebar'
 import { Textarea } from '#common/ui/components/textarea'
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
+import useUser from '#common/ui/hooks/use_user'
 import { useForm } from '@inertiajs/react'
 import { CheckIcon, PlusCircleIcon } from 'lucide-react'
 import React from 'react'
@@ -26,6 +27,7 @@ export function CreateRoomDialog() {
   })
   const { toast } = useToast()
   const [open, setOpen] = React.useState(false)
+  const user = useUser()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,6 +49,7 @@ export function CreateRoomDialog() {
   return (
     <>
       <SidebarMenuButton
+        disabled={!user}
         className="text-sidebar-foreground/80 cursor-pointer"
         onClick={() => setOpen(true)}
       >
@@ -94,6 +97,7 @@ export function CreateRoomDialog() {
               {t('create_a_room')}
             </Button>
 
+            {/* @ts-ignore */}
             {import.meta.env.VITE_USER_NODE_ENV === 'development' && (
               <Button
                 type="button"

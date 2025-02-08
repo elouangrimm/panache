@@ -24,7 +24,7 @@ export default class PostsController {
         )
       })
       .preload('profile', (query) => {
-        query.select('username')
+        query.select('username', 'avatar')
       })
       .preload('room', (query) => {
         query.select('name')
@@ -84,7 +84,7 @@ export default class PostsController {
     }
     postsQuery.preloadOnce('room')
     postsQuery.preload('profile', (query) => {
-      query.select('username')
+      query.select('username', 'avatar')
     })
     postsQuery.paginate(page, 20)
 
@@ -114,7 +114,7 @@ export default class PostsController {
     }
 
     await post.load('profile', (query) => {
-      query.select('username')
+      query.select('username', 'avatar')
     })
 
     /**
@@ -141,12 +141,12 @@ export default class PostsController {
 
       query.whereNull('comment_id')
       query.preload('profile', (query) => {
-        query.select('username')
+        query.select('username', 'avatar')
       })
 
       query.preload('comments', (query) => {
         query.preload('profile', (query) => {
-          query.select('username')
+          query.select('username', 'avatar')
         })
 
         /**
