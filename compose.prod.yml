@@ -10,6 +10,8 @@ services:
       - panache_postgres_data:/var/lib/postgresql/data
     networks:
       - panache_network
+    ports:
+      - 5432:5432
 
   panache:
     container_name: panache
@@ -20,21 +22,23 @@ services:
     env_file: .env.production.local
     networks:
       - panache_network
-
-  caddy:
-    image: caddy:2
-    container_name: panache_caddy
     ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - panache_caddy_data:/data
-      - panache_caddy_config:/config
-    depends_on:
-      - panache
-    networks:
-      - panache_network
+      - 8080:8080
+
+  # caddy:
+  #   image: caddy:2
+  #   container_name: panache_caddy
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile:ro
+  #     - panache_caddy_data:/data
+  #     - panache_caddy_config:/config
+  #   depends_on:
+  #     - panache
+  #   networks:
+  #     - panache_network
 
 volumes:
   panache_postgres_data:

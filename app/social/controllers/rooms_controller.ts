@@ -4,6 +4,8 @@ import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
 import string from '@adonisjs/core/helpers/string'
+import { inject } from '@adonisjs/core'
+import WebhooksService from '#common/services/webhooks_service'
 
 export default class RoomsController {
   async index({ inertia, request }: HttpContext) {
@@ -22,7 +24,8 @@ export default class RoomsController {
     return inertia.render('social/rooms', { roomsList: result.all() })
   }
 
-  async store({ i18n, request, response }: HttpContext) {
+  @inject()
+  async store({ i18n, request, response }: HttpContext, webhooksService: WebhooksService) {
     const storeRoomValidator = vine.compile(
       vine.object({
         name: vine
@@ -47,6 +50,8 @@ export default class RoomsController {
     room.description = data.description
     room.lang = i18n.locale
     await room.save()
+
+    await webhooksService.send(`[+] [New Room created with name: ${room.name}]`)
 
     return response.redirect().toRoute('rooms.show', [room.id])
   }

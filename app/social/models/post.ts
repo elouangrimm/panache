@@ -14,6 +14,13 @@ export default class Post extends BaseModel {
   @column()
   declare link: string | null
 
+  /**
+   * This field is computed by Panache,
+   * and matches with the link <title> tag, if any.
+   */
+  @column()
+  declare linkTitle: string | null
+
   @column()
   declare text: string | null
 

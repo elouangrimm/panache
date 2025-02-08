@@ -2,7 +2,8 @@
   "extends": "@adonisjs/tsconfig/tsconfig.app.json",
   "compilerOptions": {
     "rootDir": "./",
-    "outDir": "./build"
+    "outDir": "./build",
+    "jsx": "react-jsx"
   },
-  "exclude": ["app/**/*.tsx", "node_modules", "build"]
+  "exclude": ["app/**/*.tsx", "!app/**/emails/**/*.tsx", "node_modules", "build"]
 }

@@ -14,6 +14,7 @@ import { CommentCard } from '../components/comment_card'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { SortCommentSelect } from '../components/sort_comment_select'
 import { ImagePreview } from '#common/ui/components/image_preview'
+import { LinkPreview } from '../components/link_preview'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
@@ -21,7 +22,7 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
 
   return (
     <SocialLayout>
-      <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 sm:gap-x-4">
+      <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 sm:gap-x-8">
         <div className="col-span-3">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">
@@ -56,24 +57,38 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                 </div>
               </div>
             </div>
+
             <PostActionsDropdown post={post} />
           </div>
+
           <h2 className="font-semibold text-xl pt-4 lg:pr-8">{post.title}</h2>
-          {post.link ? (
-            <a
-              className="transition-colors text-sm text-emerald-800 hover:text-emerald-600 truncate"
-              href={post.link}
-              target="_blank"
-            >
-              {post.link}
-            </a>
-          ) : null}
 
-          {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
+          <div className="pt-2">
+            {post.link ? (
+              post.ogImage ? (
+                <LinkPreview
+                  image={{ src: post.ogImage, alt: post.title + "'s Image" }}
+                  title={post.title}
+                  domain={post.link ? new URL(post.link).hostname : undefined}
+                  link={post.link}
+                />
+              ) : (
+                <a
+                  className="transition-colors text-sm text-emerald-800 hover:text-emerald-600 break-all"
+                  href={post.link}
+                  target="_blank"
+                >
+                  {post.link}
+                </a>
+              )
+            ) : null}
 
-          {post.image ? (
-            <ImagePreview image={{ src: post.image, alt: post.title + 's Image' }} />
-          ) : null}
+            {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
+
+            {post.image ? (
+              <ImagePreview image={{ src: post.image, alt: post.title + 's Image' }} />
+            ) : null}
+          </div>
 
           <div className="pt-2">
             <PostActions post={post} />

@@ -10,7 +10,6 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import React from 'react'
 import User from '#common/models/user'
 
 interface ResetPasswordEmailProps {

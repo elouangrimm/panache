@@ -10,5 +10,6 @@
   "description": "Description",
   "gender": "Genre",
   "male": "M.",
-  "female": "Mme."
+  "female": "Mme.",
+  "settings": "Paramètres"
 }

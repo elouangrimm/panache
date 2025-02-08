@@ -113,7 +113,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                     value={form.data.username}
                     onChange={(e) => form.setData('username', e.target.value)}
                   />
-                  <span className="hidden sm:absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                  <span className="hidden sm:block absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                     @panache.so
                   </span>
                 </div>

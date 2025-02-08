@@ -8,6 +8,9 @@ import useTranslate from '#common/ui/hooks/use_translate'
 import { PlusCircleIcon } from 'lucide-react'
 import { SearchInput } from './search_input'
 import { Toaster } from '#common/ui/components/toaster'
+import { SocialDropdown } from './social_dropdown'
+import useUser from '#common/ui/hooks/use_user'
+import { cn } from '#common/ui/lib/utils'
 
 export type SocialLayoutProps = React.PropsWithChildren<{
   title?: string
@@ -15,6 +18,7 @@ export type SocialLayoutProps = React.PropsWithChildren<{
 
 export default function SocialLayout({ children, title }: SocialLayoutProps) {
   const t = useTranslate('social')
+  const user = useUser()
   return (
     <>
       <Head>{title ? <title>Panache Social - {title}</title> : <title>Panache Social</title>}</Head>
@@ -27,11 +31,18 @@ export default function SocialLayout({ children, title }: SocialLayoutProps) {
             <div className="flex flex-wrap w-full justify-between items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
               <SearchInput />
-              <div>
-                <Link className={buttonVariants({ variant: 'secondary' })} href="/create">
+              <div className="flex items-center gap-4">
+                <Link
+                  className={cn(
+                    buttonVariants({ variant: 'secondary' }),
+                    !user && '!cursor-not-allowed opacity-50'
+                  )}
+                  href={user ? '/create' : ''}
+                >
                   <PlusCircleIcon className="h-4 w-4" />
                   <span>{t('create_a_post')}</span>
                 </Link>
+                <SocialDropdown />
               </div>
             </div>
           </header>

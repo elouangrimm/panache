@@ -12,6 +12,7 @@ import {
 } from '#common/ui/components/dropdown-menu'
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
+import useUser from '#common/ui/hooks/use_user'
 
 interface PostCardProps {
   post: Post
@@ -22,6 +23,7 @@ export function PostActions({ post }: PostCardProps) {
   const [userLikes, setUserLikes] = useState(post.likes?.length > 0 || false)
   const t = useTranslate('social')
   const { toast } = useToast()
+  const user = useUser()
 
   const handleCopyLink = (e: FormEvent) => {
     navigator.clipboard.writeText(`https://panache.so/rooms/${post.roomId}/posts/${post.id}`)
@@ -69,6 +71,7 @@ export function PostActions({ post }: PostCardProps) {
         variant="outline"
         className={cn('!h-8', userLikes && 'text-red-800')}
         onClick={handleClickLike}
+        disabled={!user}
       >
         <Heart className="h-4 w-4" strokeWidth={2.5} />
         <span className="font-semibold text-xs">{likesCount}</span>

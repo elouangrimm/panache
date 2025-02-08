@@ -51,11 +51,11 @@ export default function Create() {
         <RoomSelect roomId={roomId} setRoomId={setRoomId} />
 
         <Tabs defaultValue="text" className="min-w-full">
-          <TabsList className="flex flex-wrap sm:grid w-full h-full sm:grid-cols-4 gap-y-2 sm:gap-y-0 gap-x-4">
+          <TabsList className="flex flex-wrap sm:grid w-full h-full sm:grid-cols-3 gap-y-2 sm:gap-y-0 gap-x-4">
             <TabsTrigger value="text">{t('text')}</TabsTrigger>
             <TabsTrigger value="image">{t('image')}</TabsTrigger>
             <TabsTrigger value="link">{t('link')}</TabsTrigger>
-            <TabsTrigger value="meme">{t('meme')}</TabsTrigger>
+            {/* <TabsTrigger value="meme">{t('meme')}</TabsTrigger> */}
           </TabsList>
 
           <div className="grid gap-2 pt-8 pb-2">

@@ -1,5 +1,4 @@
 import React from 'react'
-import { cn } from '#common/ui/lib/utils'
 import { Button } from '#common/ui/components/button'
 import {
   Card,
@@ -59,7 +58,7 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
                   value={form.data.username}
                   onChange={(e) => form.setData('username', e.target.value)}
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                <span className="hidden sm:block absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                   @panache.so
                 </span>
               </div>
@@ -81,7 +80,7 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
 
           {/* Password Field */}
           <div className="grid gap-2">
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <Label htmlFor="password">{t('password_label')}</Label>
               <Link
                 href="/auth/forgot_password"
@@ -89,7 +88,7 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
               >
                 {t('forgot_password')}
               </Link>
-            </div>
+            </div> */}
             <Input
               id="password"
               type="password"

@@ -1,7 +1,8 @@
 import Post from '#social/models/post'
+import logger from '@adonisjs/core/services/logger'
 import * as cheerio from 'cheerio'
 
-export default class CacheOgImage {
+export default class LoadExtraPostFields {
   async handle({ post }: { post: Post }) {
     if (!post.link) {
       return
@@ -15,18 +16,23 @@ export default class CacheOgImage {
       // Load HTML into Cheerio
       const $ = cheerio.load(html)
 
+      // Find the title tag
+      const linkTitle = $('title').text()
+      if (linkTitle) {
+        post.linkTitle = linkTitle
+      }
+
       // Find the og:image meta tag
       const ogImage =
         $('meta[property="og:image"]').attr('content') || $('meta[name="og:image"]').attr('content')
 
-      if (!ogImage) {
-        return
+      if (ogImage) {
+        post.ogImage = ogImage
       }
 
-      post.ogImage = ogImage
       await post.save()
     } catch (error) {
-      console.error('Error retrieving og:image:', error)
+      logger.error({ error }, 'Failed to load extra post fields')
       return null
     }
 

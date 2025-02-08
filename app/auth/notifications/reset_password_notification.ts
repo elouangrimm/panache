@@ -3,6 +3,7 @@ import { BaseMail } from '@adonisjs/mail'
 import { render } from '@react-email/components'
 import router from '@adonisjs/core/services/router'
 import User from '#common/models/user'
+import ResetPasswordEmail from '#auth/emails/reset_password_email'
 
 export default class ResetPasswordNotification extends BaseMail {
   from = env.get('EMAIL_FROM')

@@ -6,12 +6,17 @@ interface ImagePreviewProps {
     src: string
     alt: string
   }
+  setHovered?: (hovered: boolean) => void
 }
 
-export function ImagePreview({ image }: ImagePreviewProps) {
+export function ImagePreview({ image, setHovered }: ImagePreviewProps) {
   const [isOpen, setIsOpen] = React.useState(false)
   return (
-    <div onClick={(e) => e.stopPropagation()}>
+    <div
+      onClick={(e) => e.stopPropagation()}
+      onMouseEnter={() => setHovered?.(true)}
+      onMouseLeave={() => setHovered?.(false)}
+    >
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger
           onClick={(e) => {

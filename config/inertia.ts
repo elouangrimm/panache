@@ -12,7 +12,7 @@ const inertiaConfig = defineConfig({
    */
   sharedData: {
     errors: (ctx) => ctx.inertia.always(() => ctx.session?.flashMessages.get('errors')),
-    user: (ctx) => ctx.auth.user,
+    user: (ctx) => ctx.auth?.user,
     translations: (ctx) => ctx.inertia.always(() => ctx.i18n.localeTranslations),
     path: (ctx) => ctx.request.url(),
     query: (ctx) => ctx.request.qs(),
@@ -39,4 +39,10 @@ export default inertiaConfig
 
 declare module '@adonisjs/inertia/types' {
   export interface SharedProps extends InferSharedProps<typeof inertiaConfig>, PageProps {}
+}
+
+declare module 'vite' {
+  interface ImportMeta {
+    readonly env: Record<string, string>
+  }
 }

@@ -13,11 +13,12 @@ import { RoomInfo } from '#social/ui/components/room_info'
 import { JoinRoomButton } from '#social/ui/components/join_room_button'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { cn } from '#common/ui/lib/utils'
+import useUser from '#common/ui/hooks/use_user'
 
 export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
   const t = useTranslate()
-
+  const user = useUser()
   return (
     <SocialLayout>
       <header>
@@ -35,8 +36,12 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
 
             <div className="flex flex-wrap gap-2 sm:gap-y-0 pt-4 sm:pt-0 ml-auto">
               <Link
-                className={cn(buttonVariants({ variant: 'secondary' }), '!w-full sm:!w-auto')}
-                href={`/create?room=${room.id}`}
+                className={cn(
+                  buttonVariants({ variant: 'secondary' }),
+                  '!w-full sm:!w-auto',
+                  !user && '!cursor-not-allowed opacity-50'
+                )}
+                href={user ? `/create?room=${room.id}` : ''}
               >
                 <PlusCircleIcon className="h-4 w-4" />
                 <span>{t('social.create_a_post')}</span>
@@ -46,7 +51,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
           </div>
         </div>
       </header>
-      <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 gap-4 pt-6 px-4 w-full">
+      <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 sm:gap-x-12 gap-4 pt-6 px-4 w-full">
         <div className="col-span-3">
           <SortBySelect />
 

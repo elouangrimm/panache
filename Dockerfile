@@ -25,5 +25,11 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
+
+# Copy i18n language files
+COPY --from=build /app/app/auth/lang/*.json /app/app/auth/lang/
+COPY --from=build /app/app/common/lang/*.json /app/app/common/lang/
+COPY --from=build /app/app/social/lang/*.json /app/app/social/lang/
+
 EXPOSE 8080
 CMD ["node", "./bin/server.js"]

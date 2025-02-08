@@ -1,4 +1,6 @@
 import User from '#common/models/user'
+import WebhooksService from '#common/services/webhooks_service'
+import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 
@@ -7,7 +9,11 @@ export default class SignUpController {
     return inertia.render('auth/sign_up')
   }
 
-  async handle({ auth, request, response, i18n, session }: HttpContext) {
+  @inject()
+  async handle(
+    { auth, request, response, i18n, session }: HttpContext,
+    webhooksService: WebhooksService
+  ) {
     const signUpValidator = vine.compile(
       vine.object({
         gender: vine.enum(['male', 'female']),
@@ -53,6 +59,8 @@ export default class SignUpController {
     await user.save()
 
     await auth.use('web').login(user)
+
+    await webhooksService.send(`[+] [User ${auth.user!.id} signed up]`)
 
     return response.redirect('/')
   }

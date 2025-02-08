@@ -1,10 +1,12 @@
 import React from 'react'
-import Post from '#social/models/post'
+import type Post from '#social/models/post'
 import { Card } from '#common/ui/components/card'
-import Room from '#social/models/room'
+import type Room from '#social/models/room'
 import { Link } from '@inertiajs/react'
 import { PostActions } from './post_actions'
 import { ImagePreview } from '#common/ui/components/image_preview'
+import { LinkPreview } from './link_preview'
+import { cn } from '#common/ui/lib/utils'
 
 interface PostCardProps {
   header?: React.ReactElement
@@ -13,19 +15,21 @@ interface PostCardProps {
 }
 
 export function PostCard({ header, post }: PostCardProps) {
+  const [cancelHover, setCancelHover] = React.useState(false)
   return (
     <Link href={`/rooms/${post.roomId}/posts/${post.id}`}>
-      <Card className="hover:bg-accent transition-colors">
+      <Card className={cn(!cancelHover && 'hover:bg-accent', 'transition-colors')}>
         <div className="p-4">
           {header}
 
           {/* Content */}
-          <div className="pt-2">
+          <div className="pt-2 flex flex-col space-y-1">
             <h2 className="font-medium">{post.title}</h2>
-            {post.link && (
+
+            {post.link && !post.ogImage && (
               <a
                 href={post.link}
-                className="text-blue-600 hover:underline break-all"
+                className="transition-colors text-sm text-emerald-800 hover:text-emerald-600 truncate break-all"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
@@ -33,12 +37,30 @@ export function PostCard({ header, post }: PostCardProps) {
                 {post.link.length > 60 ? `${post.link.slice(0, 60)}...` : post.link}
               </a>
             )}
+
+            {post.link && post.ogImage && (
+              <LinkPreview
+                image={{ src: post.ogImage, alt: post.title + "'s Image" }}
+                title={post.title}
+                domain={post.link ? new URL(post.link).hostname : undefined}
+                link={post.link}
+                small
+                setHovered={setCancelHover}
+              />
+            )}
+
+            {post.text && <p className="text-sm truncate">{post.text}</p>}
+
+            {/* Image */}
+            {post.image && (
+              <div className="flex">
+                <ImagePreview
+                  image={{ src: post.image, alt: post.title + 's Image' }}
+                  setHovered={setCancelHover}
+                />
+              </div>
+            )}
           </div>
-
-          {post.text && <p className="text-sm truncate">{post.text}</p>}
-
-          {/* Image */}
-          {post.image && <ImagePreview image={{ src: post.image, alt: post.title + 's Image' }} />}
 
           <div className="pt-2">
             <PostActions post={post} />

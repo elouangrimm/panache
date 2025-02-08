@@ -7,6 +7,7 @@ import Comment from '#social/models/comment'
 import { useForm } from '@inertiajs/react'
 import { CheckIcon } from 'lucide-react'
 import React, { FormEvent } from 'react'
+import useUser from '#common/ui/hooks/use_user'
 
 export default function CreateCommentForm({
   post,
@@ -23,6 +24,7 @@ export default function CreateCommentForm({
     commentId: comment?.id,
   })
   const { toast } = useToast()
+  const user = useUser()
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -53,7 +55,9 @@ export default function CreateCommentForm({
 
       {form.data.text ? (
         <div className="flex items-center gap-x-2 pt-4 w-full">
-          <Button type="submit">{t('common.submit')}</Button>
+          <Button type="submit" disabled={!user}>
+            {t('common.submit')}
+          </Button>
           <Button
             variant="secondary"
             type="reset"

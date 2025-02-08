@@ -3,13 +3,13 @@ import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { PostCard } from '#social/ui/components/post_card'
 import SocialLayout from '#social/ui/components/social_layout'
-import User from '#common/models/user'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { ProfileTabs } from '../components/profile_tabs'
 import { ProfileHeader } from '../components/profile_header'
+import Profile from '#social/models/profile'
 
-export default function ProfilePosts({ profile }: { profile: User }) {
+export default function ProfilePosts({ profile }: { profile: Profile }) {
   const t = useTranslate()
   const formatDistanceToNow = useFormatDistanceToNow()
 
@@ -19,7 +19,7 @@ export default function ProfilePosts({ profile }: { profile: User }) {
         <ProfileHeader profile={profile} />
         <ProfileTabs resource="posts" />
 
-        <div className="flex flex-col space-y-4">
+        <div className="gap-y-4 flex flex-col max-w-4xl mx-auto">
           {profile.posts.map((post) => (
             <PostCard
               key={post.id}

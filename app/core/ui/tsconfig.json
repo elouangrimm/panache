@@ -1,5 +1,6 @@
 {
   "extends": "@adonisjs/tsconfig/tsconfig.client.json",
+  "lib": ["dom"],
   "compilerOptions": {
     "baseUrl": ".",
     "module": "ESNext",
@@ -8,5 +9,5 @@
       "#common/ui*": ["./*"]
     }
   },
-  "include": ["app/**/ui/**/*", "app/**/*.tsx"]
+  "include": ["app/**/ui/**/*.ts", "app/**/*.tsx"]
 }
