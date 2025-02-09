@@ -16,12 +16,12 @@ export function RoomInfo({ header, room }: { room: Room; header?: React.ReactEle
       <p className={cn('text-foreground font-medium', header && 'pt-4')}>{room.description}</p>
 
       <div>
-        <div className="flex gap-x-1 items-center text-muted-foreground pt-2">
+        <div className="flex gap-x-1 items-start text-muted-foreground pt-2">
           <GlobeIcon className="h-4 w-4" />
           <span>Public</span>
         </div>
 
-        <div className="flex gap-x-1 items-center text-muted-foreground pt-2">
+        <div className="flex gap-x-1 items-start text-muted-foreground pt-2">
           <Users2Icon className="h-4 w-4" />
           <span>
             {room.membersCount ? room.membersCount : '0'}{' '}
@@ -29,7 +29,7 @@ export function RoomInfo({ header, room }: { room: Room; header?: React.ReactEle
           </span>
         </div>
 
-        <div className="flex gap-x-1 items-center text-muted-foreground pt-2">
+        <div className="flex gap-x-1 items-start text-muted-foreground pt-2">
           <CalendarIcon className="h-4 w-4" />
           <span>
             {t('common.created')} {formatDistanceToNow(room.createdAt as unknown as string)}

@@ -15,7 +15,7 @@ export default function ProfileComments({ profile }: { profile: Profile }) {
   const formatDistanceToNow = useFormatDistanceToNow()
 
   return (
-    <SocialLayout>
+    <SocialLayout title={`${profile.username} - ${t('social.comments')}`}>
       <div className="space-y-8">
         <ProfileHeader profile={profile} />
         <ProfileTabs resource="comments" />
