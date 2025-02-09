@@ -10,6 +10,7 @@ import {
 import { Error } from '#common/ui/components/error'
 import { Label } from '#common/ui/components/label'
 import { Textarea } from '#common/ui/components/textarea'
+import useParams from '#common/ui/hooks/use_params'
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
@@ -31,11 +32,12 @@ export function ReportPostDialog({
     description: '',
   })
   const { toast } = useToast()
+  const params = useParams()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    await fetch(`/rooms/${post.roomId}/posts/${post.id}/report`, {
+    await fetch(`/rooms/${params.roomSlug}/posts/${post.id}/report`, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(form.data),

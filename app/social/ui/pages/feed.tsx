@@ -8,10 +8,13 @@ import Post from '#social/models/post'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import useTranslate from '#common/ui/hooks/use_translate'
+import { RoomLogo } from '../components/room_logo'
+import useParams from '#common/ui/hooks/use_params'
 
 export default function Landing({ posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
   const t = useTranslate()
+  const params = useParams()
   return (
     <SocialLayout title={t('social.feed')}>
       <div className="grid sm:grid-cols-3">
@@ -30,24 +33,16 @@ export default function Landing({ posts }: { room: Room; posts: Post[] }) {
                   <div className="flex items-center gap-2">
                     <Link
                       className="hover:opacity-75 transition-opacity"
-                      href={`/rooms/${post.roomId}`}
+                      href={`/rooms/${params.roomSlug}`}
                     >
-                      <Avatar>
-                        <AvatarImage
-                          className="h-8 w-8 rounded-lg"
-                          src={`https://avatar.vercel.sh/${post.roomId}?`}
-                          alt={post.roomId}
-                          width={32}
-                          height={32}
-                        />
-                      </Avatar>
+                      <RoomLogo room={post.room} className="h-8 w-8" />
                     </Link>
 
                     <div className="flex flex-col">
                       <div className="flex items-center gap-1 text-[13px]">
                         <Link
                           className="font-medium hover:text-emerald-600 transition-colors"
-                          href={`/rooms/${post.roomId}`}
+                          href={`/rooms/${params.roomSlug}`}
                         >
                           {post.room.name}
                         </Link>

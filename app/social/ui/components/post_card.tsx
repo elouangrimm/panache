@@ -16,8 +16,9 @@ interface PostCardProps {
 
 export function PostCard({ header, post }: PostCardProps) {
   const [cancelHover, setCancelHover] = React.useState(false)
+
   return (
-    <Link href={`/rooms/${post.roomId}/posts/${post.id}`}>
+    <Link href={`/rooms/${post.room.slug}/posts/${post.id}`}>
       <Card className={cn(!cancelHover && 'hover:bg-accent', 'transition-colors max-w-[80vw]')}>
         <div className="p-4">
           {header}

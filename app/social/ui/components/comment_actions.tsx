@@ -14,6 +14,7 @@ import { CheckIcon, ClipboardCopyIcon, Heart, MessageSquare, Share2 } from 'luci
 import React, { FormEvent, useState } from 'react'
 import CreateCommentForm from './create_comment_form'
 import useUser from '#common/ui/hooks/use_user'
+import useParams from '#common/ui/hooks/use_params'
 
 export type CommentActionsProps = {
   post: Post
@@ -28,6 +29,7 @@ export function CommentActions({ post, comment, hideReply }: CommentActionsProps
   const t = useTranslate('social')
   const { toast } = useToast()
   const user = useUser()
+  const params = useParams()
 
   const handleClickLike = async (e: FormEvent) => {
     e.preventDefault()
@@ -58,7 +60,7 @@ export function CommentActions({ post, comment, hideReply }: CommentActionsProps
 
   const handleCopyLink = (e: FormEvent) => {
     navigator.clipboard.writeText(
-      `https://panache.so/rooms/${post.roomId}/posts/${post.id}#comment-${comment.id}`
+      `https://panache.so/rooms/${params.roomSlug}/posts/${post.id}#comment-${comment.id}`
     )
     toast({
       description: (

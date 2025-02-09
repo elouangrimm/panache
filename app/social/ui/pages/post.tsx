@@ -16,6 +16,7 @@ import { SortCommentSelect } from '../components/sort_comment_select'
 import { ImagePreview } from '#common/ui/components/image_preview'
 import { LinkPreview } from '../components/link_preview'
 import { ProfileAvatar } from '../components/profile_avatar'
+import { RoomLogo } from '../components/room_logo'
 
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
@@ -28,26 +29,21 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
         'og:title': post.title,
         'og:description': post.text || post.title,
         ...(post.ogImage ? { 'og:image': post.ogImage } : {}),
-        'og:url': `https://panache.so/rooms/${room.id}/posts/${post.id}`,
+        'og:url': `https://panache.so/rooms/${room.slug}/posts/${post.id}`,
       }}
     >
       <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 sm:gap-x-8">
         <div className="col-span-3">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">
-              <Link className="hover:opacity-75 transition-opacity" href={`/rooms/${room.id}`}>
-                <Avatar className="h-9 w-9">
-                  <AvatarImage
-                    src={`https://avatar.vercel.sh/${room.id}`}
-                    alt={post.profile.username}
-                  />
-                </Avatar>
+              <Link className="hover:opacity-75 transition-opacity" href={`/rooms/${room.slug}`}>
+                <RoomLogo room={room} className="h-9 w-9" />
               </Link>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1 text-sm">
                   <Link
                     className="font-medium text-emerald-950 hover:text-emerald-700 transition-colors"
-                    href={`/rooms/${room.id}`}
+                    href={`/rooms/${room.slug}`}
                   >
                     {room.name}
                   </Link>

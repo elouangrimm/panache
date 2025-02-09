@@ -19,7 +19,9 @@ export default function Create() {
   const rooms =
     props?.joinedRooms && props?.joinedRooms.length > 0 ? props.joinedRooms : props.popularRooms
   const { query } = usePageProps<{ query: Record<string, string> }>()
-  const [roomId, setRoomId] = React.useState(query.room || rooms.length > 0 ? rooms[0].id : '')
+  const [roomSlug, setRoomSlug] = React.useState(
+    query.room || rooms.length > 0 ? rooms[0].slug : ''
+  )
   const form = useForm({
     title: '',
     text: '',
@@ -31,7 +33,7 @@ export default function Create() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    form.post(`/rooms/${roomId}/posts`, {
+    form.post(`/rooms/${roomSlug}/posts`, {
       onSuccess: () => {
         toast({
           description: (
@@ -50,7 +52,7 @@ export default function Create() {
       <h1 className="text-2xl font-semibold sm:pt-8">{t('create_a_post')}</h1>
 
       <form className="flex flex-col space-y-8 pt-6" onSubmit={handleSubmit}>
-        <RoomSelect roomId={roomId} setRoomId={setRoomId} rooms={rooms} />
+        <RoomSelect roomSlug={roomSlug} setRoomSlug={setRoomSlug} rooms={rooms} />
 
         <Tabs defaultValue="text" className="min-w-full">
           <TabsList className="flex flex-wrap sm:grid w-full h-full sm:grid-cols-3 gap-y-2 sm:gap-y-0 gap-x-4">

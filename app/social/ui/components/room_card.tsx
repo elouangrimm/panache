@@ -6,6 +6,7 @@ import { Users2Icon } from 'lucide-react'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
+import { RoomLogo } from './room_logo'
 
 interface RoomCardProps {
   room: Room
@@ -16,18 +17,11 @@ export function RoomCard({ room }: RoomCardProps) {
   const formatDistanceToNow = useFormatDistanceToNow()
 
   return (
-    <Link href={`/rooms/${room.id}`}>
+    <Link href={`/rooms/${room.slug}`}>
       <Card className="hover:bg-accent transition-colors">
         <div className="p-4">
           <div className="flex space-x-4">
-            <Avatar className="h-12 w-12">
-              <AvatarImage
-                src={`https://avatar.vercel.sh/${room.id}?`}
-                alt={room.id}
-                width={48}
-                height={48}
-              />
-            </Avatar>
+            <RoomLogo room={room} className="h-12 w-12 rounded-lg border" />
 
             <div className="flex flex-col">
               {/* Content */}
@@ -36,8 +30,8 @@ export function RoomCard({ room }: RoomCardProps) {
               <div className="text-xs text-muted-foreground flex items-center gap-x-1 pt-1">
                 <Users2Icon className="h-3 w-3" />
                 <span>
-                  {room.memberCount}{' '}
-                  {room.memberCount > 1 ? t('social.members') : t('social.member')}
+                  {room.membersCount}{' '}
+                  {room.membersCount > 1 ? t('social.members') : t('social.member')}
                 </span>{' '}
                 <span>
                   {t('common.created')} • {formatDistanceToNow(room.createdAt as unknown as string)}

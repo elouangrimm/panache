@@ -29,7 +29,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
                 <div className="flex items-center gap-2">
                   <Link
                     className="hover:opacity-75 transition-opacity"
-                    href={`/rooms/${post.roomId}`}
+                    href={`/rooms/${params.roomSlug}`}
                   >
                     <ProfileAvatar profile={post.profile} className="h-8 w-8" />
                   </Link>
@@ -38,7 +38,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
                     <div className="flex items-center gap-1 text-[13px]">
                       <Link
                         className="font-medium hover:text-emerald-600 transition-colors"
-                        href={`/rooms/${post.roomId}`}
+                        href={`/rooms/${params.roomSlug}`}
                       >
                         {post.room.name}
                       </Link>

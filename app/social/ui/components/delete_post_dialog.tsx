@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '#common/ui/components/dialog'
+import useParams from '#common/ui/hooks/use_params'
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
@@ -26,9 +27,10 @@ export function DeletePostDialog({
   const t = useTranslate('social')
   const form = useForm({})
   const { toast } = useToast()
+  const params = useParams()
 
   const handleDelete = () => {
-    form.delete(`/rooms/${post.roomId}/posts/${post.id}`, {
+    form.delete(`/rooms/${params.roomSlug}/posts/${post.id}`, {
       onSuccess: () => {
         toast({
           description: (

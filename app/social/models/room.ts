@@ -1,23 +1,18 @@
-import { BaseModel, beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
-import { DateTime } from 'luxon'
+import { beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
 import Post from './post.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import string from '@adonisjs/core/helpers/string'
 import RoomMember from './room_member.js'
+import BaseModel from '#common/models/base_model'
 
 export default class Room extends BaseModel {
-  /**
-   * UUID primary key.
-   */
-  static selfAssignPrimaryKey = true
-
-  @column({ isPrimary: true })
-  declare id: string
-
   @beforeCreate()
-  static assignId(model: Room) {
-    model.id = string.slug(model.name, { lower: true, replacement: '-' })
+  static assignSlug(model: Room) {
+    model.slug = string.slug(model.name, { lower: true, replacement: '-' })
   }
+
+  @column()
+  declare slug: string
 
   @column()
   declare name: string
@@ -39,13 +34,4 @@ export default class Room extends BaseModel {
 
   @hasMany(() => RoomMember)
   declare members: HasMany<typeof RoomMember>
-
-  /**
-   * Timestamps.
-   */
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
 }

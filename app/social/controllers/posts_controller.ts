@@ -106,7 +106,7 @@ export default class PostsController {
   }
 
   async show({ auth, params, request, response, inertia }: HttpContext) {
-    const room = await Room.findBy('id', params.roomId)
+    const room = await Room.findBy('slug', params.roomSlug)
     if (room === null) {
       return response.notFound('Room not found.')
     }
@@ -189,7 +189,7 @@ export default class PostsController {
   }
 
   async store({ auth, params, request, response }: HttpContext) {
-    const room = await Room.findBy('id', params.roomId)
+    const room = await Room.findBy('slug', params.roomSlug)
     if (room === null) {
       return response.notFound('Room not found.')
     }
@@ -224,13 +224,15 @@ export default class PostsController {
     if (data.link) post.link = data.link
     await post.save()
 
-    return response.redirect().toRoute('posts.show', [room.id, post.id])
+    return response.redirect().toRoute('posts.show', [room.slug, post.id])
   }
 
   async destroy({ bouncer, params, response }: HttpContext) {
     const post = await Post.query()
       .where('id', params.postId)
-      .andWhere('room_id', params.roomId)
+      .preload('room', (query) => {
+        query.select('slug')
+      })
       .first()
     if (post === null) {
       return response.notFound('Post not found.')
@@ -242,14 +244,11 @@ export default class PostsController {
 
     await post.delete()
 
-    return response.redirect().toRoute('rooms.show', [params.roomId])
+    return response.redirect().toRoute('rooms.show', [post.room.slug])
   }
 
   async like({ auth, params, response }: HttpContext) {
-    const post = await Post.query()
-      .where('id', params.postId)
-      .andWhere('room_id', params.roomId)
-      .first()
+    const post = await Post.query().where('id', params.postId).first()
     if (post === null) {
       return response.notFound('Post not found.')
     }
@@ -263,10 +262,7 @@ export default class PostsController {
   }
 
   async unlike({ auth, params, response }: HttpContext) {
-    const post = await Post.query()
-      .where('id', params.postId)
-      .andWhere('room_id', params.roomId)
-      .first()
+    const post = await Post.query().where('id', params.postId).first()
     if (post === null) {
       return response.notFound('Post not found.')
     }
@@ -286,10 +282,7 @@ export default class PostsController {
 
   @inject()
   async report({ auth, params, request, response }: HttpContext, webhooksService: WebhooksService) {
-    const post = await Post.query()
-      .where('id', params.postId)
-      .andWhere('room_id', params.roomId)
-      .first()
+    const post = await Post.query().where('id', params.postId).first()
     if (post === null) {
       return response.notFound('Post not found.')
     }

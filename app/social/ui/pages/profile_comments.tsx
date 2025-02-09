@@ -9,6 +9,7 @@ import { ProfileTabs } from '../components/profile_tabs'
 import { ProfileHeader } from '../components/profile_header'
 import { CommentCard } from '../components/comment_card'
 import Profile from '#social/models/profile'
+import { RoomLogo } from '../components/room_logo'
 
 export default function ProfileComments({ profile }: { profile: Profile }) {
   const t = useTranslate()
@@ -31,30 +32,23 @@ export default function ProfileComments({ profile }: { profile: Profile }) {
                     <div className="flex items-center gap-2">
                       <Link
                         className="hover:opacity-75 transition-opacity"
-                        href={`/rooms/${comment.post.room.id}`}
+                        href={`/rooms/${comment.post.room.slug}`}
                       >
-                        <Avatar className="h-8 w-8">
-                          <AvatarImage
-                            src={`https:avatar.vercel.sh/${comment.post.room.id}?`}
-                            alt={comment.post.room.id}
-                            width={32}
-                            height={32}
-                          />
-                        </Avatar>
+                        <RoomLogo room={comment.post.room} className="h-8 w-8" />
                       </Link>
 
                       <div className="flex flex-col">
                         <div className="flex items-center gap-1 text-[13px]">
                           <Link
                             className="font-medium hover:text-emerald-600 transition-colors"
-                            href={`/rooms/${comment.post.room.id}`}
+                            href={`/rooms/${comment.post.room.slug}`}
                           >
                             {comment.post.room.name}
                           </Link>
                           <span>•</span>
                           <Link
                             className="font-medium text-muted-foreground hover:text-emerald-600 transition-colors"
-                            href={`/rooms/${comment.post.room.id}/posts/${comment.post.id}`}
+                            href={`/rooms/${comment.post.room.slug}/posts/${comment.post.id}`}
                           >
                             {comment.post.title.slice(0, 30)}
                           </Link>

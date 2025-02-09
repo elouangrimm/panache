@@ -15,6 +15,7 @@ import { Link } from '@inertiajs/react'
 import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import useParams from '#common/ui/hooks/use_params'
 import { cn } from '#common/ui/lib/utils'
+import { RoomLogo } from './room_logo'
 
 export function NavRooms({ rooms, title }: { rooms: Room[]; title: string }) {
   const params = useParams()
@@ -29,15 +30,14 @@ export function NavRooms({ rooms, title }: { rooms: Room[]; title: string }) {
             <SidebarMenuButton asChild>
               <Link
                 className={cn(
-                  params.roomId === room.id &&
+                  params.roomSlug === room.slug &&
                     route === 'rooms.show' &&
                     'font-medium text-black bg-sidebar-accent'
                 )}
-                href={`/rooms/${room.id}`}
+                href={`/rooms/${room.slug}`}
               >
-                <Avatar className="h-6 w-6 rounded-lg border">
-                  <AvatarImage src={`https://avatar.vercel.sh/${room.id}?`} alt={room.name} />
-                </Avatar>
+                <RoomLogo room={room} className="h-6 w-6 rounded-lg border" />
+
                 <span className="text-sidebar-foreground">{room.name}</span>
               </Link>
             </SidebarMenuButton>

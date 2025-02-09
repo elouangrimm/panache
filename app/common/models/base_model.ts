@@ -1,10 +1,10 @@
+import { cuid } from '@adonisjs/core/helpers'
 import { BaseModel as AdonisBaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
-import { randomUUID } from 'node:crypto'
 
 export default class BaseModel extends AdonisBaseModel {
   /**
-   * UUID primary key.
+   * Cuid primary key.
    */
   static selfAssignPrimaryKey = true
 
@@ -12,8 +12,8 @@ export default class BaseModel extends AdonisBaseModel {
   declare id: string
 
   @beforeCreate()
-  static assignUuid(model: BaseModel) {
-    model.id = randomUUID()
+  static assignId(model: BaseModel) {
+    model.id = cuid()
   }
 
   /**

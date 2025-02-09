@@ -13,6 +13,7 @@ import {
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import useUser from '#common/ui/hooks/use_user'
+import useParams from '#common/ui/hooks/use_params'
 
 interface PostCardProps {
   post: Post
@@ -24,9 +25,10 @@ export function PostActions({ post }: PostCardProps) {
   const t = useTranslate('social')
   const { toast } = useToast()
   const user = useUser()
+  const params = useParams()
 
   const handleCopyLink = (e: FormEvent) => {
-    navigator.clipboard.writeText(`https://panache.so/rooms/${post.roomId}/posts/${post.id}`)
+    navigator.clipboard.writeText(`https://panache.so/rooms/${params.roomSlug}/posts/${post.id}`)
     toast({
       description: (
         <div className="flex items-center space-x-2">
@@ -45,7 +47,7 @@ export function PostActions({ post }: PostCardProps) {
       /**
        * Handle dislike.
        */
-      await fetch(`/rooms/${post.roomId}/posts/${post.id}/unlike`, {
+      await fetch(`/rooms/${params.roomSlug}/posts/${post.id}/unlike`, {
         method: 'POST',
         credentials: 'include',
       })
@@ -55,7 +57,7 @@ export function PostActions({ post }: PostCardProps) {
       /**
        * Handle like.
        */
-      await fetch(`/rooms/${post.roomId}/posts/${post.id}/like`, {
+      await fetch(`/rooms/${params.roomSlug}/posts/${post.id}/like`, {
         method: 'POST',
         credentials: 'include',
       })
@@ -79,7 +81,7 @@ export function PostActions({ post }: PostCardProps) {
 
       <Link
         className={cn('!h-8', buttonVariants({ variant: 'outline' }))}
-        href={`/rooms/${post.roomId}/posts/${post.id}#comments`}
+        href={`/rooms/${params.roomSlug}/posts/${post.id}#comments`}
       >
         <MessageSquare className="h-4 w-4" strokeWidth={2} />
         <span className="font-semibold text-xs">{post.commentsCount}</span>

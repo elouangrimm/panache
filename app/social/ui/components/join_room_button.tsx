@@ -13,11 +13,11 @@ export function JoinRoomButton() {
   const user = useUser()
 
   const handleJoin = () => {
-    form.post(`/rooms/${room.id}/join`)
+    form.post(`/rooms/${room.slug}/join`)
   }
 
   const handleQuit = () => {
-    form.post(`/rooms/${room.id}/quit`)
+    form.post(`/rooms/${room.slug}/quit`)
   }
 
   if (isMember) {

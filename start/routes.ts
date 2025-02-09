@@ -41,9 +41,12 @@ const RoomsController = () => import('#social/controllers/rooms_controller')
 
 router.get('/rooms', [RoomsController, 'index']).use(middleware.loadRooms())
 router.post('/rooms', [RoomsController, 'store']).use(middleware.auth())
-router.get('/rooms/:roomId', [RoomsController, 'show']).use(middleware.loadRooms()).as('rooms.show')
-router.post('/rooms/:roomId/join', [RoomsController, 'join']).use(middleware.auth())
-router.post('/rooms/:roomId/quit', [RoomsController, 'quit']).use(middleware.auth())
+router
+  .get('/rooms/:roomSlug', [RoomsController, 'show'])
+  .use(middleware.loadRooms())
+  .as('rooms.show')
+router.post('/rooms/:roomSlug/join', [RoomsController, 'join']).use(middleware.auth())
+router.post('/rooms/:roomSlug/quit', [RoomsController, 'quit']).use(middleware.auth())
 
 const PostsController = () => import('#social/controllers/posts_controller')
 router.get('/', [PostsController, 'feed']).use(middleware.loadRooms())
@@ -54,29 +57,29 @@ router
   .as('posts.create')
   .use([middleware.auth(), middleware.loadRooms()])
 router
-  .post('/rooms/:roomId/posts', [PostsController, 'store'])
+  .post('/rooms/:roomSlug/posts', [PostsController, 'store'])
   .as('posts.store')
   .use(middleware.auth())
 router
-  .get('/rooms/:roomId/posts/:postId', [PostsController, 'show'])
+  .get('/rooms/:roomSlug/posts/:postId', [PostsController, 'show'])
   .use(middleware.loadRooms())
   .as('posts.show')
 router
-  .delete('/rooms/:roomId/posts/:postId', [PostsController, 'destroy'])
+  .delete('/rooms/:roomSlug/posts/:postId', [PostsController, 'destroy'])
   .as('posts.destroy')
   .use(middleware.auth())
 
 router
-  .post('/rooms/:roomId/posts/:postId/like', [PostsController, 'like'])
+  .post('/rooms/:roomSlug/posts/:postId/like', [PostsController, 'like'])
   .as('posts.like')
   .use(middleware.auth())
 router
-  .post('/rooms/:roomId/posts/:postId/unlike', [PostsController, 'unlike'])
+  .post('/rooms/:roomSlug/posts/:postId/unlike', [PostsController, 'unlike'])
   .as('posts.unlike')
   .use(middleware.auth())
 
 router
-  .post('/rooms/:roomId/posts/:postId/report', [PostsController, 'report'])
+  .post('/rooms/:roomSlug/posts/:postId/report', [PostsController, 'report'])
   .as('posts.report')
   .use(middleware.auth())
 

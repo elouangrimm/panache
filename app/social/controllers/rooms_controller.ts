@@ -62,14 +62,14 @@ export default class RoomsController {
 
     await webhooksService.send(`[+] [New Room created with name: ${room.name}]`)
 
-    return response.redirect().toRoute('rooms.show', [room.id])
+    return response.redirect().toRoute('rooms.show', [room.slug])
   }
 
   async show({ auth, params, inertia, request, response }: HttpContext) {
     const sortMethod = request.input('method', 'popular')
     const period = request.input('period', 'day')
 
-    const room = await Room.findBy('id', params.roomId)
+    const room = await Room.findBy('slug', params.roomSlug)
     if (room === null) {
       return response.notFound('Room not found.')
     }
@@ -144,7 +144,7 @@ export default class RoomsController {
   }
 
   async join({ auth, params, response }: HttpContext) {
-    const room = await Room.findBy('id', params.roomId)
+    const room = await Room.findBy('slug', params.roomSlug)
     if (room === null) {
       return response.notFound('Room not found.')
     }
@@ -158,7 +158,7 @@ export default class RoomsController {
   }
 
   async quit({ auth, params, response }: HttpContext) {
-    const room = await Room.findBy('id', params.roomId)
+    const room = await Room.findBy('slug', params.roomSlug)
     if (room === null) {
       return response.notFound('Room not found.')
     }

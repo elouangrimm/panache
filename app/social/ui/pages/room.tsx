@@ -15,6 +15,7 @@ import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_
 import { cn } from '#common/ui/lib/utils'
 import useUser from '#common/ui/hooks/use_user'
 import { ProfileAvatar } from '../components/profile_avatar'
+import { RoomLogo } from '../components/room_logo'
 
 export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
@@ -27,16 +28,14 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
         'description': room.description,
         'og:title': room.name,
         'og:description': room.description,
-        'og:url': `https://panache.so/rooms/${room.id}`,
+        'og:url': `https://panache.so/rooms/${room.slug}`,
       }}
     >
       <header>
         <div className="h-24 bg-[#e3e2d4] rounded-lg border border-sidebar"></div>
         <div className="flex flex-wrap gap-x-2 items-center justify-between pt-3 px-4">
           <div className="flex flex-col lg:flex-row items-start gap-y-4 lg:gap-y-0 lg:gap-x-4 lg:w-full">
-            <Avatar className="h-24 w-24 -mt-10 rounded-3xl border-4 border-white">
-              <AvatarImage src={`https://avatar.vercel.sh/${room.id}?`} alt={room.name} />
-            </Avatar>
+            <RoomLogo room={room} className="h-24 w-24 -mt-10 rounded-3xl border-4 border-white" />
 
             <div>
               <p className="font-mono font-medium uppercase text-sm">{t('social.room')}</p>
@@ -50,7 +49,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
                   '!w-full sm:!w-auto',
                   !user && '!cursor-not-allowed opacity-50'
                 )}
-                href={user ? `/create?room=${room.id}` : ''}
+                href={user ? `/create?room=${room.slug}` : ''}
               >
                 <PlusCircleIcon className="h-4 w-4" />
                 <span>{t('social.create_a_post')}</span>
