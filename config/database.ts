@@ -9,6 +9,7 @@ const dbConfig = defineConfig({
       debug: true,
       client: 'pg',
       connection: {
+        ssl: env.get('DB_SSL'),
         host: env.get('DB_HOST'),
         port: env.get('DB_PORT'),
         user: env.get('DB_USER'),

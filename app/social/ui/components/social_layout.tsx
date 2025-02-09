@@ -26,7 +26,6 @@ export default function SocialLayout({ children, title, meta }: SocialLayoutProp
     popularRooms: Room[]
     joinedRooms?: Room[]
   }>()
-  console.log(title)
   return (
     <>
       <Head>

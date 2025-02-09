@@ -38,6 +38,7 @@ export function ReportCommentDialog({
     await fetch(`/comments/${comment.id}/report`, {
       method: 'POST',
       credentials: 'include',
+      body: JSON.stringify(form.data),
     })
 
     toast({

@@ -6,18 +6,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '#common/ui/components/dialog'
 import { Error } from '#common/ui/components/error'
-import { Input } from '#common/ui/components/input'
 import { Label } from '#common/ui/components/label'
-import { SidebarMenuButton } from '#common/ui/components/sidebar'
 import { Textarea } from '#common/ui/components/textarea'
 import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import Post from '#social/models/post'
 import { useForm } from '@inertiajs/react'
-import { CheckIcon, PlusCircleIcon } from 'lucide-react'
+import { CheckIcon } from 'lucide-react'
 import React from 'react'
 
 export function ReportPostDialog({
@@ -41,6 +38,7 @@ export function ReportPostDialog({
     await fetch(`/rooms/${post.roomId}/posts/${post.id}/report`, {
       method: 'POST',
       credentials: 'include',
+      body: JSON.stringify(form.data),
     })
 
     toast({
