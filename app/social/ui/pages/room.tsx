@@ -83,7 +83,7 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
                         className="hover:text-emerald-900 transition-colors font-medium"
                         href={`/profiles/${post.profile.username}`}
                       >
-                        {post.profile.username}
+                        @{post.profile.username}
                       </Link>
 
                       <span className="text-muted-foreground">

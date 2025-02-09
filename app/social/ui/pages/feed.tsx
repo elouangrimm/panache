@@ -42,7 +42,7 @@ export default function Landing({ posts }: { room: Room; posts: Post[] }) {
                       <div className="flex items-center gap-1 text-[13px]">
                         <Link
                           className="font-medium hover:text-emerald-600 transition-colors"
-                          href={`/rooms/${params.roomSlug}`}
+                          href={`/rooms/${post.room.slug}`}
                         >
                           {post.room.name}
                         </Link>
@@ -56,7 +56,7 @@ export default function Landing({ posts }: { room: Room; posts: Post[] }) {
                           className="text-xs text-muted-foreground hover:text-emerald-800 transition-colors"
                           href={`/profiles/${post.profile.username}`}
                         >
-                          {post.profile.username}
+                          @{post.profile.username}
                         </Link>
                       </div>
                     </div>

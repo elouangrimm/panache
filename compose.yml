@@ -11,11 +11,5 @@ services:
     ports:
       - 5432:5432
 
-  panache:
-    context:
-      build: .
-    ports:
-      - 3333:3333
-
 volumes:
   panache_postgres_data:

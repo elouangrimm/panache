@@ -32,7 +32,7 @@ export default function ProfilePosts({ profile }: { profile: Profile }) {
                 <div className="flex items-start gap-2">
                   <Link
                     className="hover:opacity-75 transition-opacity"
-                    href={`/rooms/${params.roomSlug}`}
+                    href={`/rooms/${post.room.slug}`}
                   >
                     <RoomLogo room={post.room} className="h-8 w-8" />
                   </Link>
@@ -40,7 +40,7 @@ export default function ProfilePosts({ profile }: { profile: Profile }) {
                     <div className="flex items-center gap-1 text-[13px]">
                       <Link
                         className="font-medium hover:text-emerald-600 transition-colors"
-                        href={`/rooms/${params.roomSlug}`}
+                        href={`/rooms/${post.room.slug}`}
                       >
                         {post.room.name}
                       </Link>

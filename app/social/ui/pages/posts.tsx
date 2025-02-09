@@ -10,10 +10,12 @@ import { Alert, AlertTitle, AlertDescription } from '#common/ui/components/alert
 import { SearchX } from 'lucide-react'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { ProfileAvatar } from '../components/profile_avatar'
+import useParams from '#common/ui/hooks/use_params'
 
 export default function Posts({ posts }: { posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
   const t = useTranslate()
+  const params = useParams()
 
   return (
     <SocialLayout>
@@ -52,7 +54,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
                         className="text-xs text-muted-foreground hover:text-emerald-800 transition-colors"
                         href={`/profiles/${post.profile.username}`}
                       >
-                        {post.profile.username}
+                        @{post.profile.username}
                       </Link>
                     </div>
                   </div>

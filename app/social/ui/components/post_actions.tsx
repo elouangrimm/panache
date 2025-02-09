@@ -47,7 +47,7 @@ export function PostActions({ post }: PostCardProps) {
       /**
        * Handle dislike.
        */
-      await fetch(`/rooms/${params.roomSlug}/posts/${post.id}/unlike`, {
+      await fetch(`/rooms/${post.room?.slug}/posts/${post.id}/unlike`, {
         method: 'POST',
         credentials: 'include',
       })

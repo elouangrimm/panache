@@ -57,7 +57,7 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
                     className="text-xs text-muted-foreground hover:text-emerald-800 transition-colors"
                     href={`/profiles/${post.profile.username}`}
                   >
-                    {post.profile.username}
+                    @{post.profile.username}
                   </Link>
                 </div>
               </div>
