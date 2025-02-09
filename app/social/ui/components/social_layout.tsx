@@ -16,18 +16,27 @@ import Room from '#social/models/room'
 
 export type SocialLayoutProps = React.PropsWithChildren<{
   title?: string
+  meta?: Record<string, string>
 }>
 
-export default function SocialLayout({ children, title }: SocialLayoutProps) {
+export default function SocialLayout({ children, title, meta }: SocialLayoutProps) {
   const t = useTranslate('social')
   const user = useUser()
   const { joinedRooms, popularRooms } = usePageProps<{
     popularRooms: Room[]
     joinedRooms?: Room[]
   }>()
+  console.log(title)
   return (
     <>
-      <Head>{title ? <title>Panache Social - {title}</title> : <title>Panache Social</title>}</Head>
+      <Head>
+        {title ? <title>{`Panache Social - ${title}`}</title> : <title>Panache Social</title>}
+
+        {meta &&
+          Object.entries(meta).map(([name, content]) => (
+            <meta key={name} name={name} content={content} />
+          ))}
+      </Head>
       <SidebarProvider>
         <AppSidebar>
           {joinedRooms && joinedRooms.length > 0 ? (
@@ -41,7 +50,7 @@ export default function SocialLayout({ children, title }: SocialLayoutProps) {
             <div className="flex flex-wrap w-full justify-between items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
               <SearchInput />
-              <div className="flex items-center gap-4">
+              <div className="flex items-center w-full sm:w-auto justify-between  gap-4">
                 <Link
                   className={cn(
                     buttonVariants({ variant: 'secondary' }),

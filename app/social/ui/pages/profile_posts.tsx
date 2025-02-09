@@ -15,7 +15,7 @@ export default function ProfilePosts({ profile }: { profile: Profile }) {
 
   return (
     <SocialLayout>
-      <div className="space-y-8 lg:mx-16">
+      <div className="space-y-8">
         <ProfileHeader profile={profile} />
         <ProfileTabs resource="posts" />
 

@@ -21,11 +21,19 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
   const t = useTranslate()
   const user = useUser()
   return (
-    <SocialLayout>
+    <SocialLayout
+      title={room.name}
+      meta={{
+        'description': room.description,
+        'og:title': room.name,
+        'og:description': room.description,
+        'og:url': `https://panache.so/rooms/${room.id}`,
+      }}
+    >
       <header>
         <div className="h-24 bg-[#e3e2d4] rounded-lg border border-sidebar"></div>
         <div className="flex flex-wrap gap-x-2 items-center justify-between pt-3 px-4">
-          <div className="flex flex-col sm:flex-row items-start gap-x-4 sm:w-full">
+          <div className="flex flex-col lg:flex-row items-start gap-y-4 lg:gap-y-0 lg:gap-x-4 lg:w-full">
             <Avatar className="h-24 w-24 -mt-10 rounded-3xl border-4 border-white">
               <AvatarImage src={`https://avatar.vercel.sh/${room.id}?`} alt={room.name} />
             </Avatar>
@@ -52,38 +60,36 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
           </div>
         </div>
       </header>
-      <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 sm:gap-x-12 gap-4 pt-6 px-4 w-full">
+      <div className="flex flex-col-reverse lg:grid lg:grid-cols-4 lg:gap-x-8 xl:gap-x-12 gap-4 pt-6 px-4 w-full">
         <div className="col-span-3">
           <SortBySelect />
 
-          <div className="pt-4 grid gap-y-4">
+          <div className="pt-4 grid gap-y-4 max-w-full">
             {posts.map((post) => (
               <PostCard
                 key={post.id}
                 post={post}
                 room={room}
                 header={
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <Link
+                      className="hover:opacity-75 transition-opacity"
+                      href={`/profiles/${post.profile.username}`}
+                    >
+                      <ProfileAvatar profile={post.profile} className="h-8 w-8" />
+                    </Link>
+
+                    <div className="flex items-center gap-1 text-[13px]">
                       <Link
-                        className="hover:opacity-75 transition-opacity"
+                        className="hover:text-emerald-900 transition-colors font-medium"
                         href={`/profiles/${post.profile.username}`}
                       >
-                        <ProfileAvatar profile={post.profile} className="h-8 w-8" />
+                        {post.profile.username}
                       </Link>
 
-                      <div className="flex items-center gap-1 text-[13px]">
-                        <Link
-                          className="hover:text-emerald-900 transition-colors font-medium"
-                          href={`/profiles/${post.profile.username}`}
-                        >
-                          {post.profile.username}
-                        </Link>
-
-                        <span className="text-muted-foreground">
-                          • {formatDistanceToNow(post.createdAt as unknown as string)}
-                        </span>
-                      </div>
+                      <span className="text-muted-foreground">
+                        • {formatDistanceToNow(post.createdAt as unknown as string)}
+                      </span>
                     </div>
                   </div>
                 }

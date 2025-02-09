@@ -64,5 +64,6 @@
   "update_username": "Update username",
   "username_updated": "Username updated!",
   "update_avatar": "Update avatar",
-  "avatar_updated": "Avatar updated!"
+  "avatar_updated": "Avatar updated!",
+  "feed": "Feed"
 }

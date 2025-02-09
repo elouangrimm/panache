@@ -19,7 +19,7 @@ export default function Create() {
   const rooms =
     props?.joinedRooms && props?.joinedRooms.length > 0 ? props.joinedRooms : props.popularRooms
   const { query } = usePageProps<{ query: Record<string, string> }>()
-  const [roomId, setRoomId] = React.useState(query.room || rooms[0].id)
+  const [roomId, setRoomId] = React.useState(query.room || rooms.length > 0 ? rooms[0].id : '')
   const form = useForm({
     title: '',
     text: '',
@@ -83,9 +83,12 @@ export default function Create() {
               className="mt-1"
               id="text"
               name="text"
+              rows={5}
               placeholder={t('text_placeholder')}
               value={form.data.text}
               onChange={(e) => form.setData('text', e.target.value)}
+              minLength={10}
+              maxLength={10000}
             />
 
             <Error errorKey="text" />

@@ -197,7 +197,7 @@ export default class PostsController {
     const storePostValidator = vine.compile(
       vine.object({
         title: vine.string().minLength(3).maxLength(255),
-        text: vine.string().minLength(10).maxLength(1000).optional(),
+        text: vine.string().minLength(10).maxLength(10000).optional(),
         link: vine.string().url().normalizeUrl().maxLength(255).optional(),
         image: vine
           .file({

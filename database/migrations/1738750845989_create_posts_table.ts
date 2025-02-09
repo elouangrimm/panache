@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.string('title').notNullable()
       table.string('link').nullable()
       table.string('link_title').nullable()
-      table.string('text').nullable()
+      table.text('text').nullable()
       table.string('image').nullable()
       table.string('og_image').nullable()
       table

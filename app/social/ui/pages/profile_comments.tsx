@@ -16,7 +16,7 @@ export default function ProfileComments({ profile }: { profile: Profile }) {
 
   return (
     <SocialLayout>
-      <div className="space-y-8 lg:mx-16">
+      <div className="space-y-8">
         <ProfileHeader profile={profile} />
         <ProfileTabs resource="comments" />
         <div className="gap-y-4 flex flex-col max-w-4xl mx-auto">

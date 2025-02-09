@@ -145,7 +145,7 @@
     @apply !font-sans font-medium text-sm tracking-tight cursor-pointer disabled:cursor-not-allowed;
     @apply flex items-center justify-center gap-x-2;
     @apply transition duration-75 disabled:opacity-50 rounded border;
-    @apply px-3 h-9 w-full sm:w-fit;
+    @apply px-3 h-9 w-fit;
     @apply active:[box-shadow:none] hover:[box-shadow:none];
   }
 }

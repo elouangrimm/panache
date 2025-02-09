@@ -18,7 +18,7 @@ export function PostCard({ header, post }: PostCardProps) {
   const [cancelHover, setCancelHover] = React.useState(false)
   return (
     <Link href={`/rooms/${post.roomId}/posts/${post.id}`}>
-      <Card className={cn(!cancelHover && 'hover:bg-accent', 'transition-colors')}>
+      <Card className={cn(!cancelHover && 'hover:bg-accent', 'transition-colors max-w-[80vw]')}>
         <div className="p-4">
           {header}
 
@@ -49,7 +49,11 @@ export function PostCard({ header, post }: PostCardProps) {
               />
             )}
 
-            {post.text && <p className="text-sm truncate">{post.text}</p>}
+            {post.text && (
+              <p className="text-sm break-all lg:max-w-xl">
+                {post.text.length > 100 ? `${post.text.slice(0, 100)}...` : post.text}
+              </p>
+            )}
 
             {/* Image */}
             {post.image && (

@@ -7,12 +7,13 @@ import { PostCard } from '../components/post_card'
 import Post from '#social/models/post'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
+import useTranslate from '#common/ui/hooks/use_translate'
 
 export default function Landing({ posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
-
+  const t = useTranslate()
   return (
-    <SocialLayout>
+    <SocialLayout title={t('social.feed')}>
       <div className="grid sm:grid-cols-3">
         <div className="col-span-2">
           <SortBySelect />

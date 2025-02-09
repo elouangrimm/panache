@@ -20,9 +20,17 @@ import { ProfileAvatar } from '../components/profile_avatar'
 export default function Show({ room, post }: { room: Room; post: Post }) {
   const t = useTranslate()
   const formatDistanceToNow = useFormatDistanceToNow()
-  console.log('post', post)
   return (
-    <SocialLayout>
+    <SocialLayout
+      title={post.title}
+      meta={{
+        'description': post.text || post.title,
+        'og:title': post.title,
+        'og:description': post.text || post.title,
+        ...(post.ogImage ? { 'og:image': post.ogImage } : {}),
+        'og:url': `https://panache.so/rooms/${room.id}/posts/${post.id}`,
+      }}
+    >
       <div className="flex flex-col-reverse sm:grid sm:grid-cols-4 gap-y-4 sm:gap-y-0 sm:gap-x-8">
         <div className="col-span-3">
           <div className="flex items-start justify-between">
@@ -84,7 +92,16 @@ export default function Show({ room, post }: { room: Room; post: Post }) {
               )
             ) : null}
 
-            {post.text ? <p className="prose pt-2 text-sm">{post.text}</p> : null}
+            {post.text ? (
+              <p className="prose pt-2 text-sm">
+                {post.text.split('\n').map((part, index) => (
+                  <React.Fragment key={index}>
+                    {part}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </p>
+            ) : null}
 
             {post.image ? (
               <ImagePreview image={{ src: post.image, alt: post.title + 's Image' }} />
