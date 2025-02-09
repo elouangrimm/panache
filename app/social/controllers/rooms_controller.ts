@@ -35,7 +35,10 @@ export default class RoomsController {
             const roomFoundByName = await db
               .from('rooms')
               .where('name', value)
-              .orWhere('id', string.slug(value, { lower: true, replacement: '-' }))
+              .orWhere(
+                'id',
+                string.slug(value, { lower: true, replacement: '-', locale: i18n.locale })
+              )
               .first()
             return !roomFoundByName
           }),
