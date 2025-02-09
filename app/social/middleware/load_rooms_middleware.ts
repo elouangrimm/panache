@@ -3,11 +3,8 @@ import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 
 export default class LoadRoomsMiddleware {
-  async handle({ auth, inertia, i18n }: HttpContext, next: NextFn) {
-    const popularRooms = await Room.query()
-      .where('lang', i18n.locale)
-      .orderBy('members_count')
-      .limit(10)
+  async handle({ auth, inertia }: HttpContext, next: NextFn) {
+    const popularRooms = await Room.query().orderBy('members_count').limit(10)
     inertia.share({ popularRooms })
 
     if (auth.isAuthenticated) {

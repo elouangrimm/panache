@@ -33,7 +33,7 @@ export default function Landing({ posts }: { room: Room; posts: Post[] }) {
                   <div className="flex items-center gap-2">
                     <Link
                       className="hover:opacity-75 transition-opacity"
-                      href={`/rooms/${params.roomSlug}`}
+                      href={`/rooms/${post.room.slug}`}
                     >
                       <RoomLogo room={post.room} className="h-8 w-8" />
                     </Link>
