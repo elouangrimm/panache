@@ -75,24 +75,18 @@ export function EditUsernameDialog() {
           <form className="mt-4" id="edit-username-form" onSubmit={handleSubmit}>
             <div className="grid gap-2">
               <Label htmlFor="username">{t('auth.username_label')}</Label>
-              <div className="relative">
-                <Input
-                  autoComplete="panache-username"
-                  id="username"
-                  name="username"
-                  type="text"
-                  placeholder="cyrano.bergerac"
-                  required
-                  className="pr-20"
-                  value={form.data.username}
-                  onChange={(e) =>
-                    form.setData('username', e.target.value.toLowerCase().replaceAll(' ', '.'))
-                  }
-                />
-                <span className="hidden sm:block absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                  @panache.so
-                </span>
-              </div>
+              <Input
+                autoComplete="panache-username"
+                id="username"
+                name="username"
+                type="text"
+                placeholder="cyrano.bergerac"
+                required
+                value={form.data.username}
+                onChange={(e) =>
+                  form.setData('username', e.target.value.toLowerCase().replaceAll(' ', '.'))
+                }
+              />
               <Error errorKey="username" />
             </div>
           </form>
