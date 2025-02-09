@@ -9,6 +9,7 @@ import { ImageCropper } from './image_cropper'
 import { router } from '@inertiajs/react'
 import { useToast } from '#common/ui/hooks/use_toast'
 import { ProfileAvatar } from './profile_avatar'
+import useUser from '#common/ui/hooks/use_user'
 
 export function ProfileHeader({ profile }: { profile: Profile }) {
   const t = useTranslate()
@@ -20,6 +21,7 @@ export function ProfileHeader({ profile }: { profile: Profile }) {
   const handleAvatarClick = () => {
     fileInputRef.current?.click()
   }
+  const user = useUser()
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -77,30 +79,39 @@ export function ProfileHeader({ profile }: { profile: Profile }) {
       <div className="h-24 bg-[#e3e2d4] rounded-lg border border-sidebar"></div>
       <div className="flex flex-wrap gap-x-2 items-center justify-between pt-3 px-4 max-w-4xl mx-auto">
         <div className="flex items-start gap-x-4">
-          <div
-            className="relative -mt-10 cursor-pointer group"
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            onClick={handleAvatarClick}
-          >
+          {profile.id === user?.currentProfileId ? (
+            <>
+              <div
+                className="relative -mt-10 cursor-pointer group"
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                onClick={handleAvatarClick}
+              >
+                <ProfileAvatar
+                  profile={profile}
+                  className="h-24 w-24 rounded-3xl border-4 border-white transition-opacity duration-200 ease-in-out group-hover:opacity-90"
+                />
+                <div
+                  className={`absolute inset-0 flex items-center justify-center rounded-3xl transition-opacity duration-200 ease-in-out ${isHovering ? 'opacity-100' : 'opacity-0'}`}
+                >
+                  <Camera className="text-white drop-shadow-md" size={24} />
+                  <span className="sr-only">Update avatar</span>
+                </div>
+              </div>
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </>
+          ) : (
             <ProfileAvatar
               profile={profile}
-              className="h-24 w-24 rounded-3xl border-4 border-white transition-opacity duration-200 ease-in-out group-hover:opacity-90"
+              className="-mt-10 h-24 w-24 rounded-3xl border-4 border-white transition-opacity duration-200 ease-in-out group-hover:opacity-90"
             />
-            <div
-              className={`absolute inset-0 flex items-center justify-center rounded-3xl transition-opacity duration-200 ease-in-out ${isHovering ? 'opacity-100' : 'opacity-0'}`}
-            >
-              <Camera className="text-white drop-shadow-md" size={24} />
-              <span className="sr-only">Update avatar</span>
-            </div>
-          </div>
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
+          )}
           <div>
             <p className="font-mono font-semibold uppercase text-sm">{t('social.profile')}</p>
             <div className="flex items-center space-x-2">

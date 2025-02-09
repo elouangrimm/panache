@@ -8,7 +8,7 @@ import Post from '#social/models/post'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 
-export default function Landing({ room, posts }: { room: Room; posts: Post[] }) {
+export default function Landing({ posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
 
   return (

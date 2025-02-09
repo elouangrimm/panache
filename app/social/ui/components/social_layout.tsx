@@ -37,7 +37,7 @@ export default function SocialLayout({ children, title }: SocialLayoutProps) {
           )}
         </AppSidebar>
         <SidebarInset>
-          <header className="flex pb-2 sm:pb-0 sm:h-16 shrink-0 items-center gap-2 border-b">
+          <header className="flex py-2 sm:py-0 sm:h-16 shrink-0 items-center gap-2 border-b">
             <div className="flex flex-wrap w-full justify-between items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
               <SearchInput />

@@ -33,7 +33,7 @@ export const SocialDropdown: React.FunctionComponent<SocialDropdownProps> = () =
           <Link href={`/profiles/${user.currentProfile.username}`}>
             <DropdownMenuItem>
               <CircleUserRoundIcon className="h-4 w-4" />
-              <span>{t('profile')}</span>
+              <span>{t('view_my_profile')}</span>
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
