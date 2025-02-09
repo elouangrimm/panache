@@ -115,7 +115,7 @@ export function ProfileHeader({ profile }: { profile: Profile }) {
           <div>
             <p className="font-mono font-semibold uppercase text-sm">{t('social.profile')}</p>
             <div className="flex items-center space-x-2">
-              <h2 className="text-3xl font-medium font-serif">{profile.username}</h2>
+              <h2 className="text-3xl font-medium font-serif">@{profile.username}</h2>
               <EditUsernameDialog />
             </div>
           </div>

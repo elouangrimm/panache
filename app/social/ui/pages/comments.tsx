@@ -54,7 +54,7 @@ export default function Comments({ comments }: { comments: Comment[] }) {
                     </div>
 
                     <p className="text-muted-foreground text-xs">
-                      <span className="text-black font-medium">{comment.profile.username}</span>{' '}
+                      <span className="text-black font-medium">@{comment.profile.username}</span>{' '}
                       {t('social.commented')}{' '}
                       {formatDistanceToNow(comment.createdAt as unknown as string)}
                     </p>

@@ -67,7 +67,7 @@ export function CommentCard({ header, post, comment, hideReply }: CommentCardPro
                           className="hover:text-emerald-900 transition-colors font-medium"
                           href={`/profiles/${comment.profile.username}`}
                         >
-                          {comment.profile.username}
+                          @{comment.profile.username}
                         </Link>
                         <span className="text-muted-foreground">
                           • {formatDistanceToNow(comment.createdAt as unknown as string)}

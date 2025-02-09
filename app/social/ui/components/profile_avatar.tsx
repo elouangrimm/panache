@@ -17,7 +17,7 @@ export function ProfileAvatar({ className, profile }: ProfileAvatarProps) {
         src={profile.avatar || `https://avatar.vercel.sh/${profile.username}`}
         alt={profile.username}
       />
-      <AvatarFallback className="rounded-lg">{profile.username[0].toUpperCase()}</AvatarFallback>
+      <AvatarFallback className="rounded-lg">@{profile.username[0].toUpperCase()}</AvatarFallback>
     </Avatar>
   )
 }

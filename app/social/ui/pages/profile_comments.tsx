@@ -55,7 +55,7 @@ export default function ProfileComments({ profile }: { profile: Profile }) {
                         </div>
 
                         <p className="text-muted-foreground text-xs">
-                          <span className="text-black font-medium">{profile.username}</span>{' '}
+                          <span className="text-black font-medium">@{profile.username}</span>{' '}
                           {t('social.commented')}{' '}
                           {formatDistanceToNow(comment.createdAt as unknown as string)}
                         </p>
