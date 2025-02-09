@@ -39,8 +39,8 @@ export default function Show({ room, posts }: { room: Room; posts: Post[] }) {
             </Avatar>
 
             <div>
-              <p className="font-mono font-semibold uppercase text-sm">{t('social.room')}</p>
-              <h2 className="text-3xl font-medium font-serif">{room.name}</h2>
+              <p className="font-mono font-medium uppercase text-sm">{t('social.room')}</p>
+              <h2 className="text-2xl font-semibold">{room.name}</h2>
             </div>
 
             <div className="flex flex-wrap gap-2 sm:gap-y-0 pt-4 sm:pt-0 ml-auto">

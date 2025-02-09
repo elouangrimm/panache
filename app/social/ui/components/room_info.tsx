@@ -24,8 +24,8 @@ export function RoomInfo({ header, room }: { room: Room; header?: React.ReactEle
         <div className="flex gap-x-1 items-center text-muted-foreground pt-2">
           <Users2Icon className="h-4 w-4" />
           <span>
-            {room.memberCount ? room.memberCount : '0'}{' '}
-            {room.memberCount > 1 ? t('social.members') : t('social.member')}
+            {room.membersCount ? room.membersCount : '0'}{' '}
+            {room.membersCount > 1 ? t('social.members') : t('social.member')}
           </span>
         </div>
 

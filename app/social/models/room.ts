@@ -29,7 +29,7 @@ export default class Room extends BaseModel {
   declare lang: string
 
   @column()
-  declare memberCount: number
+  declare membersCount: number
 
   /**
    * Relationships.
