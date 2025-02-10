@@ -13,7 +13,9 @@ export function RoomInfo({ header, room }: { room: Room; header?: React.ReactEle
     <div className="w-full flex flex-col justify-between rounded-lg bg-[#f0eee6]/50 border p-3 text-sm min-h-32">
       {header}
 
-      <p className={cn('text-foreground font-medium', header && 'pt-4')}>{room.description}</p>
+      <p className={cn('text-foreground font-medium break-all', header && 'pt-4')}>
+        {room.description}
+      </p>
 
       <div>
         <div className="flex gap-x-1 items-start text-muted-foreground pt-2">

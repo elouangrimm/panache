@@ -188,7 +188,8 @@ export default class PostsController {
     return inertia.render('social/create')
   }
 
-  async store({ auth, params, request, response }: HttpContext) {
+  @inject()
+  async store({ auth, params, request, response }: HttpContext, webhooksService: WebhooksService) {
     const room = await Room.findBy('slug', params.roomSlug)
     if (room === null) {
       return response.notFound('Room not found.')
@@ -225,6 +226,10 @@ export default class PostsController {
     if (data.link) post.link = data.link
     await post.save()
 
+    await webhooksService.send(
+      `[+] [Post ${post.id} created with title ${post.title} by profile ${post.profileId}]`
+    )
+
     return response.redirect().toRoute('posts.show', [room.slug, post.id])
   }
 
@@ -248,7 +253,8 @@ export default class PostsController {
     return response.redirect().toRoute('rooms.show', [post.room.slug])
   }
 
-  async like({ auth, params, response }: HttpContext) {
+  @inject()
+  async like({ auth, params, response }: HttpContext, webhooksService: WebhooksService) {
     const post = await Post.query().where('id', params.postId).first()
     if (post === null) {
       return response.notFound('Post not found.')
@@ -258,6 +264,10 @@ export default class PostsController {
       profileId: auth.user!.currentProfileId!,
       postId: post.id,
     })
+
+    await webhooksService.send(
+      `[LIKE] [Post ${post.id} like by profile ${auth.user!.currentProfileId!}]`
+    )
 
     return response.redirect().back()
   }

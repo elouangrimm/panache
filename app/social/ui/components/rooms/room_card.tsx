@@ -20,14 +20,14 @@ export function RoomCard({ room }: RoomCardProps) {
     <Link href={`/rooms/${room.slug}`}>
       <Card className="hover:bg-accent transition-colors">
         <div className="p-4">
-          <div className="flex space-x-4">
+          <div className="flex flex-wrap space-x-4">
             <RoomLogo room={room} className="h-12 w-12 rounded-lg border" />
 
             <div className="flex flex-col">
               {/* Content */}
               <h2 className="text-sm font-medium">{room.name}</h2>
               <p className="text-[13px] truncate">{room.description}</p>
-              <div className="text-xs text-muted-foreground flex items-center gap-x-1 pt-1">
+              <div className="text-xs text-muted-foreground flex flex-wrap items-center gap-x-1 pt-1">
                 <Users2Icon className="h-3 w-3" />
                 <span>
                   {room.membersCount}{' '}
