@@ -56,7 +56,7 @@ export const SocialDropdown: React.FunctionComponent = () => {
                 {profiles
                   .filter((profile) => profile.id !== user.currentProfileId)
                   .map((profile) => (
-                    <SwitchProfile profile={profile} />
+                    <SwitchProfile key={profile.id} profile={profile} />
                   ))}
                 <DropdownMenuSeparator />
 
