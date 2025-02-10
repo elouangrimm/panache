@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Home, LifeBuoy, Send } from 'lucide-react'
+import { Home } from 'lucide-react'
 
 import { NavMain } from '#common/ui/components/nav_main'
 import { NavSecondary } from '#common/ui/components/nav_secondary'

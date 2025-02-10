@@ -15,6 +15,9 @@ export default class CommentsController {
       .if(searchQuery, (query) => {
         query.whereRaw(`unaccent(LOWER(text)) LIKE unaccent(?)`, [`%${searchQuery}%`])
       })
+      .preload('post', (query) => {
+        query.preload('room')
+      })
       .preload('profile', (query) => {
         query.select('username', 'avatar')
       })

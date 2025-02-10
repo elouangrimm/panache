@@ -39,7 +39,7 @@ export default class PostsController {
     return inertia.render('social/posts', { posts: result.all() })
   }
 
-  async feed({ auth, i18n, request, inertia }: HttpContext) {
+  async feed({ auth, request, inertia }: HttpContext) {
     const sortMethod = request.input('method', 'popular')
     const period = request.input('period', 'day')
     const page = request.input('page', 1)

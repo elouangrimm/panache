@@ -34,7 +34,7 @@ export function RoomCard({ room }: RoomCardProps) {
                   {room.membersCount > 1 ? t('social.members') : t('social.member')}
                 </span>{' '}
                 <span>
-                  {t('common.created')} • {formatDistanceToNow(room.createdAt as unknown as string)}
+                  • {t('common.created')} {formatDistanceToNow(room.createdAt as unknown as string)}
                 </span>
               </div>
             </div>

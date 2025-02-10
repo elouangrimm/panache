@@ -9,17 +9,22 @@ import WebhooksService from '#common/services/webhooks_service'
 
 export default class RoomsController {
   async index({ inertia, request }: HttpContext) {
-    const searchQuery = request.input('search')
-    const page = parseInt(request.input('page', 1))
+    const roomsQueryValidator = vine.compile(
+      vine.object({
+        searchQuery: vine.string().optional(),
+        page: vine.number().positive().withoutDecimals().min(1).optional(),
+      })
+    )
+    const data = await request.validateUsing(roomsQueryValidator)
 
     const result = await Room.query()
-      .if(searchQuery, (query) => {
+      .if(data.searchQuery, (query) => {
         query.whereRaw(
           `unaccent(LOWER(name)) LIKE unaccent(?) OR unaccent(LOWER(description)) LIKE unaccent(?)`,
-          [`%${searchQuery}%`, `%${searchQuery}%`]
+          [`%${data.searchQuery?.toLowerCase()}%`, `%${data.searchQuery?.toLowerCase()}%`]
         )
       })
-      .paginate(page, 20)
+      .paginate(data.page || 1, 20)
 
     return inertia.render('social/rooms', { roomsList: result.all() })
   }
