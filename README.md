@@ -6,7 +6,7 @@ Panache is an open-source everything app, in the making.
 
 ## Why?
 
-[WeChat in Chine](https://en.wikipedia.org/wiki/WeChat) and [Kakao in South Korea](https://en.wikipedia.org/wiki/Kakao) proved that everything apps work. Elon Musk wants to build one for the West. We're making it happen now, the open-source way.
+[WeChat in China](https://en.wikipedia.org/wiki/WeChat) and [Kakao in South Korea](https://en.wikipedia.org/wiki/Kakao) proved that everything apps work. Elon Musk wants to build one for the West. We're making it happen now, the open-source way.
 
 ## Features
 

@@ -65,7 +65,7 @@ export default function SocialLayout({ children, title, meta }: SocialLayoutProp
           </header>
           <Toaster />
 
-          <main className="max-w-6xl mx-auto w-full p-8">{children}</main>
+          <main className="p-8">{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </>

@@ -64,5 +64,23 @@
   "username_updated": "Nom d'utilisateur mis à jour !",
   "update_avatar": "Mettre à jour l'avatar",
   "avatar_updated": "Avatar mis à jour !",
-  "feed": "Fil"
+  "feed": "Fil",
+
+  "template": "Modèle",
+  "background_color": "Couleur de fond",
+  "text_color": "Couleur de fond",
+  "add_text": "Ajouter texte",
+  "add_image": "Ajouter image",
+  "draw": "Dessiner",
+  "brush_size": "Taille du pinceau",
+  "brush_color": "Couleur du pinceau",
+  "stop": "Arrêter",
+  "flip": "Retourner",
+  "font": "Police",
+  "search_font": "Chercher une police",
+  "no_font_found": "Aucune police trouvée",
+  "recommended": "Recommandées",
+  "others": "Autres",
+  "select_meme_template": "Sélectionner un modèle de mème",
+  "search_memes": "Recherche des mèmes"
 }

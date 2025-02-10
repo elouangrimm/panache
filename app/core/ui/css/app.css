@@ -181,3 +181,11 @@
       0 1px 3px 0 var(--color-stone-100);
   }
 }
+
+.hide_scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}

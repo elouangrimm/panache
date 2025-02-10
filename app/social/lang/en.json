@@ -65,5 +65,23 @@
   "username_updated": "Username updated!",
   "update_avatar": "Update avatar",
   "avatar_updated": "Avatar updated!",
-  "feed": "Feed"
+  "feed": "Feed",
+
+  "template": "Template",
+  "background_color": "Background color",
+  "text_color": "Text color",
+  "add_text": "Add text",
+  "add_image": "Add image",
+  "draw": "Draw",
+  "brush_size": "Brush size",
+  "brush_color": "Brush color",
+  "stop": "Stop",
+  "flip": "Flip",
+  "font": "Font",
+  "search_font": "Search font",
+  "no_font_found": "No font found",
+  "recommended": "Recommended",
+  "others": "Others",
+  "select_meme_template": "Select a meme template",
+  "search_memes": "Search memes"
 }

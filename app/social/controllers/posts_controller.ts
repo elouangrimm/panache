@@ -208,7 +208,7 @@ export default class PostsController {
       })
     )
     const data = await request.validateUsing(storePostValidator)
-
+    console.log(data)
     const post = new Post()
     if (data.image) {
       const key = `uploads/${cuid()}.${data.image.extname}`

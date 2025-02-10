@@ -53,7 +53,7 @@ router.get('/', [PostsController, 'feed']).use(middleware.loadRooms())
 
 router.get('/posts', [PostsController, 'index']).use(middleware.loadRooms())
 router
-  .get('/create', [PostsController, 'create'])
+  .get('/create/:type?', [PostsController, 'create'])
   .as('posts.create')
   .use([middleware.auth(), middleware.loadRooms()])
 router

@@ -24,6 +24,7 @@ export type RoomSelectProps = {
 export default function RoomSelect({ roomSlug, setRoomSlug, rooms }: RoomSelectProps) {
   const t = useTranslate('social')
   const room = rooms.find((room) => room.slug === roomSlug)
+
   return (
     <div className="grid gap-2">
       <Label htmlFor="roomSlug">{t('select_a_room')}</Label>
