@@ -3,13 +3,12 @@ import SocialLayout from '../components/social_layout'
 import SearchTabs from '../components/search_tabs'
 import Comment from '#social/models/comment'
 import { Link } from '@inertiajs/react'
-import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import useTranslate from '#common/ui/hooks/use_translate'
-import { CommentCard } from '../components/comment_card'
+import { CommentCard } from '../components/comments/comment_card'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import { Alert, AlertTitle, AlertDescription } from '#common/ui/components/alert'
 import { SearchX } from 'lucide-react'
-import { RoomLogo } from '../components/room_logo'
+import { RoomLogo } from '../components/rooms/room_logo'
 
 export default function Comments({ comments }: { comments: Comment[] }) {
   const t = useTranslate()

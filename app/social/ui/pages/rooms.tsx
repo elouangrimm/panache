@@ -2,9 +2,9 @@ import React from 'react'
 import SocialLayout from '../components/social_layout'
 import Room from '#social/models/room'
 import SearchTabs from '../components/search_tabs'
-import { RoomCard } from '../components/room_card'
+import { RoomCard } from '../components/rooms/room_card'
 import { Alert, AlertTitle, AlertDescription } from '#common/ui/components/alert'
-import { SearchX, Terminal } from 'lucide-react'
+import { SearchX } from 'lucide-react'
 import useTranslate from '#common/ui/hooks/use_translate'
 
 export default function Rooms({ roomsList }: { roomsList: Room[] }) {

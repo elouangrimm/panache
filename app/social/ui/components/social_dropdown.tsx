@@ -13,7 +13,7 @@ import { Link } from '@inertiajs/react'
 import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu'
 import { CircleUserRoundIcon } from 'lucide-react'
 import React from 'react'
-import { ProfileAvatar } from './profile_avatar'
+import { ProfileAvatar } from './profiles/profile_avatar'
 
 interface SocialDropdownProps {}
 

@@ -1,7 +1,7 @@
 import { AppSidebar } from '#common/ui/components/app_sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '#common/ui/components/sidebar'
 import React from 'react'
-import { NavRooms } from './nav_rooms'
+import { NavRooms } from './rooms/nav_rooms'
 import { Head, Link } from '@inertiajs/react'
 import { buttonVariants } from '#common/ui/components/button'
 import useTranslate from '#common/ui/hooks/use_translate'

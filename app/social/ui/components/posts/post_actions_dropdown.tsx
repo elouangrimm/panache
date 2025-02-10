@@ -7,15 +7,15 @@ import {
   DropdownMenuTrigger,
 } from '#common/ui/components/dropdown-menu'
 import useTranslate from '#common/ui/hooks/use_translate'
-import { DeleteIcon, FlagIcon, MoreHorizontal, PlusCircleIcon } from 'lucide-react'
+import { DeleteIcon, FlagIcon, MoreHorizontal } from 'lucide-react'
 import React from 'react'
+import { DeletePostDialog } from './delete_post_dialog'
+import Post from '#social/models/post'
 import useUser from '#common/ui/hooks/use_user'
-import Comment from '#social/models/comment'
-import { ReportCommentDialog } from './report_comment_dialog'
-import { DeleteCommentDialog } from './delete_comment_dialog'
+import { ReportPostDialog } from '../rooms/report_post_dialog'
 
-export function CommentActionsDropdown({ comment }: { comment: Comment }) {
-  const t = useTranslate()
+export function PostActionsDropdown({ post }: { post: Post }) {
+  const t = useTranslate('social')
   const [showReportDialog, setShowReportDialog] = React.useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
   const user = useUser()
@@ -26,41 +26,30 @@ export function CommentActionsDropdown({ comment }: { comment: Comment }) {
 
   return (
     <>
-      <ReportCommentDialog
-        comment={comment}
-        open={showReportDialog}
-        setOpen={setShowReportDialog}
-      />
-      <DeleteCommentDialog
-        comment={comment}
-        open={showDeleteDialog}
-        setOpen={setShowDeleteDialog}
-      />
-
+      <ReportPostDialog post={post} open={showReportDialog} setOpen={setShowReportDialog} />
+      <DeletePostDialog post={post} open={showDeleteDialog} setOpen={setShowDeleteDialog} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="rounded-full">
             <MoreHorizontal className="h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
-
-        <DropdownMenuContent className="w-64">
+        <DropdownMenuContent className="w-56">
           <DropdownMenuGroup className="space-y-1">
             <DropdownMenuItem
               className="cursor-pointer text-yellow-700"
               onClick={() => setShowReportDialog(true)}
             >
               <FlagIcon className="!h-5 !w-5 ml-0.5" />
-              <span>{t('social.report')}</span>
+              <span>{t('report')}</span>
             </DropdownMenuItem>
-
-            {(user?.role === 'admin' || user?.currentProfileId === comment.profileId) && (
+            {(user?.role === 'admin' || user?.currentProfileId === post.profileId) && (
               <DropdownMenuItem
                 className="cursor-pointer text-red-700"
                 onClick={() => setShowDeleteDialog(true)}
               >
                 <DeleteIcon className="!h-5 !w-5 ml-0.5" />
-                <span>{t('common.delete')}</span>
+                <span>{t('delete_post')}</span>
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>

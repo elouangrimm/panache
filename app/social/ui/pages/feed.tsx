@@ -2,13 +2,12 @@ import React from 'react'
 import SocialLayout from '../components/social_layout'
 import { SortBySelect } from '../components/sort_by_select'
 import Room from '#social/models/room'
-import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar'
-import { PostCard } from '../components/post_card'
+import { PostCard } from '../components/posts/post_card'
 import Post from '#social/models/post'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import useTranslate from '#common/ui/hooks/use_translate'
-import { RoomLogo } from '../components/room_logo'
+import { RoomLogo } from '../components/rooms/room_logo'
 
 export default function Landing({ posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()

@@ -1,15 +1,13 @@
 import React from 'react'
-import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import useTranslate from '#common/ui/hooks/use_translate'
 import SocialLayout from '#social/ui/components/social_layout'
-import User from '#common/models/user'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
-import { ProfileTabs } from '../components/profile_tabs'
-import { ProfileHeader } from '../components/profile_header'
-import { CommentCard } from '../components/comment_card'
+import { ProfileTabs } from '../components/profiles/profile_tabs'
+import { ProfileHeader } from '../components/profiles/profile_header'
+import { CommentCard } from '../components/comments/comment_card'
 import Profile from '#social/models/profile'
-import { RoomLogo } from '../components/room_logo'
+import { RoomLogo } from '../components/rooms/room_logo'
 
 export default function ProfileComments({ profile }: { profile: Profile }) {
   const t = useTranslate()

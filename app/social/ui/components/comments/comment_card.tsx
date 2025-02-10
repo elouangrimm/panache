@@ -12,9 +12,8 @@ import {
 } from '#common/ui/components/accordion'
 import { CommentActionsDropdown } from './comment_actions_dropdown'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
-import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import { Link } from '@inertiajs/react'
-import { ProfileAvatar } from './profile_avatar'
+import { ProfileAvatar } from '../profiles/profile_avatar'
 
 export type CommentCardProps = {
   header?: React.ReactElement

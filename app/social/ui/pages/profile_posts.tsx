@@ -1,14 +1,13 @@
 import React from 'react'
-import { Avatar, AvatarImage } from '#common/ui/components/avatar'
 import useTranslate from '#common/ui/hooks/use_translate'
-import { PostCard } from '#social/ui/components/post_card'
+import { PostCard } from '#social/ui/components/posts/post_card'
 import SocialLayout from '#social/ui/components/social_layout'
 import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
-import { ProfileTabs } from '../components/profile_tabs'
-import { ProfileHeader } from '../components/profile_header'
+import { ProfileTabs } from '../components/profiles/profile_tabs'
+import { ProfileHeader } from '../components/profiles/profile_header'
 import Profile from '#social/models/profile'
-import { RoomLogo } from '../components/room_logo'
+import { RoomLogo } from '../components/rooms/room_logo'
 import useParams from '#common/ui/hooks/use_params'
 
 export default function ProfilePosts({ profile }: { profile: Profile }) {
