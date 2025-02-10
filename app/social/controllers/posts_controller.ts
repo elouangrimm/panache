@@ -43,10 +43,7 @@ export default class PostsController {
     const sortMethod = request.input('method', 'popular')
     const period = request.input('period', 'day')
     const page = request.input('page', 1)
-    const rooms = await Room.query()
-      .where('lang', i18n.locale)
-      .orderBy('members_count', 'desc')
-      .limit(10)
+    const rooms = await Room.query().orderBy('members_count', 'desc').limit(10)
 
     const postsQuery = Post.query().whereIn(
       'room_id',

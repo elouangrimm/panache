@@ -1,5 +1,13 @@
 # Panache
 
+## About
+
+Panache is an open-source everything app, in the making.
+
+## Why?
+
+## Features
+
 ## Development
 
 ### Requirements

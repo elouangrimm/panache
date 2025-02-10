@@ -30,7 +30,7 @@ export function DeletePostDialog({
   const params = useParams()
 
   const handleDelete = () => {
-    form.delete(`/rooms/${params.roomSlug}/posts/${post.id}`, {
+    form.delete(`/rooms/${post.room.slug}/posts/${post.id}`, {
       onSuccess: () => {
         toast({
           description: (

@@ -28,7 +28,7 @@ export function PostActions({ post }: PostCardProps) {
   const params = useParams()
 
   const handleCopyLink = (e: FormEvent) => {
-    navigator.clipboard.writeText(`https://panache.so/rooms/${params.roomSlug}/posts/${post.id}`)
+    navigator.clipboard.writeText(`https://panache.so/rooms/${post.room.slug}/posts/${post.id}`)
     toast({
       description: (
         <div className="flex items-center space-x-2">
@@ -57,7 +57,7 @@ export function PostActions({ post }: PostCardProps) {
       /**
        * Handle like.
        */
-      await fetch(`/rooms/${params.roomSlug}/posts/${post.id}/like`, {
+      await fetch(`/rooms/${post.room.slug}/posts/${post.id}/like`, {
         method: 'POST',
         credentials: 'include',
       })
@@ -81,7 +81,7 @@ export function PostActions({ post }: PostCardProps) {
 
       <Link
         className={cn('!h-8', buttonVariants({ variant: 'outline' }))}
-        href={`/rooms/${params.roomSlug}/posts/${post.id}#comments`}
+        href={`/rooms/${post.room.slug}/posts/${post.id}#comments`}
       >
         <MessageSquare className="h-4 w-4" strokeWidth={2} />
         <span className="font-semibold text-xs">{post.commentsCount}</span>

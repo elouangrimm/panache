@@ -37,7 +37,7 @@ export function ReportPostDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    await fetch(`/rooms/${params.roomSlug}/posts/${post.id}/report`, {
+    await fetch(`/rooms/${post.room.slug}/posts/${post.id}/report`, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(form.data),

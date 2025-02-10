@@ -60,7 +60,7 @@ export function CommentActions({ post, comment, hideReply }: CommentActionsProps
 
   const handleCopyLink = (e: FormEvent) => {
     navigator.clipboard.writeText(
-      `https://panache.so/rooms/${params.roomSlug}/posts/${post.id}#comment-${comment.id}`
+      `https://panache.so/rooms/${post.room.slug}/posts/${post.id}#comment-${comment.id}`
     )
     toast({
       description: (
