@@ -38,11 +38,10 @@ export default function SocialLayout({ children, title, meta }: SocialLayoutProp
       </Head>
       <SidebarProvider>
         <AppSidebar>
-          {joinedRooms && joinedRooms.length > 0 ? (
+          {joinedRooms && joinedRooms.length > 0 && (
             <NavRooms title={t('rooms')} rooms={joinedRooms} />
-          ) : (
-            <NavRooms title={t('popular')} rooms={popularRooms} />
           )}
+          <NavRooms title={t('popular')} rooms={popularRooms} />
         </AppSidebar>
         <SidebarInset>
           <header className="flex py-2 sm:py-0 sm:h-16 shrink-0 items-center gap-2 border-b">

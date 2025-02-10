@@ -17,8 +17,8 @@ export default class ProfilesController {
          * Load post likes.
          */
         if (auth.isAuthenticated) {
-          query.preload('likes', (query) => {
-            query.where('profile_id', auth.user!.currentProfileId!)
+          query.preload('likes', (q) => {
+            q.where('profile_id', auth.user!.currentProfileId!)
           })
         }
       })
@@ -35,8 +35,8 @@ export default class ProfilesController {
       .where('username', params.username)
       .select('id', 'username', 'avatar')
       .preload('comments', (query) => {
-        query.preload('post', (query) => {
-          query.preload('room')
+        query.preload('post', (q) => {
+          q.preload('room')
         })
         query.orderBy('created_at', 'desc')
 
@@ -44,8 +44,8 @@ export default class ProfilesController {
          * Load post likes.
          */
         if (auth.isAuthenticated) {
-          query.preload('likes', (query) => {
-            query.where('profile_id', auth.user!.currentProfileId!)
+          query.preload('likes', (q) => {
+            q.where('profile_id', auth.user!.currentProfileId!)
           })
         }
       })
