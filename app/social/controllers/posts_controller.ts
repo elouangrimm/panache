@@ -14,7 +14,7 @@ import drive from '@adonisjs/drive/services/main'
 export default class PostsController {
   async index({ auth, inertia, request }: HttpContext) {
     const searchQuery = request.input('search')
-    const page = parseInt(request.input('page', 1))
+    const page = Number.parseInt(request.input('page', 1))
 
     const result = await Post.query()
       .if(searchQuery, (query) => {
