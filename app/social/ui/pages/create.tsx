@@ -67,6 +67,7 @@ function CreatePostForm() {
    */
   const { canvas } = useMemeEditorContext()
 
+  const urlQuerySuffix = query.room ? `?room=${query.room}` : ''
   const defaultRoomSlug = query.room ? query.room : rooms.length > 0 ? rooms[0].slug : ''
   const [roomSlug, setRoomSlug] = React.useState(defaultRoomSlug)
 
@@ -126,10 +127,22 @@ function CreatePostForm() {
     <form className="flex flex-col space-y-8 pt-4" onSubmit={handleSubmit}>
       <Tabs defaultValue="text" className="min-w-full flex flex-col space-y-8">
         <TabsList className="flex flex-wrap sm:grid w-full h-full sm:grid-cols-4 gap-y-2 sm:gap-y-0 gap-x-4">
-          <TabLink href="/create" isActive={type === 'text'} label={t('text')} />
-          <TabLink href="/create/image" isActive={type === 'image'} label={t('image')} />
-          <TabLink href="/create/link" isActive={type === 'link'} label={t('link')} />
-          <TabLink href="/create/meme" isActive={type === 'meme'} label={t('meme')} />
+          <TabLink href={`/create${urlQuerySuffix}`} isActive={type === 'text'} label={t('text')} />
+          <TabLink
+            href={`/create/image${urlQuerySuffix}`}
+            isActive={type === 'image'}
+            label={t('image')}
+          />
+          <TabLink
+            href={`/create/link${urlQuerySuffix}`}
+            isActive={type === 'link'}
+            label={t('link')}
+          />
+          <TabLink
+            href={`/create/meme${urlQuerySuffix}`}
+            isActive={type === 'meme'}
+            label={t('meme')}
+          />
         </TabsList>
 
         {type === 'text' && (
