@@ -2,7 +2,6 @@ import { Button } from '#common/ui/components/button'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -15,7 +14,7 @@ import { useToast } from '#common/ui/hooks/use_toast'
 import useTranslate from '#common/ui/hooks/use_translate'
 import useUser from '#common/ui/hooks/use_user'
 import { useForm } from '@inertiajs/react'
-import { CheckIcon, PenIcon } from 'lucide-react'
+import { CheckIcon } from 'lucide-react'
 import React from 'react'
 
 export function EditUsernameDialog() {
@@ -28,11 +27,9 @@ export function EditUsernameDialog() {
   const [open, setOpen] = React.useState(false)
   const params = useParams()
 
-  if (!user || user.currentProfile.username !== params.username) return null
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    form.patch(`/profiles/${user.currentProfile.username}/username`, {
+    form.patch(`/profiles/${user.currentProfile.id}/username`, {
       onSuccess: () => {
         toast({
           description: (
@@ -45,6 +42,9 @@ export function EditUsernameDialog() {
         setOpen(false)
       },
     })
+  }
+  if (!user || user.currentProfile.username !== params.username) {
+    return null
   }
 
   return (

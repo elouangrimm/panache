@@ -83,5 +83,9 @@
   "recommended": "Recommended",
   "others": "Others",
   "select_meme_template": "Select a meme template",
-  "search_memes": "Search memes"
+  "search_memes": "Search memes",
+
+  "profile_created": "Profile created!",
+  "switch_profile": "Switch profile",
+  "create_new_profile": "Create new profile"
 }

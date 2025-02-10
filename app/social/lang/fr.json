@@ -82,5 +82,9 @@
   "recommended": "Recommandées",
   "others": "Autres",
   "select_meme_template": "Sélectionner un modèle de mème",
-  "search_memes": "Recherche des mèmes"
+  "search_memes": "Recherche des mèmes",
+
+  "profile_created": "Profil créé !",
+  "switch_profile": "Changer de profil",
+  "create_new_profile": "Créer un profil"
 }

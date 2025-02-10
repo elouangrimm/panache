@@ -42,7 +42,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   /**
    * Relationships.
    */
-  @hasOne(() => Profile)
+  @hasOne(() => Profile, { localKey: 'currentProfileId', foreignKey: 'id' })
   declare currentProfile: HasOne<typeof Profile>
 
   @column()

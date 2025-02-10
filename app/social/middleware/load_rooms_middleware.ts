@@ -6,10 +6,7 @@ export default class LoadRoomsMiddleware {
   async handle({ auth, inertia }: HttpContext, next: NextFn) {
     if (!auth.isAuthenticated) {
       const popularRooms = await Room.query().orderBy('members_count').limit(10)
-
-      inertia.share({
-        popularRooms,
-      })
+      inertia.share({ popularRooms })
 
       return await next()
     }
@@ -38,10 +35,12 @@ export default class LoadRoomsMiddleware {
       })
       .limit(10)
 
-    inertia.share({
-      joinedRooms,
-      popularRooms,
-    })
+    /**
+     * Retrieve profiles.
+     */
+    const profiles = await auth.user!.related('profiles').query()
+
+    inertia.share({ joinedRooms, popularRooms, profiles })
 
     /**
      * Call next method in the pipeline and return its output

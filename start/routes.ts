@@ -110,6 +110,7 @@ router
   .use(middleware.auth())
 
 const ProfilesController = () => import('#social/controllers/profiles_controller')
+router.post('/profiles', [ProfilesController, 'store']).as('profiles.store').use(middleware.auth())
 router
   .get('/profiles/:username', [ProfilesController, 'posts'])
   .as('profiles.posts')
@@ -119,10 +120,14 @@ router
   .as('profiles.comments')
   .use(middleware.loadRooms())
 router
-  .patch('/profiles/:username/username', [ProfilesController, 'updateUsername'])
+  .post('/profiles/:profileId/switch', [ProfilesController, 'switch'])
+  .as('profiles.switch')
+  .use(middleware.auth())
+router
+  .patch('/profiles/:profileId/username', [ProfilesController, 'updateUsername'])
   .as('profiles.updateUsername')
   .use(middleware.auth())
 router
-  .patch('/profiles/:username/avatar', [ProfilesController, 'updateAvatar'])
+  .patch('/profiles/:profileId/avatar', [ProfilesController, 'updateAvatar'])
   .as('profiles.updateAvatar')
   .use(middleware.auth())

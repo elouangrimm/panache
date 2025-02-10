@@ -50,7 +50,7 @@ export function ProfileHeader({ profile }: { profile: Profile }) {
      * Send the form data to the server
      * using the PATCH method
      */
-    router.patch(`/profiles/${profile.username}/avatar`, formData, {
+    router.patch(`/profiles/${profile.id}/avatar`, formData, {
       forceFormData: true,
       headers: { 'Content-Type': 'multipart/form-data' },
       onSuccess: () => {
