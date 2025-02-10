@@ -6,7 +6,49 @@ Panache is an open-source everything app, in the making.
 
 ## Why?
 
+[WeChat in Chine](https://en.wikipedia.org/wiki/WeChat) and [Kakao in South Korea](https://en.wikipedia.org/wiki/Kakao) proved that everything apps work. Elon Musk wants to build one for the West. We're making it happen now, the open-source way.
+
 ## Features
+
+> [!WARNING]
+>
+> Panache is a **Work In Progress**.
+>
+> We are working on a stable release, and we are looking for contributors to help us.
+
+- Panache Social: Send and receive emails
+- Panache AI: Send and receive emails
+- Panache Emails: Send and receive emails
+- and more to come!
+
+## Technologies
+
+- [AdonisJS V6](https://adonisjs.com)
+- [TailwindCSS](https://tailwindcss.com)
+- [InertiaJS](https://inertiajs.com)
+- [React](https://react.dev)
+- [ShadCN UI](https://ui.shadcn.com)
+- [PostgreSQL](https://www.postgresql.org)
+
+## FAQ
+
+### Why is it called Panache?
+
+> **Panache** (_noun, figurative_)
+>
+> An attitude blending nobility, elegance, grandeur, and flair.
+
+We believe this name represents the initiative very well. ^^
+
+### Is it truly open-source?
+
+Yes, it is.
+
+Panache is licensed under the [AGPL-3.0](https://github.com/panacheapp/panache/blob/main/LICENSE) license, which means you are free to use, modify, and distribute the source code as long as you provide the same rights to others.
+
+In other words, you can use Panache for free when self-hosting, and you can also modify the source code to suit your needs. However, if you distribute the modified source code, you must also provide the same rights to others.
+
+This license is approved by the [Free Software Foundation](https://www.gnu.org/licenses/license-list.html) and the [Open Source Initiative](https://opensource.org/licenses).
 
 ## Development
 

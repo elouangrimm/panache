@@ -9,14 +9,18 @@ import { Link } from '@inertiajs/react'
 import { useFormatDistanceToNow } from '#common/ui/hooks/use_format_distance_to_now'
 import useTranslate from '#common/ui/hooks/use_translate'
 import { RoomLogo } from '../components/room_logo'
-import useParams from '#common/ui/hooks/use_params'
 
 export default function Landing({ posts }: { room: Room; posts: Post[] }) {
   const formatDistanceToNow = useFormatDistanceToNow()
   const t = useTranslate()
-  const params = useParams()
   return (
-    <SocialLayout title={t('social.feed')}>
+    <SocialLayout
+      title={t('social.feed')}
+      meta={{
+        'og:title': 'Panache Social',
+        'og:description': 'An open-source everything app',
+      }}
+    >
       <div className="grid sm:grid-cols-3">
         <div className="col-span-2">
           <SortBySelect />
