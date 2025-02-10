@@ -108,14 +108,17 @@ export default class PostsController {
       return response.notFound('Room not found.')
     }
 
-    const post = await Post.query().where('id', params.postId).andWhere('room_id', room.id).first()
+    const post = await Post.query()
+      .where('id', params.postId)
+      .andWhere('room_id', room.id)
+      .preload('profile', (query) => {
+        query.select('username', 'avatar')
+      })
+      .preload('room')
+      .first()
     if (post === null) {
       return response.notFound('Post not found.')
     }
-
-    await post.load('profile', (query) => {
-      query.select('username', 'avatar')
-    })
 
     /**
      * Load post likes.

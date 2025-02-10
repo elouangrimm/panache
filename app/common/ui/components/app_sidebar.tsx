@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Home } from 'lucide-react'
+import { Github, Home } from 'lucide-react'
 
 import { NavMain } from '#common/ui/components/nav_main'
 import { NavSecondary } from '#common/ui/components/nav_secondary'
@@ -22,6 +22,8 @@ import { Link } from '@inertiajs/react'
 import { cn } from '#common/ui/lib/utils'
 import useTranslate from '../hooks/use_translate.js'
 import usePath from '../hooks/use_path.js'
+import GithubIcon from './icons/github_icon.js'
+import DiscordIcon from './icons/discord_icon.js'
 
 export function AppSidebar({ children, ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = useUser()
@@ -57,6 +59,21 @@ export function AppSidebar({ children, ...props }: React.ComponentProps<typeof S
       <SidebarContent>
         <NavMain items={data.navMain} />
         {children}
+        <NavSecondary
+          className="mt-auto"
+          items={[
+            {
+              title: 'GitHub',
+              icon: <GithubIcon />,
+              url: 'https://github.com/panachecompany/panache',
+            },
+            {
+              title: 'Discord',
+              icon: <DiscordIcon />,
+              url: 'https://discord.gg/8kADUcuQ68',
+            },
+          ]}
+        />
       </SidebarContent>
       <SidebarFooter className="border-t">
         {user ? (
