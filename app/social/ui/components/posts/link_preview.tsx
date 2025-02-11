@@ -47,7 +47,7 @@ export function LinkPreview({
       <Card className={cn('overflow-hidden group cursor-pointer w-full', className)}>
         <div
           className={cn(
-            'relative w-full overflow-hidden bg-muted',
+            'relative w-full overflow-hidden bg-muted flex justify-center',
             // If maintaining aspect ratio, use the Tailwind aspect class,
             // otherwise remove the fixed min-height class in favor of inline styles.
             maintainAspectRatio ? 'aspect-[1.91/1]' : ''

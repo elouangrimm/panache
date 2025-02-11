@@ -28,7 +28,8 @@ export default class SignUpController {
           .toLowerCase()
           .unique(async (db, value) => {
             const userFoundByUsername = await db.from('users').where('username', value).first()
-            return !userFoundByUsername
+            const profileFoundByUsername = await db.from('users').where('username', value).first()
+            return !userFoundByUsername && !profileFoundByUsername
           }),
         email: vine
           .string()
